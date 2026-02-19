@@ -227,7 +227,7 @@ def gen_weapon_codes(data, source_weapon, target_weapon):
 
 # ── Cheat Output ────────────────────────────────────────────────────────────
 
-def format_cheat_block(title, lines, enabled=True):
+def format_cheat_block(title, lines, enabled=False):
     """Format a CWCheat code block."""
     prefix = "_C1" if enabled else "_C0"
     result = [f"{prefix} {title}"]
@@ -380,6 +380,57 @@ def armor_flow(data):
     return block, title
 
 
+def armor_set_flow(data):
+    """Armor set transmog flow (all 5 armor slots)."""
+    print("\n=== Armor Set Transmog ===")
+    print("You'll select all 5 armor pieces.")
+    print("A persistent search filter can be used across target selections.\n")
+
+    persistent_search = input("  Target search filter (reused across selections, Enter to skip): ").strip()
+    if not persistent_search:
+        persistent_search = None
+
+    all_armor_lines = []
+    armor_summaries = []
+
+    for slot in SLOT_NAMES:
+        result = armor_slot_flow(data, slot, preset_search=persistent_search)
+        if result is None:
+            print(f"  Skipping {SLOT_LABELS[slot]}.")
+            continue
+        lines, src_name, tgt_name, is_invisible = result
+        all_armor_lines.extend(lines)
+        armor_summaries.append((slot, src_name, tgt_name, is_invisible))
+
+    # Build armor block
+    if not all_armor_lines:
+        print("\n  No codes generated.")
+        return None
+
+    target_names = set()
+    for _, _, tgt, inv in armor_summaries:
+        if not inv:
+            target_names.add(tgt)
+    invisible_slots = [SLOT_LABELS[s].lower() for s, _, _, inv in armor_summaries if inv]
+
+    if len(target_names) == 1:
+        tgt_display = target_names.pop()
+    elif len(target_names) == 0:
+        tgt_display = "Invisible"
+    else:
+        tgt_display = "Custom"
+
+    source_names = set(src for _, src, _, _ in armor_summaries)
+    src_display = source_names.pop() if len(source_names) == 1 else "Mixed"
+
+    title = f"Armor Transmog: {src_display} -> {tgt_display}"
+    if invisible_slots:
+        title += f" (invisible {', '.join(invisible_slots)})"
+    armor_block = format_cheat_block(title, all_armor_lines)
+
+    output_codes(armor_block, None)
+
+
 def full_set_flow(data):
     """Full set transmog flow (weapon + all 5 armor slots)."""
     print("\n=== Full Set Transmog ===")
@@ -396,7 +447,6 @@ def full_set_flow(data):
     # Armor (all 5 slots)
     all_armor_lines = []
     armor_summaries = []
-    has_invisible = False
 
     for slot in SLOT_NAMES:
         result = armor_slot_flow(data, slot, preset_search=persistent_search)
@@ -406,13 +456,10 @@ def full_set_flow(data):
         lines, src_name, tgt_name, is_invisible = result
         all_armor_lines.extend(lines)
         armor_summaries.append((slot, src_name, tgt_name, is_invisible))
-        if is_invisible:
-            has_invisible = True
 
     # Build armor block
     armor_block = None
     if all_armor_lines:
-        # Build title: if all targets are the same, use that name
         target_names = set()
         for _, _, tgt, inv in armor_summaries:
             if not inv:
@@ -426,7 +473,6 @@ def full_set_flow(data):
         else:
             tgt_display = "Custom"
 
-        # Source: use first armor source name or "Mixed"
         source_names = set(src for _, src, _, _ in armor_summaries)
         src_display = source_names.pop() if len(source_names) == 1 else "Mixed"
 
@@ -452,12 +498,14 @@ def main():
     data = load_data()
 
     while True:
-        print("\n" + "=" * 40)
+        os.system("cls" if os.name == "nt" else "clear")
+        print("=" * 40)
         print("  MHFU Transmog Tool")
         print("=" * 40)
         print("  [1] Weapon Transmog")
         print("  [2] Armor Transmog (single slot)")
-        print("  [3] Full Set Transmog")
+        print("  [3] Armor Transmog (set)")
+        print("  [4] Full Set Transmog")
         print("  [q] Quit")
 
         choice = input("\n  Choice: ").strip().lower()
@@ -471,6 +519,8 @@ def main():
             if result:
                 output_codes(result[0], None)
         elif choice == "3":
+            armor_set_flow(data)
+        elif choice == "4":
             full_set_flow(data)
         elif choice == "q":
             print("  Bye!")

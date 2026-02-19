@@ -78,3 +78,8 @@ After enabling the cheat in PPSSPP, unequip and re-equip the armor/weapon to tri
 ## Technical Details
 
 See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation, including memory table layouts, address calculations, and known pitfalls.
+
+## TODO
+
+- [ ] improve usability of the transmog script
+
