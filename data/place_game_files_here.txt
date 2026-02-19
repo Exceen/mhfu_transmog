@@ -1,0 +1,6 @@
+this folder needs to have:
+DATA.BIN
+EBOOT.BIN
+FILE.BIN
+
+extracted from MHFUComplete
