@@ -334,6 +334,7 @@ def weapon_flow(data, preset_search=None):
             "model": model_str,
         })
 
+    os.system("cls" if os.name == "nt" else "clear")
     print(f"\n  {header('Weapon Transmog')}")
 
     # Select source
@@ -370,6 +371,7 @@ def armor_slot_flow(data, slot, preset_search=None):
         if s["names"] != ["Nothing Equipped"]:
             items.append(s)
 
+    os.system("cls" if os.name == "nt" else "clear")
     print(f"\n  {header(f'{label} Armor Transmog')}")
 
     # Select source
@@ -404,6 +406,7 @@ def armor_slot_flow(data, slot, preset_search=None):
 
 def armor_flow(data):
     """Full armor slot selection flow. Returns (armor_block_str, summary) or None."""
+    os.system("cls" if os.name == "nt" else "clear")
     print(f"\n  {bold('Select armor slot:')}")
     for i, slot in enumerate(SLOT_NAMES, 1):
         print(f"  {key(f'[{i}]')} {SLOT_LABELS[slot]}")

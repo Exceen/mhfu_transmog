@@ -8,7 +8,13 @@ Tested with FUComplete v1.4.0
 
 ## How It Works
 
-The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. CWCheat codes overwrite these model IDs at runtime, making one piece of equipment look like another while keeping the original stats.
+The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. CWCheat codes overwrite these model IDs at runtime, making one piece of equipment look like another while keeping the original stats. NOTE: Transmog is client-side only — other players in multiplayer will still see your original equipment.
+
+## Proof
+
+Rathalos Soul + Sieglinde transmogged to Black armor (invisible head) + Black Fatalis Blade. Stats remain unchanged — only the visuals change.
+
+![Transmog demo](images/transmog.gif)
 
 ## Requirements
 
