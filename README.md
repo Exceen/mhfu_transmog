@@ -12,19 +12,20 @@ The game stores equipment data in static memory tables. Each armor/weapon entry 
 
 - Python 3.6+
 - MHFU with FUComplete mod (game ID: ULJM05500)
-- PPSSPP save state (for building the data file)
-- Game files: `DATA.BIN`, `EBOOT.BIN`, `FILE.BIN` placed in the `data/` folder (not included — extract from your own copy of the game)
+- PPSSPP (or real PSP with CWCheat support)
 
 ## Setup
+
+No installation needed. The equipment data (`transmog_data.json`) is included in the repo.
+
+To regenerate the data file (only needed if FUComplete updates its equipment tables):
 
 ```bash
 pip install -r requirements.txt
 python build_data.py
 ```
 
-`build_data.py` scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads the armor/weapon tables from a PPSSPP save state to generate `transmog_data.json`.
-
-By default it reads save slot 0 from `~/Documents/PPSSPP/PSP/PPSSPP_STATE/`. Edit the constants at the top of the script if your paths differ.
+This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads armor/weapon tables from a PPSSPP save state. By default it reads save slot 0 from `~/Documents/PPSSPP/PSP/PPSSPP_STATE/`.
 
 ## Usage
 

@@ -211,9 +211,6 @@ __marimo__/
 # Game data files (copyrighted — users must provide their own)
 data/*.BIN
 
-# Generated data (rebuild with: python build_data.py)
-transmog_data.json
-
 # Python
 .venv/
 __pycache__/
