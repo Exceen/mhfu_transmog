@@ -4,6 +4,8 @@ Change the visual appearance of weapons and armor in Monster Hunter Freedom Unit
 
 Works on PPSSPP and real PSP hardware via CWCheat codes.
 
+Tested with FUComplete v1.4.0
+
 ## How It Works
 
 The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. CWCheat codes overwrite these model IDs at runtime, making one piece of equipment look like another while keeping the original stats.
@@ -16,16 +18,28 @@ The game stores equipment data in static memory tables. Each armor/weapon entry 
 
 ## Setup
 
-No installation needed. The equipment data (`transmog_data.json`) is included in the repo.
+Clone the repo and run `python transmog.py` — no installation needed. The equipment data (`transmog_data.json`) is included.
 
-To regenerate the data file (only needed if FUComplete updates its equipment tables):
+### Regenerating the data file
+
+Only needed if FUComplete updates its equipment tables:
+
+1. Place your FUComplete MHFU ISO in the `data/` folder and extract the game files:
+
+```bash
+python extract_iso.py
+```
+
+2. Launch the game in PPSSPP and create a save state (slot 0).
+
+3. Build the data file:
 
 ```bash
 pip install -r requirements.txt
 python build_data.py
 ```
 
-This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads armor/weapon tables from a PPSSPP save state. By default it reads save slot 0 from `~/Documents/PPSSPP/PSP/PPSSPP_STATE/`.
+This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads armor/weapon tables from the PPSSPP save state at `~/Documents/PPSSPP/PSP/PPSSPP_STATE/`.
 
 ## Usage
 
@@ -64,8 +78,3 @@ After enabling the cheat in PPSSPP, unequip and re-equip the armor/weapon to tri
 ## Technical Details
 
 See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation, including memory table layouts, address calculations, and known pitfalls.
-
-## TODO
-
-- [ ] include a script to auto-extract the required game files
-- [ ] improve usability of the transmog script
