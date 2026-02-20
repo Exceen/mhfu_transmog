@@ -288,18 +288,17 @@ def build_armor_sets(entries, male_names, female_names):
                     paired = True
 
         if paired:
-            v1 = {"model_m": model_m, "model_f": model_f, "eids": [eid]}
-            v2 = {"model_m": next_mm, "model_f": next_mf, "eids": [next_eid]}
             names = _lookup_names(model_m, model_f, male_names, female_names)
             names2 = _lookup_names(next_mm, next_mf, male_names, female_names)
-            if names2 and names2 != names:
-                names = names + names2
-            sets.append({"names": names, "variants": [v1, v2]})
+            v1 = {"names": names, "model_m": model_m, "model_f": model_f, "eids": [eid]}
+            v2 = {"names": names2, "model_m": next_mm, "model_f": next_mf, "eids": [next_eid]}
+            set_names = names + names2 if names2 and names2 != names else names
+            sets.append({"names": set_names, "variants": [v1, v2]})
             i += 2
         else:
             # Standalone entry
-            v = {"model_m": model_m, "model_f": model_f, "eids": [eid]}
             names = _lookup_names(model_m, model_f, male_names, female_names)
+            v = {"names": names, "model_m": model_m, "model_f": model_f, "eids": [eid]}
             sets.append({"names": names, "variants": [v]})
             i += 1
 

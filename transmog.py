@@ -209,10 +209,54 @@ def prompt_search_or_enter(prompt_text):
     return term if term else None
 
 
+def _variant_label(variant, index, set_names=None):
+    """Get a display label for a variant, with fallback for old data."""
+    names = variant.get("names")
+    if names:
+        return names[-1] if len(names) > 1 else names[0]
+    # Fallback: use set-level names (first name for variant 0, last for variant 1)
+    if set_names and len(set_names) >= 2:
+        return set_names[0] if index == 0 else set_names[-1]
+    return f"Variant {index + 1}"
+
+
+def select_variant(target_set):
+    """Prompt the user to pick a variant when the target has 2+ variants.
+
+    Returns None (match by armor type, default behavior) or a variant index (0 or 1).
+    """
+    variants = target_set["variants"]
+    if len(variants) < 2:
+        return None
+
+    set_names = target_set.get("names", [])
+    label1 = _variant_label(variants[0], 0, set_names)
+    label2 = _variant_label(variants[1], 1, set_names)
+
+    print(f"\n  {header('Variant:')}")
+    print(f"  {key('[1]')} Match armor type {dim(f'({label1}→{label1}, {label2}→{label2})')}")
+    print(f"  {key('[2]')} {label1} {dim('(all pieces)')}")
+    print(f"  {key('[3]')} {label2} {dim('(all pieces)')}")
+
+    while True:
+        choice = input(f"\n  {bold('Select:')} ").strip()
+        if choice == "1":
+            return None
+        elif choice == "2":
+            return 0
+        elif choice == "3":
+            return 1
+        print(error("  Invalid choice, try again."))
+
+
 # ── CWCheat Generation ─────────────────────────────────────────────────────
 
-def gen_armor_codes(data, slot, source_set, target_set):
+def gen_armor_codes(data, slot, source_set, target_set, force_variant=None):
     """Generate CWCheat lines for armor transmog.
+
+    Args:
+        force_variant: If set (0 or 1), all source variants use this target variant
+                       instead of pairing by index.
 
     Returns list of (comment, code) tuples.
     """
@@ -229,8 +273,11 @@ def gen_armor_codes(data, slot, source_set, target_set):
         tgt_variants = target_set["variants"]
 
     for vi, src_v in enumerate(src_variants):
-        # Get target model (pair by variant index, fall back to first)
-        tgt_v = tgt_variants[vi] if vi < len(tgt_variants) else tgt_variants[0]
+        # Get target model
+        if force_variant is not None:
+            tgt_v = tgt_variants[force_variant]
+        else:
+            tgt_v = tgt_variants[vi] if vi < len(tgt_variants) else tgt_variants[0]
         target_m = tgt_v["model_m"]
         target_f = tgt_v["model_f"]
         value = (target_f & 0xFFFF) << 16 | (target_m & 0xFFFF)
@@ -393,14 +440,18 @@ def armor_slot_flow(data, slot, preset_search=None):
         return None
 
     is_invisible = target is None
+    force_variant = None
     if is_invisible:
         tgt_name = "Invisible"
         print(f"  Target: {MAGENTA}** Invisible **{RESET}")
     else:
         tgt_name = display_name(target["names"])
         print(success(f"  Target: {tgt_name}"))
+        # Offer variant selection if target has multiple variants
+        if len(target["variants"]) > 1:
+            force_variant = select_variant(target)
 
-    lines = gen_armor_codes(data, slot, source, target)
+    lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant)
     return lines, src_name, tgt_name, is_invisible
 
 
