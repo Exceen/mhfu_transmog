@@ -12,7 +12,9 @@ The game stores equipment data in static memory tables. Each armor/weapon entry 
 
 ## Proof
 
-Rathalos Soul + Sieglinde transmogged to Black armor (invisible head) + Black Fatalis Blade. Stats remain unchanged — only the visuals change.
+By using the below example cheat codes, the Iron Katana will look like the Hellish Slasher. Similarly, the Mafumofu armor visuals will change to a mix of the Black armor pieces (blademaster arms, gunner body & wasit & legs) with an invisible head.
+
+The stats stay the same as the original equipment, only the visuals change! This also works with upraded armors, decorations, etc. because it really only changes the model ID that the game reads when rendering your character.
 
 ![Transmog demo](images/transmog.gif)
 
@@ -29,13 +31,15 @@ _L 0x1015B590 0x0000008A
 
 The below cheat code changes the Mafumofu armor so that the head slot is invisible and the remaining armor parts are a mix of the blademaster and gunner versions of the Black armor:
 ```
-_C0 Mafumofu -> Black B/G Mixed
+_C1 Mafumofu -> Black B/G Mixed
 _L 0x20162EB0 0x00000000
 _L 0x20167140 0x00300030
 _L 0x2016B218 0x002E002E
 _L 0x2016F228 0x00220024
 _L 0x201731E8 0x00230023
 ```
+
+You will have to trigger a re-render (e.g. by unequipping and re-equipping the armor/weapon) to see the changes take effect. If you want to undo the transmog, simply disable the cheat and reload the game. You can also use a different transmog cheat to overwrite the previous one.
 
 ## Requirements
 
