@@ -423,7 +423,7 @@ def output_codes(armor_block, weapon_block):
 
 # ── Flows ───────────────────────────────────────────────────────────────────
 
-def weapon_flow(data, preset_search=None):
+def weapon_flow(data, preset_source_search=None, preset_search=None):
     """Weapon transmog selection flow. Returns (weapon_block_str, source_name, target_name) or None."""
     weapons = data["weapons"]
 
@@ -440,7 +440,7 @@ def weapon_flow(data, preset_search=None):
     print(f"\n{header('Weapon Transmog')}")
 
     # Select source
-    search = prompt_search_or_enter("Source weapon (equipped)")
+    search = preset_source_search if preset_source_search else prompt_search_or_enter("Source weapon (equipped)")
     source = select_equipment(items, "Select SOURCE weapon", preset_search=search)
     if source == "cancel" or source is None:
         return None
@@ -462,7 +462,7 @@ def weapon_flow(data, preset_search=None):
     return block, src_name, tgt_name
 
 
-def armor_slot_flow(data, slot, preset_search=None):
+def armor_slot_flow(data, slot, preset_source_search=None, preset_search=None):
     """Single armor slot selection flow. Returns (lines, source_name, target_name, is_invisible) or None."""
     sets = data["armor"][slot]["sets"]
     label = SLOT_LABELS[slot]
@@ -477,7 +477,7 @@ def armor_slot_flow(data, slot, preset_search=None):
     print(f"\n{header(f'{label} Armor Transmog')}")
 
     # Select source
-    search = prompt_search_or_enter(f"Source {label.lower()} armor (equipped)")
+    search = preset_source_search if preset_source_search else prompt_search_or_enter(f"Source {label.lower()} armor (equipped)")
     source = select_equipment(items, f"Select SOURCE {label.lower()} armor", preset_search=search)
     if source == "cancel":
         return None
@@ -541,9 +541,13 @@ def armor_set_flow(data):
     """Armor set transmog flow (all 5 armor slots)."""
     print(f"\n{header('Armor Set Transmog')}")
     print("You'll select all 5 armor pieces.")
-    print(f"{dim('A persistent search filter can be used across target selections.')}\n")
+    print(f"{dim('Persistent search filters can be used across selections.')}\n")
 
-    persistent_search = input(f"Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
+    persistent_source_search = input(f"Source search filter {dim('(Enter to skip)')}: ").strip()
+    if not persistent_source_search:
+        persistent_source_search = None
+
+    persistent_search = input(f"Target search filter {dim('(Enter to skip)')}: ").strip()
     if not persistent_search:
         persistent_search = None
 
@@ -551,7 +555,7 @@ def armor_set_flow(data):
     armor_summaries = []
 
     for slot in SLOT_NAMES:
-        result = armor_slot_flow(data, slot, preset_search=persistent_search)
+        result = armor_slot_flow(data, slot, preset_source_search=persistent_source_search, preset_search=persistent_search)
         if result is None:
             print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
@@ -592,21 +596,25 @@ def full_set_flow(data):
     """Full set transmog flow (weapon + all 5 armor slots)."""
     print(f"\n{header('Full Set Transmog')}")
     print("You'll select one weapon and all 5 armor pieces.")
-    print(f"{dim('A persistent search filter can be used across target selections.')}\n")
+    print(f"{dim('Persistent search filters can be used across selections.')}\n")
 
-    persistent_search = input(f"Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
+    persistent_source_search = input(f"Source search filter {dim('(Enter to skip)')}: ").strip()
+    if not persistent_source_search:
+        persistent_source_search = None
+
+    persistent_search = input(f"Target search filter {dim('(Enter to skip)')}: ").strip()
     if not persistent_search:
         persistent_search = None
 
     # Weapon
-    weapon_result = weapon_flow(data, preset_search=persistent_search)
+    weapon_result = weapon_flow(data, preset_source_search=persistent_source_search, preset_search=persistent_search)
 
     # Armor (all 5 slots)
     all_armor_lines = []
     armor_summaries = []
 
     for slot in SLOT_NAMES:
-        result = armor_slot_flow(data, slot, preset_search=persistent_search)
+        result = armor_slot_flow(data, slot, preset_source_search=persistent_source_search, preset_search=persistent_search)
         if result is None:
             print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
