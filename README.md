@@ -16,6 +16,27 @@ Rathalos Soul + Sieglinde transmogged to Black armor (invisible head) + Black Fa
 
 ![Transmog demo](images/transmog.gif)
 
+## Examples
+
+The below cheat code change the Iron Katana (and all of its versions) to the Hellish Slasher (and all of its versions):
+```
+_C1 Iron Katana -> Hellish Slasher
+_L 0x101575B8 0x0000008A
+_L 0x101575D0 0x0000008A
+_L 0x101575E8 0x0000008A
+_L 0x1015B590 0x0000008A
+```
+
+The below cheat code changes the Mafumofu armor so that the head slot is invisible and the remaining armor parts are a mix of the blademaster and gunner versions of the Black armor:
+```
+_C0 Mafumofu -> Black B/G Mixed
+_L 0x20162EB0 0x00000000
+_L 0x20167140 0x00300030
+_L 0x2016B218 0x002E002E
+_L 0x2016F228 0x00220024
+_L 0x201731E8 0x00230023
+```
+
 ## Requirements
 
 - Python 3.6+
