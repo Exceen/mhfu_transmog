@@ -249,14 +249,40 @@ def select_variant(target_set):
         print(error("  Invalid choice, try again."))
 
 
+def select_gender(target_set):
+    """Prompt the user to swap gender models.
+
+    Only shown when the target has different male/female model IDs.
+    Returns True for swap, False for default.
+    """
+    if target_set is None:
+        return False
+    if not any(v["model_m"] != v["model_f"] for v in target_set["variants"]):
+        return False
+
+    print(f"\n  {header('Gender:')}")
+    print(f"  {key('[1]')} Default")
+    print(f"  {key('[2]')} Opposite gender model")
+
+    while True:
+        choice = input(f"\n  {bold('Select:')} ").strip()
+        if choice == "1":
+            return False
+        elif choice == "2":
+            return True
+        print(error("  Invalid choice, try again."))
+
+
 # ── CWCheat Generation ─────────────────────────────────────────────────────
 
-def gen_armor_codes(data, slot, source_set, target_set, force_variant=None):
+def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap_gender=False):
     """Generate CWCheat lines for armor transmog.
 
     Args:
         force_variant: If set (0 or 1), all source variants use this target variant
                        instead of pairing by index.
+        swap_gender: If True, swap male/female model IDs so each gender sees
+                     the opposite gender's armor model.
 
     Returns list of (comment, code) tuples.
     """
@@ -280,12 +306,18 @@ def gen_armor_codes(data, slot, source_set, target_set, force_variant=None):
             tgt_v = tgt_variants[vi] if vi < len(tgt_variants) else tgt_variants[0]
         target_m = tgt_v["model_m"]
         target_f = tgt_v["model_f"]
-        value = (target_f & 0xFFFF) << 16 | (target_m & 0xFFFF)
+        if swap_gender:
+            value = (target_m & 0xFFFF) << 16 | (target_f & 0xFFFF)
+        else:
+            value = (target_f & 0xFFFF) << 16 | (target_m & 0xFFFF)
 
         for eid in src_v["eids"]:
             entry_addr = table_base + eid * entry_size
             offset = entry_addr - CWCHEAT_BASE
-            comment = f"; {SLOT_LABELS[slot]} eid {eid} -> model({target_m},{target_f})"
+            if swap_gender:
+                comment = f"; {SLOT_LABELS[slot]} eid {eid} -> model({target_f},{target_m}) [swapped]"
+            else:
+                comment = f"; {SLOT_LABELS[slot]} eid {eid} -> model({target_m},{target_f})"
             code = f"_L 0x2{offset:07X} 0x{value:08X}"
             lines.append((comment, code))
 
@@ -441,6 +473,7 @@ def armor_slot_flow(data, slot, preset_search=None):
 
     is_invisible = target is None
     force_variant = None
+    swap_gender = False
     if is_invisible:
         tgt_name = "Invisible"
         print(f"  Target: {MAGENTA}** Invisible **{RESET}")
@@ -450,13 +483,15 @@ def armor_slot_flow(data, slot, preset_search=None):
         # Offer variant selection if target has multiple variants
         if len(target["variants"]) > 1:
             force_variant = select_variant(target)
+        # Offer gender swap
+        swap_gender = select_gender(target)
 
-    lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant)
+    lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant, swap_gender=swap_gender)
     return lines, src_name, tgt_name, is_invisible
 
 
 def armor_flow(data):
-    """Full armor slot selection flow. Returns (armor_block_str, summary) or None."""
+    """Single armor slot selection flow with output."""
     os.system("cls" if os.name == "nt" else "clear")
     print(f"\n  {bold('Select armor slot:')}")
     for i, slot in enumerate(SLOT_NAMES, 1):
@@ -465,18 +500,18 @@ def armor_flow(data):
     choice = input(f"\n  {bold('Slot:')} ").strip()
     if not choice.isdigit() or not (1 <= int(choice) <= 5):
         print(error("  Invalid choice."))
-        return None
+        return
 
     slot = SLOT_NAMES[int(choice) - 1]
     result = armor_slot_flow(data, slot)
     if result is None:
-        return None
+        return
 
     lines, src_name, tgt_name, is_invisible = result
     suffix = f" (invisible {SLOT_LABELS[slot].lower()})" if is_invisible else ""
     title = f"Armor Transmog: {src_name} -> {tgt_name}{suffix}"
     block = format_cheat_block(title, lines)
-    return block, title
+    output_codes(block, None)
 
 
 def armor_set_flow(data):
@@ -616,9 +651,7 @@ def main():
             if result:
                 output_codes(None, result[0])
         elif choice == "2":
-            result = armor_flow(data)
-            if result:
-                output_codes(result[0], None)
+            armor_flow(data)
         elif choice == "3":
             armor_set_flow(data)
         elif choice == "4":
