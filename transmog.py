@@ -592,71 +592,6 @@ def armor_set_flow(data):
     output_codes(armor_block, None)
 
 
-def full_set_flow(data):
-    """Full set transmog flow (weapon + all 5 armor slots)."""
-    print(f"\n{header('Full Set Transmog')}")
-    print("You'll select one weapon and all 5 armor pieces.")
-    print(f"{dim('Persistent search filters can be used across selections.')}\n")
-
-    persistent_source_search = input(f"Source search filter {dim('(Enter to skip)')}: ").strip()
-    if not persistent_source_search:
-        persistent_source_search = None
-
-    persistent_search = input(f"Target search filter {dim('(Enter to skip)')}: ").strip()
-    if not persistent_search:
-        persistent_search = None
-
-    # Weapon
-    weapon_result = weapon_flow(data, preset_source_search=persistent_source_search, preset_search=persistent_search)
-
-    # Armor (all 5 slots)
-    all_armor_lines = []
-    armor_summaries = []
-
-    for slot in SLOT_NAMES:
-        result = armor_slot_flow(data, slot, preset_source_search=persistent_source_search, preset_search=persistent_search)
-        if result is None:
-            print(dim(f"Skipping {SLOT_LABELS[slot]}."))
-            continue
-        lines, src_name, tgt_name, is_invisible = result
-        all_armor_lines.extend(lines)
-        armor_summaries.append((slot, src_name, tgt_name, is_invisible))
-
-    # Build armor block
-    armor_block = None
-    if all_armor_lines:
-        target_names = set()
-        for _, _, tgt, inv in armor_summaries:
-            if not inv:
-                target_names.add(tgt)
-        invisible_slots = [SLOT_LABELS[s].lower() for s, _, _, inv in armor_summaries if inv]
-
-        if len(target_names) == 1:
-            tgt_display = target_names.pop()
-        elif len(target_names) == 0:
-            tgt_display = "Invisible"
-        else:
-            tgt_display = "Custom"
-
-        source_names = set(src for _, src, _, _ in armor_summaries)
-        src_display = source_names.pop() if len(source_names) == 1 else "Mixed"
-
-        title = f"Armor Transmog: {src_display} -> {tgt_display}"
-        if invisible_slots:
-            title += f" (invisible {', '.join(invisible_slots)})"
-        armor_block = format_cheat_block(title, all_armor_lines)
-
-    # Build weapon block
-    weapon_block = None
-    if weapon_result:
-        weapon_block = weapon_result[0]
-
-    if armor_block or weapon_block:
-        output_codes(armor_block, weapon_block)
-    else:
-        print(dim("\nNo codes generated."))
-
-
 def universal_invisible_flow(data):
     """Universal invisible slot flow."""
     os.system("cls" if os.name == "nt" else "clear")
@@ -697,8 +632,7 @@ def main():
         print(f"{key('[1]')} Weapon Transmog")
         print(f"{key('[2]')} Armor Transmog {dim('(single slot)')}")
         print(f"{key('[3]')} Armor Transmog {dim('(set)')}")
-        print(f"{key('[4]')} Full Set Transmog")
-        print(f"{key('[5]')} Universal Invisible Slot")
+        print(f"{key('[4]')} Universal Invisible Slot")
         print()
         print(f"{key('[q]')} Quit")
 
@@ -713,15 +647,13 @@ def main():
         elif choice == "3":
             armor_set_flow(data)
         elif choice == "4":
-            full_set_flow(data)
-        elif choice == "5":
             universal_invisible_flow(data)
         elif choice == "q":
             break
         else:
             print(error("Invalid choice."))
 
-        if choice in ("1", "2", "3", "4", "5"):
+        if choice in ("1", "2", "3", "4"):
             input(f"\n{dim('Press Enter to return to menu...')}")
 
 

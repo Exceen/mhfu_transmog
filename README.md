@@ -12,12 +12,11 @@ Tested with FUComplete v1.4.0
 python transmog.py
 ```
 
-The tool offers five modes:
+The tool offers four modes:
 
 - **Weapon Transmog** — change a weapon's appearance
 - **Armor Transmog (single slot)** — change a single armor slot's appearance
 - **Armor Transmog (set)** — change all 5 armor slots, with persistent source/target search filters across selections
-- **Full Set Transmog** — guided flow for weapon + all 5 armor slots, with persistent source/target search filters
 - **Universal Invisible Slot** — make ALL armor in a slot invisible regardless of what's equipped (writes model 0 to every entry in the table)
 
 For each selection you can search by name or browse an alphabetical list with pagination. Armor targets include an "Invisible" option (shows hair for head, hides the piece for other slots).
