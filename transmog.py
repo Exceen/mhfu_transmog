@@ -275,6 +275,29 @@ def select_gender(target_set):
 
 # ── CWCheat Generation ─────────────────────────────────────────────────────
 
+def gen_universal_invisible_codes(data, slot):
+    """Generate CWCheat lines to make ALL armor in a slot invisible.
+
+    Writes model (0, 0) to every entry with a non-zero model.
+    Returns list of (comment, code) tuples.
+    """
+    table_base = int(data["armor"][slot]["table_base"], 16)
+    entry_size = data["armor_entry_size"]
+    lines = []
+
+    for armor_set in data["armor"][slot]["sets"]:
+        for variant in armor_set["variants"]:
+            if variant["model_m"] == 0 and variant["model_f"] == 0:
+                continue
+            for eid in variant["eids"]:
+                entry_addr = table_base + eid * entry_size
+                offset = entry_addr - CWCHEAT_BASE
+                code = f"_L 0x2{offset:07X} 0x00000000"
+                lines.append(("", code))
+
+    return lines
+
+
 def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap_gender=False):
     """Generate CWCheat lines for armor transmog.
 
@@ -626,6 +649,32 @@ def full_set_flow(data):
         print(dim("\n  No codes generated."))
 
 
+def universal_invisible_flow(data):
+    """Universal invisible slot flow."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print(f"\n  {header('Universal Invisible Slot')}")
+    print(f"  {dim('Makes ALL armor in a slot invisible (writes model 0,0 to every entry).')}\n")
+
+    print(f"  {bold('Select slot:')}")
+    for i, slot in enumerate(SLOT_NAMES, 1):
+        print(f"  {key(f'[{i}]')} {SLOT_LABELS[slot]}")
+
+    choice = input(f"\n  {bold('Slot:')} ").strip()
+    if not choice.isdigit() or not (1 <= int(choice) <= 5):
+        print(error("  Invalid choice."))
+        return
+
+    slot = SLOT_NAMES[int(choice) - 1]
+    lines = gen_universal_invisible_codes(data, slot)
+    if not lines:
+        print(dim("  No entries to patch."))
+        return
+
+    title = f"Universal Invisible {SLOT_LABELS[slot]} ({len(lines)} entries)"
+    block = format_cheat_block(title, lines)
+    output_codes(block, None)
+
+
 # ── Main ────────────────────────────────────────────────────────────────────
 
 def main():
@@ -641,6 +690,7 @@ def main():
         print(f"  {key('[2]')} Armor Transmog {dim('(single slot)')}")
         print(f"  {key('[3]')} Armor Transmog {dim('(set)')}")
         print(f"  {key('[4]')} Full Set Transmog")
+        print(f"  {key('[5]')} Universal Invisible Slot")
         print()
         print(f"  {key('[q]')} Quit")
 
@@ -656,12 +706,14 @@ def main():
             armor_set_flow(data)
         elif choice == "4":
             full_set_flow(data)
+        elif choice == "5":
+            universal_invisible_flow(data)
         elif choice == "q":
             break
         else:
             print(error("  Invalid choice."))
 
-        if choice in ("1", "2", "3", "4"):
+        if choice in ("1", "2", "3", "4", "5"):
             input(f"\n  {dim('Press Enter to return to menu...')}")
 
 
