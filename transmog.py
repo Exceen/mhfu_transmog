@@ -89,7 +89,7 @@ def short_name(names):
 def format_item(item, idx):
     """Format an item for display in a numbered list."""
     names = item["names"]
-    return f"  {key(f'[{idx}]')} {' / '.join(names)}"
+    return f"{key(f'[{idx}]')} {' / '.join(names)}"
 
 
 # ── Selection UI ────────────────────────────────────────────────────────────
@@ -116,7 +116,7 @@ def select_equipment(items, prompt, allow_invisible=False, preset_search=None):
     page = 0
 
     while True:
-        print(f"\n  {header(prompt)}")
+        print(f"\n{header(prompt)}")
 
         if search_term is not None and filtered is None:
             # Apply search filter
@@ -127,19 +127,19 @@ def select_equipment(items, prompt, allow_invisible=False, preset_search=None):
         if filtered is not None:
             # Show search results
             if not filtered:
-                print(f'  No results for "{search_term}"')
+                print(f'No results for "{search_term}"')
                 search_term = None
                 filtered = None
                 continue
 
             if allow_invisible:
-                print(f"  {key('[0]')} {MAGENTA}** Invisible **{RESET}")
+                print(f"{key('[0]')} {MAGENTA}** Invisible **{RESET}")
             for idx, item in enumerate(filtered, 1):
                 print(format_item(item, idx))
 
-            print(f'\n  {dim(f"Showing {len(filtered)} results for")} "{bold(search_term)}"')
-            print(f"  {key('[s]')} New search  {key('[b]')} Browse all  {key('[q]')} Cancel")
-            choice = input(f"\n  {bold('Select:')} ").strip()
+            print(f'\n{dim(f"Showing {len(filtered)} results for")} "{bold(search_term)}"')
+            print(f"{key('[s]')} New search  {key('[b]')} Browse all  {key('[q]')} Cancel")
+            choice = input(f"\n{bold('Select:')} ").strip()
 
             if choice.lower() == "s":
                 search_term = None
@@ -165,19 +165,19 @@ def select_equipment(items, prompt, allow_invisible=False, preset_search=None):
             page_items = sorted_items[start:end]
 
             if allow_invisible:
-                print(f"  {key('[0]')} {MAGENTA}** Invisible **{RESET}")
+                print(f"{key('[0]')} {MAGENTA}** Invisible **{RESET}")
             for idx, item in enumerate(page_items, start + 1):
                 print(format_item(item, idx))
 
-            print(f"\n  {dim(f'Page {page + 1}/{total_pages} ({len(sorted_items)} items)')}")
+            print(f"\n{dim(f'Page {page + 1}/{total_pages} ({len(sorted_items)} items)')}")
             nav = []
             if page > 0:
                 nav.append(f"{key('[p]')} Prev")
             if page < total_pages - 1:
                 nav.append(f"{key('[n]')} Next")
             nav.extend([f"{key('[s]')} Search", f"{key('[q]')} Cancel"])
-            print(f"  {' | '.join(nav)}")
-            choice = input(f"\n  {bold('Select:')} ").strip()
+            print(f"{' | '.join(nav)}")
+            choice = input(f"\n{bold('Select:')} ").strip()
 
             if choice.lower() == "n" and page < total_pages - 1:
                 page += 1
@@ -186,7 +186,7 @@ def select_equipment(items, prompt, allow_invisible=False, preset_search=None):
                 page -= 1
                 continue
             elif choice.lower() == "s":
-                term = input(f"  {bold('Search:')} ").strip()
+                term = input(f"{bold('Search:')} ").strip()
                 if term:
                     search_term = term
                     filtered = None
@@ -200,12 +200,12 @@ def select_equipment(items, prompt, allow_invisible=False, preset_search=None):
                 if 1 <= idx <= len(sorted_items):
                     return sorted_items[idx - 1]
 
-        print(error("  Invalid choice, try again."))
+        print(error("Invalid choice, try again."))
 
 
 def prompt_search_or_enter(prompt_text):
     """Ask user for search term or Enter to browse."""
-    term = input(f"\n  {prompt_text} {dim('(search or Enter to browse)')}: ").strip()
+    term = input(f"\n{prompt_text} {dim('(search or Enter to browse)')}: ").strip()
     return term if term else None
 
 
@@ -233,20 +233,20 @@ def select_variant(target_set):
     label1 = _variant_label(variants[0], 0, set_names)
     label2 = _variant_label(variants[1], 1, set_names)
 
-    print(f"\n  {header('Variant:')}")
-    print(f"  {key('[1]')} Match armor type {dim(f'({label1}→{label1}, {label2}→{label2})')}")
-    print(f"  {key('[2]')} {label1} {dim('(all pieces)')}")
-    print(f"  {key('[3]')} {label2} {dim('(all pieces)')}")
+    print(f"\n{header('Variant:')}")
+    print(f"{key('[1]')} Match armor type {dim(f'({label1}→{label1}, {label2}→{label2})')}")
+    print(f"{key('[2]')} {label1} {dim('(all pieces)')}")
+    print(f"{key('[3]')} {label2} {dim('(all pieces)')}")
 
     while True:
-        choice = input(f"\n  {bold('Select:')} ").strip()
+        choice = input(f"\n{bold('Select:')} ").strip()
         if choice == "1":
             return None
         elif choice == "2":
             return 0
         elif choice == "3":
             return 1
-        print(error("  Invalid choice, try again."))
+        print(error("Invalid choice, try again."))
 
 
 def select_gender(target_set):
@@ -260,17 +260,17 @@ def select_gender(target_set):
     if not any(v["model_m"] != v["model_f"] for v in target_set["variants"]):
         return False
 
-    print(f"\n  {header('Gender:')}")
-    print(f"  {key('[1]')} Default")
-    print(f"  {key('[2]')} Opposite gender model")
+    print(f"\n{header('Gender:')}")
+    print(f"{key('[1]')} Default")
+    print(f"{key('[2]')} Opposite gender model")
 
     while True:
-        choice = input(f"\n  {bold('Select:')} ").strip()
+        choice = input(f"\n{bold('Select:')} ").strip()
         if choice == "1":
             return False
         elif choice == "2":
             return True
-        print(error("  Invalid choice, try again."))
+        print(error("Invalid choice, try again."))
 
 
 # ── CWCheat Generation ─────────────────────────────────────────────────────
@@ -381,8 +381,8 @@ def format_cheat_block(title, lines, enabled=False):
 
 def output_codes(armor_block, weapon_block):
     """Display and optionally save generated codes."""
-    print(f"\n  {header('Generated CWCheat Codes')}")
-    print(f"  {'─' * 50}")
+    print(f"\n{header('Generated CWCheat Codes')}")
+    print(f"{'─' * 50}")
 
     blocks = []
     if armor_block:
@@ -394,31 +394,31 @@ def output_codes(armor_block, weapon_block):
     print()
     for line in full_output.splitlines():
         if line.startswith("_C"):
-            print(f"  {BOLD}{line}{RESET}")
+            print(f"{BOLD}{line}{RESET}")
         else:
-            print(f"  {DIM}{line}{RESET}")
+            print(f"{DIM}{line}{RESET}")
     print()
 
     # Offer to save
-    print(f"  {bold('Save options:')}")
-    print(f"  {key('[1]')} Append to PPSSPP cheat file {dim(f'({CHEAT_FILE})')}")
-    print(f"  {key('[2]')} Save to custom file")
+    print(f"{bold('Save options:')}")
+    print(f"{key('[1]')} Append to PPSSPP cheat file {dim(f'({CHEAT_FILE})')}")
+    print(f"{key('[2]')} Save to custom file")
     dont_save = dim("(don't save)")
-    print(f"  {key('[3]')} Done {dont_save}")
-    choice = input(f"\n  {bold('Choice:')} ").strip()
+    print(f"{key('[3]')} Done {dont_save}")
+    choice = input(f"\n{bold('Choice:')} ").strip()
 
     if choice == "1":
         with open(CHEAT_FILE, "a") as f:
             f.write("\n\n" + full_output + "\n")
-        print(success(f"  Appended to {CHEAT_FILE}"))
+        print(success(f"Appended to {CHEAT_FILE}"))
     elif choice == "2":
-        path = input(f"  {bold('File path:')} ").strip()
+        path = input(f"{bold('File path:')} ").strip()
         if path:
             with open(path, "w") as f:
                 f.write(full_output + "\n")
-            print(success(f"  Saved to {path}"))
+            print(success(f"Saved to {path}"))
     else:
-        print(dim("  Codes not saved."))
+        print(dim("Codes not saved."))
 
 
 # ── Flows ───────────────────────────────────────────────────────────────────
@@ -437,7 +437,7 @@ def weapon_flow(data, preset_search=None):
         })
 
     os.system("cls" if os.name == "nt" else "clear")
-    print(f"\n  {header('Weapon Transmog')}")
+    print(f"\n{header('Weapon Transmog')}")
 
     # Select source
     search = prompt_search_or_enter("Source weapon (equipped)")
@@ -445,7 +445,7 @@ def weapon_flow(data, preset_search=None):
     if source == "cancel" or source is None:
         return None
     src_name = display_name(source["names"])
-    print(success(f"  Source: {src_name}"))
+    print(success(f"Source: {src_name}"))
 
     # Select target
     search = preset_search if preset_search else prompt_search_or_enter("Target weapon (visual)")
@@ -453,7 +453,7 @@ def weapon_flow(data, preset_search=None):
     if target == "cancel" or target is None:
         return None
     tgt_name = display_name(target["names"])
-    print(success(f"  Target: {tgt_name}"))
+    print(success(f"Target: {tgt_name}"))
 
     # Generate codes
     lines = gen_weapon_codes(data, source, target)
@@ -474,7 +474,7 @@ def armor_slot_flow(data, slot, preset_search=None):
             items.append(s)
 
     os.system("cls" if os.name == "nt" else "clear")
-    print(f"\n  {header(f'{label} Armor Transmog')}")
+    print(f"\n{header(f'{label} Armor Transmog')}")
 
     # Select source
     search = prompt_search_or_enter(f"Source {label.lower()} armor (equipped)")
@@ -482,10 +482,10 @@ def armor_slot_flow(data, slot, preset_search=None):
     if source == "cancel":
         return None
     if source is None:
-        print(error("  Source cannot be invisible. Try again."))
+        print(error("Source cannot be invisible. Try again."))
         return None
     src_name = display_name(source["names"])
-    print(success(f"  Source: {src_name}"))
+    print(success(f"Source: {src_name}"))
 
     # Select target (with invisible option)
     search = preset_search if preset_search else prompt_search_or_enter(f"Target {label.lower()} visual")
@@ -499,10 +499,10 @@ def armor_slot_flow(data, slot, preset_search=None):
     swap_gender = False
     if is_invisible:
         tgt_name = "Invisible"
-        print(f"  Target: {MAGENTA}** Invisible **{RESET}")
+        print(f"Target: {MAGENTA}** Invisible **{RESET}")
     else:
         tgt_name = display_name(target["names"])
-        print(success(f"  Target: {tgt_name}"))
+        print(success(f"Target: {tgt_name}"))
         # Offer variant selection if target has multiple variants
         if len(target["variants"]) > 1:
             force_variant = select_variant(target)
@@ -516,13 +516,13 @@ def armor_slot_flow(data, slot, preset_search=None):
 def armor_flow(data):
     """Single armor slot selection flow with output."""
     os.system("cls" if os.name == "nt" else "clear")
-    print(f"\n  {bold('Select armor slot:')}")
+    print(f"\n{bold('Select armor slot:')}")
     for i, slot in enumerate(SLOT_NAMES, 1):
-        print(f"  {key(f'[{i}]')} {SLOT_LABELS[slot]}")
+        print(f"{key(f'[{i}]')} {SLOT_LABELS[slot]}")
 
-    choice = input(f"\n  {bold('Slot:')} ").strip()
+    choice = input(f"\n{bold('Slot:')} ").strip()
     if not choice.isdigit() or not (1 <= int(choice) <= 5):
-        print(error("  Invalid choice."))
+        print(error("Invalid choice."))
         return
 
     slot = SLOT_NAMES[int(choice) - 1]
@@ -539,11 +539,11 @@ def armor_flow(data):
 
 def armor_set_flow(data):
     """Armor set transmog flow (all 5 armor slots)."""
-    print(f"\n  {header('Armor Set Transmog')}")
-    print("  You'll select all 5 armor pieces.")
-    print(f"  {dim('A persistent search filter can be used across target selections.')}\n")
+    print(f"\n{header('Armor Set Transmog')}")
+    print("You'll select all 5 armor pieces.")
+    print(f"{dim('A persistent search filter can be used across target selections.')}\n")
 
-    persistent_search = input(f"  Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
+    persistent_search = input(f"Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
     if not persistent_search:
         persistent_search = None
 
@@ -553,7 +553,7 @@ def armor_set_flow(data):
     for slot in SLOT_NAMES:
         result = armor_slot_flow(data, slot, preset_search=persistent_search)
         if result is None:
-            print(dim(f"  Skipping {SLOT_LABELS[slot]}."))
+            print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
         lines, src_name, tgt_name, is_invisible = result
         all_armor_lines.extend(lines)
@@ -561,7 +561,7 @@ def armor_set_flow(data):
 
     # Build armor block
     if not all_armor_lines:
-        print(dim("\n  No codes generated."))
+        print(dim("\nNo codes generated."))
         return None
 
     target_names = set()
@@ -590,11 +590,11 @@ def armor_set_flow(data):
 
 def full_set_flow(data):
     """Full set transmog flow (weapon + all 5 armor slots)."""
-    print(f"\n  {header('Full Set Transmog')}")
-    print("  You'll select one weapon and all 5 armor pieces.")
-    print(f"  {dim('A persistent search filter can be used across target selections.')}\n")
+    print(f"\n{header('Full Set Transmog')}")
+    print("You'll select one weapon and all 5 armor pieces.")
+    print(f"{dim('A persistent search filter can be used across target selections.')}\n")
 
-    persistent_search = input(f"  Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
+    persistent_search = input(f"Target search filter {dim('(reused across selections, Enter to skip)')}: ").strip()
     if not persistent_search:
         persistent_search = None
 
@@ -608,7 +608,7 @@ def full_set_flow(data):
     for slot in SLOT_NAMES:
         result = armor_slot_flow(data, slot, preset_search=persistent_search)
         if result is None:
-            print(dim(f"  Skipping {SLOT_LABELS[slot]}."))
+            print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
         lines, src_name, tgt_name, is_invisible = result
         all_armor_lines.extend(lines)
@@ -646,28 +646,28 @@ def full_set_flow(data):
     if armor_block or weapon_block:
         output_codes(armor_block, weapon_block)
     else:
-        print(dim("\n  No codes generated."))
+        print(dim("\nNo codes generated."))
 
 
 def universal_invisible_flow(data):
     """Universal invisible slot flow."""
     os.system("cls" if os.name == "nt" else "clear")
-    print(f"\n  {header('Universal Invisible Slot')}")
-    print(f"  {dim('Makes ALL armor in a slot invisible (writes model 0,0 to every entry).')}\n")
+    print(f"\n{header('Universal Invisible Slot')}")
+    print(f"{dim('Makes ALL armor in a slot invisible (writes model 0,0 to every entry).')}\n")
 
-    print(f"  {bold('Select slot:')}")
+    print(f"{bold('Select slot:')}")
     for i, slot in enumerate(SLOT_NAMES, 1):
-        print(f"  {key(f'[{i}]')} {SLOT_LABELS[slot]}")
+        print(f"{key(f'[{i}]')} {SLOT_LABELS[slot]}")
 
-    choice = input(f"\n  {bold('Slot:')} ").strip()
+    choice = input(f"\n{bold('Slot:')} ").strip()
     if not choice.isdigit() or not (1 <= int(choice) <= 5):
-        print(error("  Invalid choice."))
+        print(error("Invalid choice."))
         return
 
     slot = SLOT_NAMES[int(choice) - 1]
     lines = gen_universal_invisible_codes(data, slot)
     if not lines:
-        print(dim("  No entries to patch."))
+        print(dim("No entries to patch."))
         return
 
     title = f"Universal Invisible {SLOT_LABELS[slot]} ({len(lines)} entries)"
@@ -682,19 +682,19 @@ def main():
 
     while True:
         os.system("cls" if os.name == "nt" else "clear")
-        print(f"  {CYAN}{BOLD}{'─' * 34}{RESET}")
-        print(f"  {CYAN}{BOLD}  MHFU Transmog Tool{RESET}")
-        print(f"  {CYAN}{BOLD}{'─' * 34}{RESET}")
+        print(f"{CYAN}{BOLD}{'─' * 34}{RESET}")
+        print(f"{CYAN}{BOLD}MHFU Transmog Tool{RESET}")
+        print(f"{CYAN}{BOLD}{'─' * 34}{RESET}")
         print()
-        print(f"  {key('[1]')} Weapon Transmog")
-        print(f"  {key('[2]')} Armor Transmog {dim('(single slot)')}")
-        print(f"  {key('[3]')} Armor Transmog {dim('(set)')}")
-        print(f"  {key('[4]')} Full Set Transmog")
-        print(f"  {key('[5]')} Universal Invisible Slot")
+        print(f"{key('[1]')} Weapon Transmog")
+        print(f"{key('[2]')} Armor Transmog {dim('(single slot)')}")
+        print(f"{key('[3]')} Armor Transmog {dim('(set)')}")
+        print(f"{key('[4]')} Full Set Transmog")
+        print(f"{key('[5]')} Universal Invisible Slot")
         print()
-        print(f"  {key('[q]')} Quit")
+        print(f"{key('[q]')} Quit")
 
-        choice = input(f"\n  {bold('Choice:')} ").strip().lower()
+        choice = input(f"\n{bold('Choice:')} ").strip().lower()
 
         if choice == "1":
             result = weapon_flow(data)
@@ -711,10 +711,10 @@ def main():
         elif choice == "q":
             break
         else:
-            print(error("  Invalid choice."))
+            print(error("Invalid choice."))
 
         if choice in ("1", "2", "3", "4", "5"):
-            input(f"\n  {dim('Press Enter to return to menu...')}")
+            input(f"\n{dim('Press Enter to return to menu...')}")
 
 
 if __name__ == "__main__":
