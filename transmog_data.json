@@ -13,7 +13,8 @@
       "entries": [
         0,
         688
-      ]
+      ],
+      "type": "Great Sword"
     },
     "9": {
       "names": [
@@ -27,21 +28,23 @@
         4,
         50,
         677
-      ]
+      ],
+      "type": "Great Sword"
     },
     "324": {
       "names": [
-        "Cat\u2019s Soul",
-        "Cat\u2019s Curse",
-        "Cat\u2019s King",
-        "Cat\u2019s Soul G"
+        "Cat’s Soul",
+        "Cat’s Curse",
+        "Cat’s King",
+        "Cat’s Soul G"
       ],
       "entries": [
         2,
         421,
         465,
         681
-      ]
+      ],
+      "type": "Great Sword"
     },
     "138": {
       "names": [
@@ -53,7 +56,8 @@
         3,
         207,
         640
-      ]
+      ],
+      "type": "Great Sword"
     },
     "144": {
       "names": [
@@ -65,7 +69,8 @@
         5,
         259,
         714
-      ]
+      ],
+      "type": "Great Sword"
     },
     "12": {
       "names": [
@@ -77,7 +82,8 @@
         6,
         378,
         678
-      ]
+      ],
+      "type": "Great Sword"
     },
     "14": {
       "names": [
@@ -87,13 +93,14 @@
       "entries": [
         7,
         606
-      ]
+      ],
+      "type": "Great Sword"
     },
     "0": {
       "names": [
         "Iron Katana",
-        "Iron Katana \u201cGrace\u201d",
-        "Iron Katana \u201cGospel\u201d",
+        "Iron Katana “Grace”",
+        "Iron Katana “Gospel”",
         "Iron Katana G"
       ],
       "entries": [
@@ -101,21 +108,23 @@
         9,
         10,
         689
-      ]
+      ],
+      "type": "Long Sword"
     },
     "15": {
       "names": [
-        "Bone Katana \u201cWolf\u201d",
-        "Bone Katana \u201cShark\u201d",
-        "Bone Katana \u201cDragon\u201d",
-        "BoneKatan\u201dDragon\u201d G"
+        "Bone Katana “Wolf”",
+        "Bone Katana “Shark”",
+        "Bone Katana “Dragon”",
+        "BoneKatan”Dragon” G"
       ],
       "entries": [
         11,
         12,
         13,
         718
-      ]
+      ],
+      "type": "Long Sword"
     },
     "16": {
       "names": [
@@ -129,7 +138,8 @@
         15,
         29,
         722
-      ]
+      ],
+      "type": "Long Sword"
     },
     "27": {
       "names": [
@@ -141,21 +151,23 @@
         16,
         18,
         682
-      ]
+      ],
+      "type": "Long Sword"
     },
     "251": {
       "names": [
-        "Wyvern Blade \u201cBlood\u201d",
-        "Wyvern Blade \u201cMaple\u201d",
-        "Wyvern Blade \u201cFall\u201d",
-        "WyvernBlade\u201dMaple\u201dG"
+        "Wyvern Blade “Blood”",
+        "Wyvern Blade “Maple”",
+        "Wyvern Blade “Fall”",
+        "WyvernBlade”Maple”G"
       ],
       "entries": [
         17,
         387,
         492,
         720
-      ]
+      ],
+      "type": "Long Sword"
     },
     "1": {
       "names": [
@@ -167,21 +179,23 @@
         19,
         21,
         684
-      ]
+      ],
+      "type": "Long Sword"
     },
     "245": {
       "names": [
-        "Wyvern Blade \u201cLeaf\u201d",
-        "Wyvern Blade \u201cVerde\u201d",
-        "Wyvern Blade \u201cHolly\u201d",
-        "WyvernBlade\u201dHolly\u201dG"
+        "Wyvern Blade “Leaf”",
+        "Wyvern Blade “Verde”",
+        "Wyvern Blade “Holly”",
+        "WyvernBlade”Holly”G"
       ],
       "entries": [
         20,
         381,
         476,
         721
-      ]
+      ],
+      "type": "Long Sword"
     },
     "17": {
       "names": [
@@ -193,7 +207,8 @@
         22,
         23,
         704
-      ]
+      ],
+      "type": "Great Sword"
     },
     "18": {
       "names": [
@@ -205,7 +220,8 @@
         24,
         25,
         692
-      ]
+      ],
+      "type": "Great Sword"
     },
     "19": {
       "names": [
@@ -219,7 +235,8 @@
         27,
         489,
         698
-      ]
+      ],
+      "type": "Great Sword"
     },
     "5": {
       "names": [
@@ -231,7 +248,8 @@
         28,
         30,
         715
-      ]
+      ],
+      "type": "Great Sword"
     },
     "240": {
       "names": [
@@ -241,7 +259,8 @@
       "entries": [
         31,
         708
-      ]
+      ],
+      "type": "Long Sword"
     },
     "20": {
       "names": [
@@ -253,7 +272,8 @@
         32,
         490,
         699
-      ]
+      ],
+      "type": "Great Sword"
     },
     "21": {
       "names": [
@@ -265,7 +285,8 @@
         33,
         34,
         701
-      ]
+      ],
+      "type": "Great Sword"
     },
     "22": {
       "names": [
@@ -277,7 +298,8 @@
         35,
         209,
         725
-      ]
+      ],
+      "type": "Great Sword"
     },
     "234": {
       "names": [
@@ -289,7 +311,8 @@
         36,
         410,
         709
-      ]
+      ],
+      "type": "Great Sword"
     },
     "23": {
       "names": [
@@ -301,21 +324,23 @@
         37,
         39,
         706
-      ]
+      ],
+      "type": "Long Sword"
     },
     "237": {
       "names": [
         "Ceanataur Blade",
         "Blue Claw Blade",
-        "Killer\u2019s Scythe",
-        "Killer\u2019s Scythe G"
+        "Killer’s Scythe",
+        "Killer’s Scythe G"
       ],
       "entries": [
         38,
         44,
         413,
         711
-      ]
+      ],
+      "type": "Long Sword"
     },
     "24": {
       "names": [
@@ -327,7 +352,8 @@
         40,
         41,
         713
-      ]
+      ],
+      "type": "Great Sword"
     },
     "25": {
       "names": [
@@ -343,7 +369,8 @@
         288,
         289,
         729
-      ]
+      ],
+      "type": "Great Sword"
     },
     "26": {
       "names": [
@@ -353,7 +380,8 @@
       "entries": [
         45,
         730
-      ]
+      ],
+      "type": "Great Sword"
     },
     "28": {
       "names": [
@@ -365,7 +393,8 @@
         46,
         477,
         717
-      ]
+      ],
+      "type": "Long Sword"
     },
     "250": {
       "names": [
@@ -377,7 +406,8 @@
         47,
         386,
         724
-      ]
+      ],
+      "type": "Long Sword"
     },
     "29": {
       "names": [
@@ -389,7 +419,8 @@
         48,
         49,
         719
-      ]
+      ],
+      "type": "Great Sword"
     },
     "229": {
       "names": [
@@ -401,7 +432,8 @@
         51,
         417,
         647
-      ]
+      ],
+      "type": "Great Sword"
     },
     "8": {
       "names": [
@@ -411,7 +443,8 @@
       "entries": [
         52,
         686
-      ]
+      ],
+      "type": "Great Sword"
     },
     "4": {
       "names": [
@@ -423,7 +456,8 @@
         53,
         110,
         1114
-      ]
+      ],
+      "type": "Great Sword"
     },
     "30": {
       "names": [
@@ -437,7 +471,8 @@
         55,
         57,
         1095
-      ]
+      ],
+      "type": "Hammer"
     },
     "146": {
       "names": [
@@ -449,7 +484,8 @@
         56,
         260,
         1112
-      ]
+      ],
+      "type": "Hammer"
     },
     "31": {
       "names": [
@@ -461,7 +497,8 @@
         58,
         310,
         1096
-      ]
+      ],
+      "type": "Hammer"
     },
     "253": {
       "names": [
@@ -475,7 +512,8 @@
         422,
         576,
         1129
-      ]
+      ],
+      "type": "Hammer"
     },
     "259": {
       "names": [
@@ -487,7 +525,8 @@
         60,
         428,
         1065
-      ]
+      ],
+      "type": "Hammer"
     },
     "32": {
       "names": [
@@ -497,7 +536,8 @@
       "entries": [
         61,
         1026
-      ]
+      ],
+      "type": "Hammer"
     },
     "3": {
       "names": [
@@ -509,7 +549,8 @@
         62,
         63,
         1108
-      ]
+      ],
+      "type": "Hammer"
     },
     "33": {
       "names": [
@@ -521,7 +562,8 @@
         64,
         65,
         1109
-      ]
+      ],
+      "type": "Hammer"
     },
     "34": {
       "names": [
@@ -533,7 +575,8 @@
         66,
         211,
         1097
-      ]
+      ],
+      "type": "Hammer"
     },
     "219": {
       "names": [
@@ -545,7 +588,8 @@
         67,
         367,
         1120
-      ]
+      ],
+      "type": "Hammer"
     },
     "35": {
       "names": [
@@ -559,7 +603,8 @@
         70,
         565,
         1105
-      ]
+      ],
+      "type": "Hammer"
     },
     "326": {
       "names": [
@@ -571,7 +616,8 @@
         69,
         435,
         1066
-      ]
+      ],
+      "type": "Hammer"
     },
     "36": {
       "names": [
@@ -583,7 +629,8 @@
         71,
         85,
         1110
-      ]
+      ],
+      "type": "Hammer"
     },
     "256": {
       "names": [
@@ -597,7 +644,8 @@
         425,
         468,
         1102
-      ]
+      ],
+      "type": "Hammer"
     },
     "254": {
       "names": [
@@ -611,7 +659,8 @@
         84,
         423,
         1128
-      ]
+      ],
+      "type": "Hammer"
     },
     "257": {
       "names": [
@@ -623,7 +672,8 @@
         74,
         426,
         1033
-      ]
+      ],
+      "type": "Hammer"
     },
     "37": {
       "names": [
@@ -637,7 +687,8 @@
         475,
         566,
         1111
-      ]
+      ],
+      "type": "Hammer"
     },
     "38": {
       "names": [
@@ -649,7 +700,8 @@
         76,
         77,
         1133
-      ]
+      ],
+      "type": "Hammer"
     },
     "39": {
       "names": [
@@ -661,7 +713,8 @@
         78,
         80,
         1117
-      ]
+      ],
+      "type": "Hammer"
     },
     "225": {
       "names": [
@@ -673,7 +726,8 @@
         79,
         429,
         1125
-      ]
+      ],
+      "type": "Hammer"
     },
     "40": {
       "names": [
@@ -685,7 +739,8 @@
         81,
         82,
         1123
-      ]
+      ],
+      "type": "Hammer"
     },
     "41": {
       "names": [
@@ -695,7 +750,8 @@
       "entries": [
         83,
         1118
-      ]
+      ],
+      "type": "Hammer"
     },
     "226": {
       "names": [
@@ -707,7 +763,8 @@
         86,
         430,
         1126
-      ]
+      ],
+      "type": "Hammer"
     },
     "42": {
       "names": [
@@ -719,7 +776,8 @@
         87,
         210,
         1124
-      ]
+      ],
+      "type": "Hammer"
     },
     "43": {
       "names": [
@@ -731,21 +789,23 @@
         88,
         212,
         1121
-      ]
+      ],
+      "type": "Hammer"
     },
     "255": {
       "names": [
         "Jadite Mace",
         "Jade Mace",
-        "Lunastra\u2019s Crown",
-        "Luna\u2019s Skirt"
+        "Lunastra’s Crown",
+        "Luna’s Skirt"
       ],
       "entries": [
         89,
         90,
         424,
         1080
-      ]
+      ],
+      "type": "Hammer"
     },
     "44": {
       "names": [
@@ -757,7 +817,8 @@
         91,
         92,
         1100
-      ]
+      ],
+      "type": "Hammer"
     },
     "45": {
       "names": [
@@ -773,19 +834,21 @@
         308,
         309,
         1142
-      ]
+      ],
+      "type": "Hammer"
     },
     "260": {
       "names": [
         "Steel Ice Hammer",
-        "Daora\u2019s Colossus",
-        "Daora\u2019s Hyperborea"
+        "Daora’s Colossus",
+        "Daora’s Hyperborea"
       ],
       "entries": [
         95,
         431,
         1082
-      ]
+      ],
+      "type": "Hammer"
     },
     "46": {
       "names": [
@@ -795,7 +858,8 @@
       "entries": [
         96,
         1143
-      ]
+      ],
+      "type": "Hammer"
     },
     "47": {
       "names": [
@@ -807,7 +871,8 @@
         97,
         98,
         1115
-      ]
+      ],
+      "type": "Hammer"
     },
     "48": {
       "names": [
@@ -819,7 +884,8 @@
         99,
         100,
         1134
-      ]
+      ],
+      "type": "Hammer"
     },
     "6": {
       "names": [
@@ -833,7 +899,8 @@
         102,
         499,
         814
-      ]
+      ],
+      "type": "Lance"
     },
     "49": {
       "names": [
@@ -845,7 +912,8 @@
         103,
         105,
         831
-      ]
+      ],
+      "type": "Lance"
     },
     "274": {
       "names": [
@@ -857,7 +925,8 @@
         104,
         441,
         816
-      ]
+      ],
+      "type": "Lance"
     },
     "50": {
       "names": [
@@ -869,7 +938,8 @@
         106,
         107,
         815
-      ]
+      ],
+      "type": "Lance"
     },
     "278": {
       "names": [
@@ -883,7 +953,8 @@
         111,
         400,
         826
-      ]
+      ],
+      "type": "Gunlance"
     },
     "51": {
       "names": [
@@ -893,7 +964,8 @@
       "entries": [
         109,
         749
-      ]
+      ],
+      "type": "Lance"
     },
     "233": {
       "names": [
@@ -905,7 +977,8 @@
         112,
         409,
         827
-      ]
+      ],
+      "type": "Gunlance"
     },
     "53": {
       "names": [
@@ -917,21 +990,23 @@
         113,
         115,
         843
-      ]
+      ],
+      "type": "Lance"
     },
     "285": {
       "names": [
         "Silver Rook",
         "Gun Chariot",
         "Gun Chariot+",
-        "World\u2019s End"
+        "World’s End"
       ],
       "entries": [
         114,
         407,
         741,
         742
-      ]
+      ],
+      "type": "Gunlance"
     },
     "54": {
       "names": [
@@ -943,7 +1018,8 @@
         116,
         117,
         822
-      ]
+      ],
+      "type": "Lance"
     },
     "2": {
       "names": [
@@ -955,21 +1031,23 @@
         118,
         120,
         820
-      ]
+      ],
+      "type": "Lance"
     },
     "282": {
       "names": [
-        "Luna\u2019s Howl",
-        "Luna\u2019s Roar",
-        "Luna\u2019s Flare",
-        "Luna\u2019s Sun"
+        "Luna’s Howl",
+        "Luna’s Roar",
+        "Luna’s Flare",
+        "Luna’s Sun"
       ],
       "entries": [
         119,
         122,
         404,
         743
-      ]
+      ],
+      "type": "Gunlance"
     },
     "55": {
       "names": [
@@ -981,7 +1059,8 @@
         121,
         138,
         832
-      ]
+      ],
+      "type": "Lance"
     },
     "56": {
       "names": [
@@ -993,7 +1072,8 @@
         123,
         215,
         821
-      ]
+      ],
+      "type": "Lance"
     },
     "281": {
       "names": [
@@ -1005,7 +1085,8 @@
         124,
         403,
         828
-      ]
+      ],
+      "type": "Gunlance"
     },
     "57": {
       "names": [
@@ -1017,7 +1098,8 @@
         125,
         126,
         850
-      ]
+      ],
+      "type": "Lance"
     },
     "58": {
       "names": [
@@ -1031,7 +1113,8 @@
         129,
         510,
         835
-      ]
+      ],
+      "type": "Lance"
     },
     "284": {
       "names": [
@@ -1043,7 +1126,8 @@
         128,
         406,
         744
-      ]
+      ],
+      "type": "Gunlance"
     },
     "59": {
       "names": [
@@ -1053,7 +1137,8 @@
       "entries": [
         130,
         851
-      ]
+      ],
+      "type": "Lance"
     },
     "280": {
       "names": [
@@ -1067,7 +1152,8 @@
         402,
         523,
         776
-      ]
+      ],
+      "type": "Gunlance"
     },
     "279": {
       "names": [
@@ -1079,7 +1165,8 @@
         132,
         401,
         779
-      ]
+      ],
+      "type": "Gunlance"
     },
     "60": {
       "names": [
@@ -1093,7 +1180,8 @@
         483,
         511,
         836
-      ]
+      ],
+      "type": "Lance"
     },
     "61": {
       "names": [
@@ -1105,7 +1193,8 @@
         134,
         216,
         845
-      ]
+      ],
+      "type": "Lance"
     },
     "283": {
       "names": [
@@ -1117,7 +1206,8 @@
         135,
         405,
         841
-      ]
+      ],
+      "type": "Gunlance"
     },
     "286": {
       "names": [
@@ -1129,7 +1219,8 @@
         136,
         408,
         857
-      ]
+      ],
+      "type": "Gunlance"
     },
     "62": {
       "names": [
@@ -1141,7 +1232,8 @@
         137,
         139,
         839
-      ]
+      ],
+      "type": "Lance"
     },
     "270": {
       "names": [
@@ -1153,7 +1245,8 @@
         140,
         437,
         840
-      ]
+      ],
+      "type": "Lance"
     },
     "63": {
       "names": [
@@ -1167,7 +1260,8 @@
         512,
         765,
         837
-      ]
+      ],
+      "type": "Lance"
     },
     "64": {
       "names": [
@@ -1179,7 +1273,8 @@
         142,
         144,
         823
-      ]
+      ],
+      "type": "Lance"
     },
     "272": {
       "names": [
@@ -1193,7 +1288,8 @@
         150,
         439,
         842
-      ]
+      ],
+      "type": "Lance"
     },
     "65": {
       "names": [
@@ -1205,7 +1301,8 @@
         145,
         502,
         824
-      ]
+      ],
+      "type": "Lance"
     },
     "66": {
       "names": [
@@ -1217,7 +1314,8 @@
         146,
         147,
         817
-      ]
+      ],
+      "type": "Lance"
     },
     "67": {
       "names": [
@@ -1233,7 +1331,8 @@
         330,
         331,
         858
-      ]
+      ],
+      "type": "Lance"
     },
     "68": {
       "names": [
@@ -1243,7 +1342,8 @@
       "entries": [
         151,
         859
-      ]
+      ],
+      "type": "Lance"
     },
     "69": {
       "names": [
@@ -1255,7 +1355,8 @@
         152,
         217,
         795
-      ]
+      ],
+      "type": "Lance"
     },
     "120": {
       "names": [
@@ -1267,7 +1368,8 @@
         153,
         228,
         790
-      ]
+      ],
+      "type": "Lance"
     },
     "7": {
       "names": [
@@ -1277,7 +1379,8 @@
       "entries": [
         154,
         964
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "143": {
       "names": [
@@ -1289,21 +1392,23 @@
         155,
         339,
         949
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "70": {
       "names": [
-        "Hunter\u2019s Dagger",
-        "Hunter\u2019s Dagger+",
-        "Assassin\u2019s Dagger",
-        "Hunter\u2019s Dagger G"
+        "Hunter’s Dagger",
+        "Hunter’s Dagger+",
+        "Assassin’s Dagger",
+        "Hunter’s Dagger G"
       ],
       "entries": [
         156,
         157,
         158,
         944
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "71": {
       "names": [
@@ -1313,7 +1418,8 @@
       "entries": [
         159,
         972
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "72": {
       "names": [
@@ -1323,7 +1429,8 @@
       "entries": [
         160,
         973
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "227": {
       "names": [
@@ -1335,19 +1442,21 @@
         161,
         166,
         994
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "171": {
       "names": [
         "Kirin Bolt Ultimus",
-        "Thor\u2019s Dagger",
-        "Thor\u2019s Dagger G"
+        "Thor’s Dagger",
+        "Thor’s Dagger G"
       ],
       "entries": [
         162,
         354,
         974
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "73": {
       "names": [
@@ -1359,7 +1468,8 @@
         163,
         547,
         965
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "141": {
       "names": [
@@ -1373,7 +1483,8 @@
         262,
         466,
         945
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "74": {
       "names": [
@@ -1385,7 +1496,8 @@
         165,
         167,
         954
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "75": {
       "names": [
@@ -1397,7 +1509,8 @@
         168,
         170,
         955
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "287": {
       "names": [
@@ -1409,7 +1522,8 @@
         169,
         447,
         897
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "76": {
       "names": [
@@ -1421,7 +1535,8 @@
         171,
         173,
         946
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "288": {
       "names": [
@@ -1435,7 +1550,8 @@
         174,
         448,
         956
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "82": {
       "names": [
@@ -1445,7 +1561,8 @@
       "entries": [
         175,
         948
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "77": {
       "names": [
@@ -1459,7 +1576,8 @@
         177,
         180,
         968
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "78": {
       "names": [
@@ -1471,7 +1589,8 @@
         178,
         179,
         987
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "79": {
       "names": [
@@ -1483,19 +1602,21 @@
         181,
         183,
         978
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "83": {
       "names": [
-        "Master\u2019s Replica",
-        "Hero\u2019s Blade Replica",
-        "Master\u2019s Blade G"
+        "Master’s Replica",
+        "Hero’s Blade Replica",
+        "Master’s Blade G"
       ],
       "entries": [
         182,
         188,
         992
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "80": {
       "names": [
@@ -1505,7 +1626,8 @@
       "entries": [
         184,
         979
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "81": {
       "names": [
@@ -1517,21 +1639,23 @@
         185,
         187,
         976
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "289": {
       "names": [
         "Steel Ice Dagger",
-        "Daora\u2019s Razor",
+        "Daora’s Razor",
         "Steel Ice Dagger+",
-        "Daora\u2019s Maelstrom"
+        "Daora’s Maelstrom"
       ],
       "entries": [
         186,
         449,
         554,
         928
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "325": {
       "names": [
@@ -1545,7 +1669,8 @@
         191,
         450,
         957
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "84": {
       "names": [
@@ -1557,7 +1682,8 @@
         190,
         192,
         970
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "85": {
       "names": [
@@ -1569,7 +1695,8 @@
         193,
         194,
         969
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "86": {
       "names": [
@@ -1581,7 +1708,8 @@
         195,
         196,
         997
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "329": {
       "names": [
@@ -1593,7 +1721,8 @@
         197,
         451,
         919
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "87": {
       "names": [
@@ -1603,7 +1732,8 @@
       "entries": [
         198,
         999
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "88": {
       "names": [
@@ -1615,7 +1745,8 @@
         199,
         200,
         914
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "89": {
       "names": [
@@ -1627,7 +1758,8 @@
         201,
         220,
         920
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "332": {
       "names": [
@@ -1639,7 +1771,8 @@
         202,
         452,
         861
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "111": {
       "names": [
@@ -1651,7 +1784,8 @@
         203,
         204,
         988
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "136": {
       "names": [
@@ -1663,7 +1797,8 @@
         205,
         446,
         680
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "137": {
       "names": [
@@ -1677,7 +1812,8 @@
         272,
         283,
         690
-      ]
+      ],
+      "type": "Long Sword"
     },
     "162": {
       "names": [
@@ -1689,7 +1825,8 @@
         208,
         284,
         679
-      ]
+      ],
+      "type": "Long Sword"
     },
     "258": {
       "names": [
@@ -1701,7 +1838,8 @@
         213,
         427,
         1029
-      ]
+      ],
+      "type": "Hammer"
     },
     "52": {
       "names": [
@@ -1711,7 +1849,8 @@
       "entries": [
         214,
         834
-      ]
+      ],
+      "type": "Lance"
     },
     "290": {
       "names": [
@@ -1725,7 +1864,8 @@
         453,
         549,
         985
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "139": {
       "names": [
@@ -1735,7 +1875,8 @@
       "entries": [
         219,
         980
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "164": {
       "names": [
@@ -1747,7 +1888,8 @@
         221,
         338,
         879
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "112": {
       "names": [
@@ -1757,7 +1899,8 @@
       "entries": [
         222,
         1137
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "113": {
       "names": [
@@ -1769,7 +1912,8 @@
         223,
         229,
         819
-      ]
+      ],
+      "type": "Lance"
     },
     "114": {
       "names": [
@@ -1781,7 +1925,8 @@
         224,
         353,
         960
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "117": {
       "names": [
@@ -1793,7 +1938,8 @@
         225,
         374,
         648
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "118": {
       "names": [
@@ -1805,7 +1951,8 @@
         226,
         491,
         700
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "119": {
       "names": [
@@ -1817,7 +1964,8 @@
         227,
         493,
         726
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "122": {
       "names": [
@@ -1829,7 +1977,8 @@
         230,
         529,
         854
-      ]
+      ],
+      "type": "Lance"
     },
     "123": {
       "names": [
@@ -1839,7 +1988,8 @@
       "entries": [
         231,
         1144
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "124": {
       "names": [
@@ -1855,7 +2005,8 @@
         461,
         544,
         1000
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "125": {
       "names": [
@@ -1867,7 +2018,8 @@
         234,
         236,
         966
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "291": {
       "names": [
@@ -1881,7 +2033,8 @@
         454,
         550,
         986
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "126": {
       "names": [
@@ -1893,7 +2046,8 @@
         237,
         238,
         958
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "127": {
       "names": [
@@ -1905,7 +2059,8 @@
         239,
         241,
         959
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "292": {
       "names": [
@@ -1917,7 +2072,8 @@
         240,
         456,
         905
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "128": {
       "names": [
@@ -1927,7 +2083,8 @@
       "entries": [
         242,
         967
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "175": {
       "names": [
@@ -1939,7 +2096,8 @@
         243,
         356,
         888
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "129": {
       "names": [
@@ -1953,7 +2111,8 @@
         245,
         548,
         982
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "130": {
       "names": [
@@ -1965,7 +2124,8 @@
         246,
         247,
         984
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "131": {
       "names": [
@@ -1977,7 +2137,8 @@
         248,
         249,
         971
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "132": {
       "names": [
@@ -1989,7 +2150,8 @@
         250,
         251,
         961
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "133": {
       "names": [
@@ -2003,7 +2165,8 @@
         253,
         254,
         981
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "134": {
       "names": [
@@ -2015,7 +2178,8 @@
         255,
         256,
         995
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "140": {
       "names": [
@@ -2027,7 +2191,8 @@
         257,
         258,
         683
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "145": {
       "names": [
@@ -2043,7 +2208,8 @@
         513,
         766,
         838
-      ]
+      ],
+      "type": "Lance"
     },
     "222": {
       "names": [
@@ -2055,7 +2221,8 @@
         263,
         933,
         934
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "247": {
       "names": [
@@ -2069,7 +2236,8 @@
         383,
         602,
         693
-      ]
+      ],
+      "type": "Great Sword"
     },
     "248": {
       "names": [
@@ -2083,7 +2251,8 @@
         384,
         603,
         694
-      ]
+      ],
+      "type": "Great Sword"
     },
     "238": {
       "names": [
@@ -2095,7 +2264,8 @@
         266,
         414,
         637
-      ]
+      ],
+      "type": "Long Sword"
     },
     "241": {
       "names": [
@@ -2107,17 +2277,19 @@
         267,
         418,
         664
-      ]
+      ],
+      "type": "Long Sword"
     },
     "153": {
       "names": [
-        "True Dragon\u2019s Jaw",
-        "True Dragon\u2019s Jaw G"
+        "True Dragon’s Jaw",
+        "True Dragon’s Jaw G"
       ],
       "entries": [
         268,
         716
-      ]
+      ],
+      "type": "Great Sword"
     },
     "246": {
       "names": [
@@ -2133,7 +2305,8 @@
         382,
         600,
         691
-      ]
+      ],
+      "type": "Great Sword"
     },
     "249": {
       "names": [
@@ -2145,7 +2318,8 @@
         271,
         385,
         697
-      ]
+      ],
+      "type": "Great Sword"
     },
     "154": {
       "names": [
@@ -2159,7 +2333,8 @@
         484,
         485,
         685
-      ]
+      ],
+      "type": "Great Sword"
     },
     "155": {
       "names": [
@@ -2171,7 +2346,8 @@
         274,
         277,
         707
-      ]
+      ],
+      "type": "Great Sword"
     },
     "156": {
       "names": [
@@ -2181,17 +2357,19 @@
       "entries": [
         275,
         601
-      ]
+      ],
+      "type": "Great Sword"
     },
     "157": {
       "names": [
-        "Enforcer\u2019s Axe",
-        "Enforcer\u2019s Axe G"
+        "Enforcer’s Axe",
+        "Enforcer’s Axe G"
       ],
       "entries": [
         276,
         705
-      ]
+      ],
+      "type": "Great Sword"
     },
     "158": {
       "names": [
@@ -2201,7 +2379,8 @@
       "entries": [
         278,
         641
-      ]
+      ],
+      "type": "Great Sword"
     },
     "159": {
       "names": [
@@ -2213,7 +2392,8 @@
         279,
         365,
         703
-      ]
+      ],
+      "type": "Great Sword"
     },
     "160": {
       "names": [
@@ -2225,21 +2405,23 @@
         280,
         364,
         702
-      ]
+      ],
+      "type": "Great Sword"
     },
     "236": {
       "names": [
         "Steel Ice Blade",
         "Steel Ice Blade+",
-        "Daora\u2019s Decimator",
-        "Daora\u2019s Tughril Beg"
+        "Daora’s Decimator",
+        "Daora’s Tughril Beg"
       ],
       "entries": [
         281,
         282,
         412,
         660
-      ]
+      ],
+      "type": "Long Sword"
     },
     "172": {
       "names": [
@@ -2249,7 +2431,8 @@
       "entries": [
         285,
         650
-      ]
+      ],
+      "type": "Great Sword"
     },
     "149": {
       "names": [
@@ -2259,17 +2442,19 @@
       "entries": [
         286,
         727
-      ]
+      ],
+      "type": "Great Sword"
     },
     "163": {
       "names": [
         "Expert Blade",
-        "Warrior\u2019s Blade"
+        "Warrior’s Blade"
       ],
       "entries": [
         287,
         728
-      ]
+      ],
+      "type": "Great Sword"
     },
     "244": {
       "names": [
@@ -2281,7 +2466,8 @@
         290,
         380,
         710
-      ]
+      ],
+      "type": "Great Sword"
     },
     "161": {
       "names": [
@@ -2291,7 +2477,8 @@
       "entries": [
         291,
         663
-      ]
+      ],
+      "type": "Great Sword"
     },
     "231": {
       "names": [
@@ -2305,7 +2492,8 @@
         390,
         579,
         1131
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "261": {
       "names": [
@@ -2317,7 +2505,8 @@
         293,
         391,
         1132
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "262": {
       "names": [
@@ -2331,19 +2520,21 @@
         295,
         392,
         1127
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "189": {
       "names": [
         "Devil Masher",
         "Devil Masher+",
-        "Iron Devil\u2019s Soul"
+        "Iron Devil’s Soul"
       ],
       "entries": [
         296,
         1024,
         1025
-      ]
+      ],
+      "type": "Hammer"
     },
     "190": {
       "names": [
@@ -2353,7 +2544,8 @@
       "entries": [
         297,
         1101
-      ]
+      ],
+      "type": "Hammer"
     },
     "191": {
       "names": [
@@ -2365,7 +2557,8 @@
         298,
         299,
         1098
-      ]
+      ],
+      "type": "Hammer"
     },
     "264": {
       "names": [
@@ -2377,7 +2570,8 @@
         300,
         394,
         1106
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "192": {
       "names": [
@@ -2387,7 +2581,8 @@
       "entries": [
         301,
         1067
-      ]
+      ],
+      "type": "Hammer"
     },
     "263": {
       "names": [
@@ -2401,7 +2596,8 @@
         393,
         574,
         1122
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "193": {
       "names": [
@@ -2411,7 +2607,8 @@
       "entries": [
         303,
         1119
-      ]
+      ],
+      "type": "Hammer"
     },
     "194": {
       "names": [
@@ -2421,19 +2618,21 @@
       "entries": [
         304,
         1020
-      ]
+      ],
+      "type": "Hammer"
     },
     "265": {
       "names": [
         "Blessed Ocarina",
         "Cursed Ocarina",
-        "Genie\u2019s Ocarina"
+        "Genie’s Ocarina"
       ],
       "entries": [
         305,
         395,
         1061
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "148": {
       "names": [
@@ -2443,17 +2642,19 @@
       "entries": [
         306,
         1140
-      ]
+      ],
+      "type": "Hammer"
     },
     "196": {
       "names": [
         "Expert Hammer",
-        "Warrior\u2019s Hammer"
+        "Warrior’s Hammer"
       ],
       "entries": [
         307,
         1141
-      ]
+      ],
+      "type": "Hammer"
     },
     "195": {
       "names": [
@@ -2463,7 +2664,8 @@
       "entries": [
         311,
         1081
-      ]
+      ],
+      "type": "Hammer"
     },
     "266": {
       "names": [
@@ -2475,7 +2677,8 @@
         312,
         396,
         1062
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "267": {
       "names": [
@@ -2489,7 +2692,8 @@
         397,
         1039,
         1040
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "268": {
       "names": [
@@ -2501,7 +2705,8 @@
         314,
         398,
         1007
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "269": {
       "names": [
@@ -2513,7 +2718,8 @@
         315,
         399,
         1139
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "181": {
       "names": [
@@ -2523,7 +2729,8 @@
       "entries": [
         316,
         774
-      ]
+      ],
+      "type": "Lance"
     },
     "182": {
       "names": [
@@ -2533,17 +2740,19 @@
       "entries": [
         317,
         818
-      ]
+      ],
+      "type": "Gunlance"
     },
     "183": {
       "names": [
         "Dragon Rider Spear",
-        "Dragoon\u2019s G\u00e1e Bulg"
+        "Dragoon’s Gáe Bulg"
       ],
       "entries": [
         318,
         763
-      ]
+      ],
+      "type": "Lance"
     },
     "273": {
       "names": [
@@ -2555,7 +2764,8 @@
         319,
         440,
         764
-      ]
+      ],
+      "type": "Lance"
     },
     "184": {
       "names": [
@@ -2565,7 +2775,8 @@
       "entries": [
         320,
         796
-      ]
+      ],
+      "type": "Lance"
     },
     "185": {
       "names": [
@@ -2575,21 +2786,23 @@
       "entries": [
         321,
         767
-      ]
+      ],
+      "type": "Lance"
     },
     "271": {
       "names": [
         "Steel Ice Spear",
         "Steel Ice Spear+",
-        "Daora\u2019s Fang",
-        "Daora\u2019s Regulus"
+        "Daora’s Fang",
+        "Daora’s Regulus"
       ],
       "entries": [
         322,
         323,
         438,
         802
-      ]
+      ],
+      "type": "Lance"
     },
     "186": {
       "names": [
@@ -2601,7 +2814,8 @@
         324,
         325,
         775
-      ]
+      ],
+      "type": "Lance"
     },
     "275": {
       "names": [
@@ -2613,7 +2827,8 @@
         326,
         442,
         740
-      ]
+      ],
+      "type": "Lance"
     },
     "187": {
       "names": [
@@ -2625,7 +2840,8 @@
         327,
         335,
         825
-      ]
+      ],
+      "type": "Lance"
     },
     "151": {
       "names": [
@@ -2635,29 +2851,32 @@
       "entries": [
         328,
         855
-      ]
+      ],
+      "type": "Lance"
     },
     "216": {
       "names": [
         "Expert Lance",
-        "Warrior\u2019s Lance"
+        "Warrior’s Lance"
       ],
       "entries": [
         329,
         856
-      ]
+      ],
+      "type": "Lance"
     },
     "276": {
       "names": [
-        "Teostra\u2019s Howl",
-        "Teostra\u2019s Roar",
-        "Teostra\u2019s Fire"
+        "Teostra’s Howl",
+        "Teostra’s Roar",
+        "Teostra’s Fire"
       ],
       "entries": [
         332,
         443,
         804
-      ]
+      ],
+      "type": "Lance"
     },
     "188": {
       "names": [
@@ -2667,7 +2886,8 @@
       "entries": [
         333,
         803
-      ]
+      ],
+      "type": "Lance"
     },
     "277": {
       "names": [
@@ -2681,7 +2901,8 @@
         444,
         526,
         852
-      ]
+      ],
+      "type": "Lance"
     },
     "316": {
       "names": [
@@ -2695,7 +2916,8 @@
         337,
         455,
         983
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "165": {
       "names": [
@@ -2705,7 +2927,8 @@
       "entries": [
         340,
         947
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "293": {
       "names": [
@@ -2717,7 +2940,8 @@
         341,
         457,
         991
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "166": {
       "names": [
@@ -2727,7 +2951,8 @@
       "entries": [
         342,
         921
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "167": {
       "names": [
@@ -2737,7 +2962,8 @@
       "entries": [
         343,
         889
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "294": {
       "names": [
@@ -2749,7 +2975,8 @@
         344,
         458,
         870
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "317": {
       "names": [
@@ -2763,7 +2990,8 @@
         459,
         538,
         952
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "330": {
       "names": [
@@ -2775,7 +3003,8 @@
         346,
         362,
         913
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "168": {
       "names": [
@@ -2787,7 +3016,8 @@
         347,
         894,
         895
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "169": {
       "names": [
@@ -2799,7 +3029,8 @@
         348,
         349,
         977
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "170": {
       "names": [
@@ -2811,21 +3042,23 @@
         350,
         467,
         989
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "150": {
       "names": [
         "Black Belt Sword",
         "Expert Sword",
         "Rookie Knife",
-        "Warrior\u2019s Sword"
+        "Warrior’s Sword"
       ],
       "entries": [
         351,
         352,
         462,
         996
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "174": {
       "names": [
@@ -2835,7 +3068,8 @@
       "entries": [
         355,
         922
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "176": {
       "names": [
@@ -2847,7 +3081,8 @@
         357,
         875,
         876
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "177": {
       "names": [
@@ -2859,7 +3094,8 @@
         358,
         877,
         878
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "178": {
       "names": [
@@ -2869,7 +3105,8 @@
       "entries": [
         359,
         896
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "179": {
       "names": [
@@ -2881,7 +3118,8 @@
         360,
         361,
         998
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "180": {
       "names": [
@@ -2891,7 +3129,8 @@
       "entries": [
         363,
         932
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "220": {
       "names": [
@@ -2901,7 +3140,8 @@
       "entries": [
         368,
         993
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "252": {
       "names": [
@@ -2913,7 +3153,8 @@
         369,
         388,
         613
-      ]
+      ],
+      "type": "Great Sword"
     },
     "228": {
       "names": [
@@ -2927,7 +3168,8 @@
         371,
         389,
         649
-      ]
+      ],
+      "type": "Great Sword"
     },
     "221": {
       "names": [
@@ -2937,7 +3179,8 @@
       "entries": [
         372,
         1083
-      ]
+      ],
+      "type": "Hammer"
     },
     "239": {
       "names": [
@@ -2951,7 +3194,8 @@
         415,
         416,
         712
-      ]
+      ],
+      "type": "Long Sword"
     },
     "235": {
       "names": [
@@ -2963,7 +3207,8 @@
         375,
         411,
         646
-      ]
+      ],
+      "type": "Long Sword"
     },
     "242": {
       "names": [
@@ -2975,7 +3220,8 @@
         376,
         419,
         651
-      ]
+      ],
+      "type": "Long Sword"
     },
     "223": {
       "names": [
@@ -2985,7 +3231,8 @@
       "entries": [
         377,
         975
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "230": {
       "names": [
@@ -2997,7 +3244,8 @@
         379,
         482,
         723
-      ]
+      ],
+      "type": "Long Sword"
     },
     "243": {
       "names": [
@@ -3007,7 +3255,8 @@
       "entries": [
         420,
         652
-      ]
+      ],
+      "type": "Great Sword"
     },
     "318": {
       "names": [
@@ -3019,7 +3268,8 @@
         432,
         580,
         1135
-      ]
+      ],
+      "type": "Hammer"
     },
     "319": {
       "names": [
@@ -3031,7 +3281,8 @@
         433,
         581,
         1136
-      ]
+      ],
+      "type": "Hammer"
     },
     "320": {
       "names": [
@@ -3041,7 +3292,8 @@
       "entries": [
         434,
         1068
-      ]
+      ],
+      "type": "Hammer"
     },
     "327": {
       "names": [
@@ -3053,7 +3305,8 @@
         436,
         572,
         1036
-      ]
+      ],
+      "type": "Hammer"
     },
     "328": {
       "names": [
@@ -3063,7 +3316,8 @@
       "entries": [
         445,
         833
-      ]
+      ],
+      "type": "Lance"
     },
     "323": {
       "names": [
@@ -3073,7 +3327,8 @@
       "entries": [
         460,
         963
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "377": {
       "names": [
@@ -3087,7 +3342,8 @@
         464,
         591,
         592
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "173": {
       "names": [
@@ -3097,7 +3353,8 @@
       "entries": [
         469,
         1001
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "224": {
       "names": [
@@ -3107,7 +3364,8 @@
       "entries": [
         470,
         665
-      ]
+      ],
+      "type": "Long Sword"
     },
     "334": {
       "names": [
@@ -3119,7 +3377,8 @@
         471,
         473,
         1069
-      ]
+      ],
+      "type": "Hammer"
     },
     "335": {
       "names": [
@@ -3131,7 +3390,8 @@
         472,
         486,
         687
-      ]
+      ],
+      "type": "Great Sword"
     },
     "336": {
       "names": [
@@ -3141,7 +3401,8 @@
       "entries": [
         474,
         1070
-      ]
+      ],
+      "type": "Hammer"
     },
     "353": {
       "names": [
@@ -3153,7 +3414,8 @@
         478,
         479,
         695
-      ]
+      ],
+      "type": "Great Sword"
     },
     "388": {
       "names": [
@@ -3165,7 +3427,8 @@
         480,
         481,
         696
-      ]
+      ],
+      "type": "Great Sword"
     },
     "376": {
       "names": [
@@ -3177,7 +3440,8 @@
         487,
         488,
         614
-      ]
+      ],
+      "type": "Great Sword"
     },
     "375": {
       "names": [
@@ -3189,7 +3453,8 @@
         494,
         495,
         666
-      ]
+      ],
+      "type": "Long Sword"
     },
     "378": {
       "names": [
@@ -3201,7 +3466,8 @@
         496,
         497,
         669
-      ]
+      ],
+      "type": "Long Sword"
     },
     "379": {
       "names": [
@@ -3211,7 +3477,8 @@
       "entries": [
         498,
         674
-      ]
+      ],
+      "type": "Long Sword"
     },
     "358": {
       "names": [
@@ -3223,7 +3490,8 @@
         500,
         501,
         737
-      ]
+      ],
+      "type": "Lance"
     },
     "343": {
       "names": [
@@ -3235,7 +3503,8 @@
         503,
         504,
         829
-      ]
+      ],
+      "type": "Lance"
     },
     "344": {
       "names": [
@@ -3249,7 +3518,8 @@
         506,
         745,
         746
-      ]
+      ],
+      "type": "Gunlance"
     },
     "347": {
       "names": [
@@ -3263,7 +3533,8 @@
         508,
         509,
         830
-      ]
+      ],
+      "type": "Gunlance"
     },
     "357": {
       "names": [
@@ -3277,7 +3548,8 @@
         515,
         516,
         844
-      ]
+      ],
+      "type": "Lance"
     },
     "371": {
       "names": [
@@ -3289,7 +3561,8 @@
         517,
         518,
         846
-      ]
+      ],
+      "type": "Lance"
     },
     "372": {
       "names": [
@@ -3299,7 +3572,8 @@
       "entries": [
         519,
         847
-      ]
+      ],
+      "type": "Lance"
     },
     "345": {
       "names": [
@@ -3313,7 +3587,8 @@
         521,
         522,
         848
-      ]
+      ],
+      "type": "Gunlance"
     },
     "346": {
       "names": [
@@ -3325,7 +3600,8 @@
         524,
         525,
         849
-      ]
+      ],
+      "type": "Gunlance"
     },
     "359": {
       "names": [
@@ -3337,7 +3613,8 @@
         527,
         528,
         853
-      ]
+      ],
+      "type": "Lance"
     },
     "386": {
       "names": [
@@ -3349,7 +3626,8 @@
         530,
         531,
         805
-      ]
+      ],
+      "type": "Lance"
     },
     "373": {
       "names": [
@@ -3361,7 +3639,8 @@
         532,
         533,
         808
-      ]
+      ],
+      "type": "Gunlance"
     },
     "374": {
       "names": [
@@ -3371,7 +3650,8 @@
       "entries": [
         534,
         811
-      ]
+      ],
+      "type": "Gunlance"
     },
     "360": {
       "names": [
@@ -3385,7 +3665,8 @@
         536,
         537,
         950
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "356": {
       "names": [
@@ -3399,7 +3680,8 @@
         540,
         541,
         951
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "355": {
       "names": [
@@ -3411,19 +3693,21 @@
         542,
         543,
         953
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "361": {
       "names": [
-        "Glutton\u2019s Set",
-        "Chereau\u2019s Tool",
-        "Glutton\u2019s Set G"
+        "Glutton’s Set",
+        "Chereau’s Tool",
+        "Glutton’s Set G"
       ],
       "entries": [
         545,
         546,
         962
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "354": {
       "names": [
@@ -3435,7 +3719,8 @@
         551,
         552,
         990
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "365": {
       "names": [
@@ -3445,7 +3730,8 @@
       "entries": [
         553,
         1145
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "380": {
       "names": [
@@ -3457,7 +3743,8 @@
         555,
         556,
         935
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "381": {
       "names": [
@@ -3469,7 +3756,8 @@
         557,
         558,
         938
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "348": {
       "names": [
@@ -3481,7 +3769,8 @@
         559,
         573,
         1099
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "349": {
       "names": [
@@ -3493,7 +3782,8 @@
         560,
         1008,
         1009
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "366": {
       "names": [
@@ -3505,7 +3795,8 @@
         561,
         562,
         1103
-      ]
+      ],
+      "type": "Hammer"
     },
     "387": {
       "names": [
@@ -3517,7 +3808,8 @@
         563,
         564,
         1104
-      ]
+      ],
+      "type": "Hammer"
     },
     "350": {
       "names": [
@@ -3529,7 +3821,8 @@
         567,
         571,
         1113
-      ]
+      ],
+      "type": "Hammer"
     },
     "351": {
       "names": [
@@ -3539,7 +3832,8 @@
       "entries": [
         568,
         1023
-      ]
+      ],
+      "type": "Hammer"
     },
     "362": {
       "names": [
@@ -3551,7 +3845,8 @@
         569,
         570,
         1116
-      ]
+      ],
+      "type": "Hammer"
     },
     "352": {
       "names": [
@@ -3565,7 +3860,8 @@
         577,
         578,
         1053
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "363": {
       "names": [
@@ -3577,7 +3873,8 @@
         582,
         583,
         1138
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "367": {
       "names": [
@@ -3589,7 +3886,8 @@
         584,
         585,
         1086
-      ]
+      ],
+      "type": "Hammer"
     },
     "369": {
       "names": [
@@ -3601,7 +3899,8 @@
         586,
         587,
         1089
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "370": {
       "names": [
@@ -3611,7 +3910,8 @@
       "entries": [
         588,
         1092
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "389": {
       "names": [
@@ -3623,7 +3923,8 @@
         589,
         1084,
         1085
-      ]
+      ],
+      "type": "Hammer"
     },
     "393": {
       "names": [
@@ -3633,7 +3934,8 @@
       "entries": [
         590,
         941
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "471": {
       "names": [
@@ -3643,7 +3945,8 @@
       "entries": [
         593,
         594
-      ]
+      ],
+      "type": "Great Sword"
     },
     "474": {
       "names": [
@@ -3653,7 +3956,8 @@
       "entries": [
         595,
         596
-      ]
+      ],
+      "type": "Great Sword"
     },
     "447": {
       "names": [
@@ -3665,7 +3969,8 @@
         597,
         598,
         599
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "515": {
       "names": [
@@ -3675,7 +3980,8 @@
       "entries": [
         604,
         605
-      ]
+      ],
+      "type": "Great Sword"
     },
     "468": {
       "names": [
@@ -3685,7 +3991,8 @@
       "entries": [
         607,
         608
-      ]
+      ],
+      "type": "Great Sword"
     },
     "399": {
       "names": [
@@ -3695,7 +4002,8 @@
       "entries": [
         609,
         610
-      ]
+      ],
+      "type": "Great Sword"
     },
     "400": {
       "names": [
@@ -3705,7 +4013,8 @@
       "entries": [
         611,
         612
-      ]
+      ],
+      "type": "Great Sword"
     },
     "472": {
       "names": [
@@ -3715,7 +4024,8 @@
       "entries": [
         615,
         616
-      ]
+      ],
+      "type": "Great Sword"
     },
     "410": {
       "names": [
@@ -3725,17 +4035,19 @@
       "entries": [
         617,
         618
-      ]
+      ],
+      "type": "Great Sword"
     },
     "469": {
       "names": [
         "Alveblade",
-        "Br\u00fcnhild"
+        "Brünhild"
       ],
       "entries": [
         619,
         620
-      ]
+      ],
+      "type": "Great Sword"
     },
     "470": {
       "names": [
@@ -3745,7 +4057,8 @@
       "entries": [
         621,
         622
-      ]
+      ],
+      "type": "Great Sword"
     },
     "514": {
       "names": [
@@ -3755,7 +4068,8 @@
       "entries": [
         623,
         624
-      ]
+      ],
+      "type": "Great Sword"
     },
     "513": {
       "names": [
@@ -3765,27 +4079,30 @@
       "entries": [
         625,
         626
-      ]
+      ],
+      "type": "Great Sword"
     },
     "463": {
       "names": [
         "Shogun Cutter",
-        "Killer\u2019s Sickle"
+        "Killer’s Sickle"
       ],
       "entries": [
         627,
         628
-      ]
+      ],
+      "type": "Great Sword"
     },
     "512": {
       "names": [
         "Carmine Blade",
-        "Killer\u2019s Carver"
+        "Killer’s Carver"
       ],
       "entries": [
         629,
         630
-      ]
+      ],
+      "type": "Great Sword"
     },
     "394": {
       "names": [
@@ -3797,7 +4114,8 @@
         631,
         632,
         633
-      ]
+      ],
+      "type": "Great Sword"
     },
     "445": {
       "names": [
@@ -3809,7 +4127,8 @@
         634,
         635,
         636
-      ]
+      ],
+      "type": "Long Sword"
     },
     "446": {
       "names": [
@@ -3819,17 +4138,19 @@
       "entries": [
         638,
         639
-      ]
+      ],
+      "type": "Long Sword"
     },
     "473": {
       "names": [
-        "WyvernBlade\u201dSilver\u201d",
-        "WyvrnBlade\u201dCamellia\u201d"
+        "WyvernBlade”Silver”",
+        "WyvrnBlade”Camellia”"
       ],
       "entries": [
         642,
         643
-      ]
+      ],
+      "type": "Long Sword"
     },
     "475": {
       "names": [
@@ -3839,7 +4160,8 @@
       "entries": [
         644,
         645
-      ]
+      ],
+      "type": "Long Sword"
     },
     "541": {
       "names": [
@@ -3851,7 +4173,8 @@
         653,
         654,
         655
-      ]
+      ],
+      "type": "Great Sword"
     },
     "548": {
       "names": [
@@ -3861,7 +4184,8 @@
       "entries": [
         656,
         657
-      ]
+      ],
+      "type": "Great Sword"
     },
     "517": {
       "names": [
@@ -3871,17 +4195,19 @@
       "entries": [
         658,
         659
-      ]
+      ],
+      "type": "Long Sword"
     },
     "448": {
       "names": [
         "Icesteel Blade",
-        "Daora\u2019s Raid"
+        "Daora’s Raid"
       ],
       "entries": [
         661,
         662
-      ]
+      ],
+      "type": "Long Sword"
     },
     "422": {
       "names": [
@@ -3891,7 +4217,8 @@
       "entries": [
         667,
         668
-      ]
+      ],
+      "type": "Long Sword"
     },
     "423": {
       "names": [
@@ -3901,7 +4228,8 @@
       "entries": [
         670,
         671
-      ]
+      ],
+      "type": "Long Sword"
     },
     "444": {
       "names": [
@@ -3911,7 +4239,8 @@
       "entries": [
         672,
         673
-      ]
+      ],
+      "type": "Great Sword"
     },
     "433": {
       "names": [
@@ -3919,7 +4248,8 @@
       ],
       "entries": [
         675
-      ]
+      ],
+      "type": "Great Sword"
     },
     "434": {
       "names": [
@@ -3927,7 +4257,8 @@
       ],
       "entries": [
         676
-      ]
+      ],
+      "type": "Long Sword"
     },
     "535": {
       "names": [
@@ -3935,7 +4266,8 @@
       ],
       "entries": [
         731
-      ]
+      ],
+      "type": "Great Sword"
     },
     "538": {
       "names": [
@@ -3943,7 +4275,8 @@
       ],
       "entries": [
         732
-      ]
+      ],
+      "type": "Great Sword"
     },
     "539": {
       "names": [
@@ -3951,7 +4284,8 @@
       ],
       "entries": [
         733
-      ]
+      ],
+      "type": "Great Sword"
     },
     "135": {
       "names": [
@@ -3959,7 +4293,8 @@
       ],
       "entries": [
         734
-      ]
+      ],
+      "type": "Great Sword"
     },
     "453": {
       "names": [
@@ -3969,7 +4304,8 @@
       "entries": [
         735,
         736
-      ]
+      ],
+      "type": "Lance"
     },
     "492": {
       "names": [
@@ -3979,7 +4315,8 @@
       "entries": [
         738,
         739
-      ]
+      ],
+      "type": "Lance"
     },
     "401": {
       "names": [
@@ -3989,7 +4326,8 @@
       "entries": [
         747,
         748
-      ]
+      ],
+      "type": "Gunlance"
     },
     "411": {
       "names": [
@@ -3999,7 +4337,8 @@
       "entries": [
         750,
         751
-      ]
+      ],
+      "type": "Lance"
     },
     "412": {
       "names": [
@@ -4007,7 +4346,8 @@
       ],
       "entries": [
         752
-      ]
+      ],
+      "type": "Lance"
     },
     "498": {
       "names": [
@@ -4017,7 +4357,8 @@
       "entries": [
         753,
         754
-      ]
+      ],
+      "type": "Lance"
     },
     "495": {
       "names": [
@@ -4027,7 +4368,8 @@
       "entries": [
         755,
         756
-      ]
+      ],
+      "type": "Lance"
     },
     "413": {
       "names": [
@@ -4039,7 +4381,8 @@
         757,
         758,
         759
-      ]
+      ],
+      "type": "Gunlance"
     },
     "396": {
       "names": [
@@ -4051,7 +4394,8 @@
         760,
         761,
         762
-      ]
+      ],
+      "type": "Gunlance"
     },
     "526": {
       "names": [
@@ -4061,7 +4405,8 @@
       "entries": [
         768,
         769
-      ]
+      ],
+      "type": "Gunlance"
     },
     "525": {
       "names": [
@@ -4071,7 +4416,8 @@
       "entries": [
         770,
         771
-      ]
+      ],
+      "type": "Lance"
     },
     "524": {
       "names": [
@@ -4081,7 +4427,8 @@
       "entries": [
         772,
         773
-      ]
+      ],
+      "type": "Lance"
     },
     "527": {
       "names": [
@@ -4091,7 +4438,8 @@
       "entries": [
         777,
         778
-      ]
+      ],
+      "type": "Lance"
     },
     "455": {
       "names": [
@@ -4103,7 +4451,8 @@
         780,
         781,
         782
-      ]
+      ],
+      "type": "Gunlance"
     },
     "493": {
       "names": [
@@ -4113,7 +4462,8 @@
       "entries": [
         783,
         784
-      ]
+      ],
+      "type": "Lance"
     },
     "496": {
       "names": [
@@ -4123,7 +4473,8 @@
       "entries": [
         785,
         786
-      ]
+      ],
+      "type": "Gunlance"
     },
     "454": {
       "names": [
@@ -4135,17 +4486,19 @@
         787,
         788,
         789
-      ]
+      ],
+      "type": "Gunlance"
     },
     "494": {
       "names": [
-        "DragonSealer\u201dVirtue\u201d",
-        "DragonSealer\u201dNull\u201d"
+        "DragonSealer”Virtue”",
+        "DragonSealer”Null”"
       ],
       "entries": [
         791,
         792
-      ]
+      ],
+      "type": "Lance"
     },
     "550": {
       "names": [
@@ -4155,7 +4508,8 @@
       "entries": [
         793,
         794
-      ]
+      ],
+      "type": "Lance"
     },
     "543": {
       "names": [
@@ -4167,7 +4521,8 @@
         797,
         798,
         799
-      ]
+      ],
+      "type": "Gunlance"
     },
     "497": {
       "names": [
@@ -4177,7 +4532,8 @@
       "entries": [
         800,
         801
-      ]
+      ],
+      "type": "Lance"
     },
     "426": {
       "names": [
@@ -4187,7 +4543,8 @@
       "entries": [
         806,
         807
-      ]
+      ],
+      "type": "Lance"
     },
     "427": {
       "names": [
@@ -4197,7 +4554,8 @@
       "entries": [
         809,
         810
-      ]
+      ],
+      "type": "Gunlance"
     },
     "437": {
       "names": [
@@ -4205,7 +4563,8 @@
       ],
       "entries": [
         812
-      ]
+      ],
+      "type": "Lance"
     },
     "438": {
       "names": [
@@ -4213,7 +4572,8 @@
       ],
       "entries": [
         813
-      ]
+      ],
+      "type": "Gunlance"
     },
     "534": {
       "names": [
@@ -4221,7 +4581,8 @@
       ],
       "entries": [
         860
-      ]
+      ],
+      "type": "Lance"
     },
     "462": {
       "names": [
@@ -4233,7 +4594,8 @@
         862,
         863,
         864
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "483": {
       "names": [
@@ -4245,17 +4607,19 @@
         865,
         866,
         867
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "476": {
       "names": [
-        "Queen\u2019s Rose",
+        "Queen’s Rose",
         "Royal Rose"
       ],
       "entries": [
         868,
         869
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "408": {
       "names": [
@@ -4263,7 +4627,8 @@
       ],
       "entries": [
         871
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "409": {
       "names": [
@@ -4275,7 +4640,8 @@
         872,
         873,
         874
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "407": {
       "names": [
@@ -4285,7 +4651,8 @@
       "entries": [
         880,
         881
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "478": {
       "names": [
@@ -4295,7 +4662,8 @@
       "entries": [
         882,
         883
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "480": {
       "names": [
@@ -4305,7 +4673,8 @@
       "entries": [
         884,
         885
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "458": {
       "names": [
@@ -4315,7 +4684,8 @@
       "entries": [
         886,
         887
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "481": {
       "names": [
@@ -4325,7 +4695,8 @@
       "entries": [
         890,
         891
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "459": {
       "names": [
@@ -4335,7 +4706,8 @@
       "entries": [
         892,
         893
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "518": {
       "names": [
@@ -4345,7 +4717,8 @@
       "entries": [
         898,
         899
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "456": {
       "names": [
@@ -4357,7 +4730,8 @@
         900,
         901,
         902
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "516": {
       "names": [
@@ -4367,7 +4741,8 @@
       "entries": [
         903,
         904
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "519": {
       "names": [
@@ -4377,7 +4752,8 @@
       "entries": [
         906,
         907
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "477": {
       "names": [
@@ -4389,7 +4765,8 @@
         908,
         909,
         1147
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "395": {
       "names": [
@@ -4401,7 +4778,8 @@
         910,
         911,
         912
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "479": {
       "names": [
@@ -4411,7 +4789,8 @@
       "entries": [
         915,
         916
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "482": {
       "names": [
@@ -4421,7 +4800,8 @@
       "entries": [
         917,
         918
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "544": {
       "names": [
@@ -4433,7 +4813,8 @@
         923,
         924,
         925
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "461": {
       "names": [
@@ -4443,7 +4824,8 @@
       "entries": [
         926,
         927
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "460": {
       "names": [
@@ -4455,7 +4837,8 @@
         929,
         930,
         931
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "428": {
       "names": [
@@ -4465,7 +4848,8 @@
       "entries": [
         936,
         937
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "429": {
       "names": [
@@ -4475,7 +4859,8 @@
       "entries": [
         939,
         940
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "439": {
       "names": [
@@ -4483,7 +4868,8 @@
       ],
       "entries": [
         942
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "440": {
       "names": [
@@ -4491,7 +4877,8 @@
       ],
       "entries": [
         943
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "536": {
       "names": [
@@ -4499,7 +4886,8 @@
       ],
       "entries": [
         1002
-      ]
+      ],
+      "type": "Dual Blades"
     },
     "484": {
       "names": [
@@ -4509,7 +4897,8 @@
       "entries": [
         1003,
         1004
-      ]
+      ],
+      "type": "Hammer"
     },
     "402": {
       "names": [
@@ -4519,7 +4908,8 @@
       "entries": [
         1005,
         1006
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "487": {
       "names": [
@@ -4529,7 +4919,8 @@
       "entries": [
         1010,
         1011
-      ]
+      ],
+      "type": "Hammer"
     },
     "449": {
       "names": [
@@ -4539,7 +4930,8 @@
       "entries": [
         1012,
         1013
-      ]
+      ],
+      "type": "Hammer"
     },
     "521": {
       "names": [
@@ -4549,7 +4941,8 @@
       "entries": [
         1014,
         1015
-      ]
+      ],
+      "type": "Hammer"
     },
     "417": {
       "names": [
@@ -4561,7 +4954,8 @@
         1016,
         1017,
         1107
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "418": {
       "names": [
@@ -4571,7 +4965,8 @@
       "entries": [
         1018,
         1019
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "485": {
       "names": [
@@ -4581,7 +4976,8 @@
       "entries": [
         1021,
         1022
-      ]
+      ],
+      "type": "Hammer"
     },
     "414": {
       "names": [
@@ -4591,7 +4987,8 @@
       "entries": [
         1027,
         1028
-      ]
+      ],
+      "type": "Hammer"
     },
     "398": {
       "names": [
@@ -4603,7 +5000,8 @@
         1030,
         1031,
         1032
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "452": {
       "names": [
@@ -4613,7 +5011,8 @@
       "entries": [
         1034,
         1035
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "486": {
       "names": [
@@ -4623,7 +5022,8 @@
       "entries": [
         1037,
         1038
-      ]
+      ],
+      "type": "Hammer"
     },
     "450": {
       "names": [
@@ -4635,7 +5035,8 @@
         1041,
         1042,
         1043
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "451": {
       "names": [
@@ -4647,7 +5048,8 @@
         1044,
         1045,
         1046
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "523": {
       "names": [
@@ -4657,17 +5059,19 @@
       "entries": [
         1047,
         1048
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "489": {
       "names": [
         "Glass Royale",
-        "Queen\u2019s Flute"
+        "Queen’s Flute"
       ],
       "entries": [
         1049,
         1050
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "520": {
       "names": [
@@ -4677,7 +5081,8 @@
       "entries": [
         1051,
         1052
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "415": {
       "names": [
@@ -4689,7 +5094,8 @@
         1054,
         1055,
         1130
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "416": {
       "names": [
@@ -4699,19 +5105,21 @@
       "entries": [
         1056,
         1057
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "491": {
       "names": [
-        "Hunter\u2019s Horn",
-        "Hunter\u2019s Horn+",
-        "Native\u2019s Horn"
+        "Hunter’s Horn",
+        "Hunter’s Horn+",
+        "Native’s Horn"
       ],
       "entries": [
         1058,
         1059,
         1060
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "522": {
       "names": [
@@ -4721,7 +5129,8 @@
       "entries": [
         1063,
         1064
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "542": {
       "names": [
@@ -4733,7 +5142,8 @@
         1071,
         1072,
         1073
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "490": {
       "names": [
@@ -4743,7 +5153,8 @@
       "entries": [
         1074,
         1075
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "488": {
       "names": [
@@ -4753,7 +5164,8 @@
       "entries": [
         1076,
         1077
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "549": {
       "names": [
@@ -4763,7 +5175,8 @@
       "entries": [
         1078,
         1079
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "424": {
       "names": [
@@ -4773,17 +5186,19 @@
       "entries": [
         1087,
         1088
-      ]
+      ],
+      "type": "Hammer"
     },
     "425": {
       "names": [
         "Hidden Tone",
-        "Demon\u2019s Darkflute"
+        "Demon’s Darkflute"
       ],
       "entries": [
         1090,
         1091
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "435": {
       "names": [
@@ -4791,7 +5206,8 @@
       ],
       "entries": [
         1093
-      ]
+      ],
+      "type": "Hammer"
     },
     "436": {
       "names": [
@@ -4799,7 +5215,8 @@
       ],
       "entries": [
         1094
-      ]
+      ],
+      "type": "Hunting Horn"
     },
     "499": {
       "names": [
@@ -4807,7 +5224,8 @@
       ],
       "entries": [
         1146
-      ]
+      ],
+      "type": "Sword & Shield"
     },
     "11": {
       "names": [
@@ -4816,7 +5234,8 @@
       ],
       "entries": [
         1148
-      ]
+      ],
+      "type": "Bowgun"
     }
   },
   "armor": {
@@ -4883,7 +5302,7 @@
         },
         {
           "names": [
-            "Hunter\u2019s Helm"
+            "Hunter’s Helm"
           ],
           "variants": [
             {
@@ -4897,7 +5316,7 @@
         },
         {
           "names": [
-            "Hunter\u2019s Cap"
+            "Hunter’s Cap"
           ],
           "variants": [
             {
@@ -5771,8 +6190,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Helm U",
-            "Hunter\u2019s Cap U"
+            "Hunter’s Helm U",
+            "Hunter’s Cap U"
           ],
           "variants": [
             {
@@ -6453,8 +6872,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Helm S",
-            "Hunter\u2019s Cap S"
+            "Hunter’s Helm S",
+            "Hunter’s Cap S"
           ],
           "variants": [
             {
@@ -7665,7 +8084,7 @@
         },
         {
           "names": [
-            "Maiden\u2019s Hat"
+            "Maiden’s Hat"
           ],
           "variants": [
             {
@@ -9052,8 +9471,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Mail",
-            "Hunter\u2019s Vest"
+            "Hunter’s Mail",
+            "Hunter’s Vest"
           ],
           "variants": [
             {
@@ -9853,8 +10272,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Mail U",
-            "Hunter\u2019s Vest U"
+            "Hunter’s Mail U",
+            "Hunter’s Vest U"
           ],
           "variants": [
             {
@@ -10556,8 +10975,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Mail S",
-            "Hunter\u2019s Vest S"
+            "Hunter’s Mail S",
+            "Hunter’s Vest S"
           ],
           "variants": [
             {
@@ -11799,7 +12218,7 @@
         },
         {
           "names": [
-            "Maiden\u2019s Vest"
+            "Maiden’s Vest"
           ],
           "variants": [
             {
@@ -13196,8 +13615,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Vambraces",
-            "Hunter\u2019s Guards"
+            "Hunter’s Vambraces",
+            "Hunter’s Guards"
           ],
           "variants": [
             {
@@ -13963,8 +14382,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Vambraces U",
-            "Hunter\u2019s Guards U"
+            "Hunter’s Vambraces U",
+            "Hunter’s Guards U"
           ],
           "variants": [
             {
@@ -14666,8 +15085,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Vambraces S",
-            "Hunter\u2019s Guards S"
+            "Hunter’s Vambraces S",
+            "Hunter’s Guards S"
           ],
           "variants": [
             {
@@ -15893,7 +16312,7 @@
         },
         {
           "names": [
-            "Maiden\u2019s Sleeves"
+            "Maiden’s Sleeves"
           ],
           "variants": [
             {
@@ -17283,8 +17702,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Tasset",
-            "Hunter\u2019s Coat"
+            "Hunter’s Tasset",
+            "Hunter’s Coat"
           ],
           "variants": [
             {
@@ -17987,8 +18406,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Tasset U",
-            "Hunter\u2019s Coat U"
+            "Hunter’s Tasset U",
+            "Hunter’s Coat U"
           ],
           "variants": [
             {
@@ -18678,8 +19097,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Tasset S",
-            "Hunter\u2019s Coat S"
+            "Hunter’s Tasset S",
+            "Hunter’s Coat S"
           ],
           "variants": [
             {
@@ -19897,7 +20316,7 @@
         },
         {
           "names": [
-            "Maiden\u2019s Skirt"
+            "Maiden’s Skirt"
           ],
           "variants": [
             {
@@ -21271,8 +21690,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Greaves",
-            "Hunter\u2019s Leggings"
+            "Hunter’s Greaves",
+            "Hunter’s Leggings"
           ],
           "variants": [
             {
@@ -22025,8 +22444,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Greaves U",
-            "Hunter\u2019s Leggings U"
+            "Hunter’s Greaves U",
+            "Hunter’s Leggings U"
           ],
           "variants": [
             {
@@ -22701,8 +23120,8 @@
         },
         {
           "names": [
-            "Hunter\u2019s Greaves S",
-            "Hunter\u2019s Leggings S"
+            "Hunter’s Greaves S",
+            "Hunter’s Leggings S"
           ],
           "variants": [
             {
@@ -23919,7 +24338,7 @@
         },
         {
           "names": [
-            "Maiden\u2019s Stockings"
+            "Maiden’s Stockings"
           ],
           "variants": [
             {

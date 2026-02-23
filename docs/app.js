@@ -75,11 +75,12 @@
 
     // ── Item Builders ────────────────────────────────────────────────────────
 
-    function buildWeaponItems() {
+    function buildWeaponItems(typeFilter) {
         var items = [];
         for (var modelStr in DATA.weapons) {
             var w = DATA.weapons[modelStr];
-            items.push({ names: w.names, entries: w.entries, model: modelStr });
+            if (typeFilter && w.type !== typeFilter) continue;
+            items.push({ names: w.names, entries: w.entries, model: modelStr, type: w.type || '?' });
         }
         items.sort(function (a, b) {
             return (a.names[0] || '').toLowerCase().localeCompare((b.names[0] || '').toLowerCase());
@@ -406,7 +407,7 @@
     // ── Mode 1: Weapon Transmog ──────────────────────────────────────────────
 
     function renderWeaponMode() {
-        var items = buildWeaponItems();
+        var allItems = buildWeaponItems();
 
         modePanel.innerHTML =
             '<div class="section-title">Weapon Transmog</div>' +
@@ -415,9 +416,10 @@
                 '<div class="selector-col">' +
                     '<div class="selector-label">Source (equipped)</div>' +
                     '<div id="weapon-source"></div>' +
+                    '<label class="toggle-label"><input type="checkbox" id="weapon-show-all" disabled> Show all weapon types</label>' +
                 '</div>' +
                 '<div class="selector-col">' +
-                    '<div class="selector-label">Target (visual)</div>' +
+                    '<div class="selector-label">Target (visual) <span id="weapon-type-badge"></span></div>' +
                     '<div id="weapon-target"></div>' +
                 '</div>' +
             '</div>' +
@@ -425,21 +427,40 @@
                 '<button class="btn btn-primary" id="weapon-generate" disabled>Generate Codes</button>' +
             '</div>';
 
-        var sourceSel, targetSel;
         var sourceItem = null, targetItem = null;
+        var showAll = false;
 
         function checkReady() {
             var btn = document.getElementById('weapon-generate');
             btn.disabled = !(sourceItem && targetItem);
         }
 
-        sourceSel = createSelector(document.getElementById('weapon-source'), items, {
-            onSelect: function (item) { sourceItem = item; checkReady(); }
+        function rebuildTarget() {
+            targetItem = null;
+            var badge = document.getElementById('weapon-type-badge');
+            var typeFilter = (!showAll && sourceItem) ? sourceItem.type : null;
+            badge.textContent = typeFilter ? '— ' + typeFilter : '';
+            var targetItems = typeFilter ? buildWeaponItems(typeFilter) : allItems;
+            createSelector(document.getElementById('weapon-target'), targetItems, {
+                onSelect: function (item) { targetItem = item; checkReady(); }
+            });
+            checkReady();
+        }
+
+        createSelector(document.getElementById('weapon-source'), allItems, {
+            onSelect: function (item) {
+                sourceItem = item;
+                document.getElementById('weapon-show-all').disabled = !item;
+                rebuildTarget();
+            }
         });
 
-        targetSel = createSelector(document.getElementById('weapon-target'), items, {
-            onSelect: function (item) { targetItem = item; checkReady(); }
+        document.getElementById('weapon-show-all').addEventListener('change', function () {
+            showAll = this.checked;
+            rebuildTarget();
         });
+
+        rebuildTarget();
 
         document.getElementById('weapon-generate').addEventListener('click', function () {
             if (!sourceItem || !targetItem) return;
