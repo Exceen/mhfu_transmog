@@ -182,7 +182,7 @@
     }
 
     function formatCheatBlock(title, lines) {
-        return '_C0 ' + title + '\n' + lines.join('\n');
+        return '_C1 ' + title + '\n' + lines.join('\n');
     }
 
     // ── Output Panel ─────────────────────────────────────────────────────────
