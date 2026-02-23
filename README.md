@@ -37,7 +37,7 @@ The stats stay the same as the original equipment, only the visuals change! This
 
 ## Examples
 
-The below cheat code change the Iron Katana (and all of its versions) to the Hellish Slasher (and all of its versions):
+The below cheat code change the Iron Katana (and all of its versions) to the Hellish Slasher/Divine Slasher:
 ```
 _C1 Iron Katana -> Hellish Slasher
 _L 0x101575B8 0x0000008A
@@ -48,7 +48,7 @@ _L 0x1015B590 0x0000008A
 
 The below cheat code changes the Mafumofu armor so that the head slot is invisible and the remaining armor parts are a mix of the blademaster and gunner versions of the Black armor:
 ```
-_C1 Mafumofu -> Black B/G Mixed
+_C1 Mafumofu -> Black BM/G Mixed
 _L 0x20162EB0 0x00000000
 _L 0x20167140 0x00300030
 _L 0x2016B218 0x002E002E
