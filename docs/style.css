@@ -79,6 +79,14 @@ header h1 {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-icon {
+    height: 1.6em;
+    width: auto;
 }
 
 header .subtitle {
