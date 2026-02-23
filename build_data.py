@@ -126,6 +126,14 @@ def fetch_url(url):
         return resp.read().decode("utf-8")
 
 
+def fix_mojibake(s):
+    """Fix double-encoded UTF-8 strings (e.g. 'BrÃ¼nhild' -> 'Brünhild')."""
+    try:
+        return s.encode("latin-1").decode("utf-8")
+    except (UnicodeDecodeError, UnicodeEncodeError):
+        return s
+
+
 def parse_model_number(filename):
     """Extract model number from filename like 'we021.pac' or 'm_hair096.pac'."""
     m = re.search(r"(\d+)\.pac$", filename)
@@ -149,7 +157,7 @@ def scrape_weapons():
         model = parse_model_number(row[0])
         if model is None:
             continue
-        names = [n.strip() for n in row[2].split("|") if n.strip()]
+        names = [fix_mojibake(n.strip()) for n in row[2].split("|") if n.strip()]
         names = [n for n in names if "UNUSED" not in n.upper()]
         if names:
             result[model] = names
@@ -173,7 +181,7 @@ def scrape_armor(slot):
             model = parse_model_number(row[0])
             if model is None:
                 continue
-            names = [n.strip() for n in row[2].split("|") if n.strip()]
+            names = [fix_mojibake(n.strip()) for n in row[2].split("|") if n.strip()]
             names = [n for n in names if "UNUSED" not in n.upper()]
             if names:
                 result[model] = names
@@ -388,8 +396,8 @@ def main():
         "armor": armor,
     }
 
-    with open(OUTPUT_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
     print(f"\nDone! Wrote {OUTPUT_FILE} ({os.path.getsize(OUTPUT_FILE):,} bytes)")
 
