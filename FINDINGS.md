@@ -124,7 +124,8 @@ A pointer table at **0x08975970** stores the base address of each armor table, i
 | +16    | u8   | dragonRes | Dragon resistance |
 | +17    | u8   | iceRes | Ice resistance |
 | +18    | u8   | slots | Decoration slots (0-3) |
-| +19-29 | ...  | (unknown) | |
+| +19    | u8   | pigmentFlag | Pigment support: 0=none, 1/2/3=enabled (tier) |
+| +20-29 | ...  | (unknown) | |
 | +30    | u8   | skill1Id | First skill ID |
 | +31    | u8   | skill1Pts | First skill points |
 | +32-39 | ...  | (more skills) | |
@@ -400,7 +401,80 @@ _L 0x1015B6B0 0x000000F2    ; Entry 701 model 21 -> 242
 
 ---
 
-## 10. Known Pitfalls
+## 10. Armor Pigment Color
+
+### Overview
+MHFU allows players to change the pigment (color) of their armor. The pigment is stored as a **color index** (0–10) per armor slot in the player's character data.
+
+### Color palette
+| Index | Color |
+|-------|-------|
+| 0 | White |
+| 1 | Black |
+| 2 | Red |
+| 3 | Pink |
+| 4 | Orange |
+| 5 | Yellow |
+| 6 | Green |
+| 7 | Jade Green |
+| 8 | Deep Blue |
+| 9 | Blue |
+| 10 | Purple |
+
+### Memory layout
+Five consecutive 4-byte slots store the pigment index for each armor slot:
+
+| Address | Slot |
+|---------|------|
+| **0x090B0250** | Slot 1 |
+| **0x090B0254** | Slot 2 |
+| **0x090B0258** | Slot 3 |
+| **0x090B025C** | Slot 4 |
+| **0x090B0260** | Slot 5 |
+
+Each slot stores the color index as a single byte at offset +0, with bytes +1 through +3 set to `0xFF`.
+
+### Nearby data
+| Address | Content |
+|---------|---------|
+| 0x090B02D0 | `FF FF FF FF 7F 7F 7F 00` — base white/gray reference |
+| 0x090B02E0 | RGB bytes of the active pigment color (derived from index) |
+| 0x090B02E4 | Duplicate of 0x090B02E0 |
+
+### Pigment support flag (byte +19 of armor entry)
+The game checks byte +19 of the **equipped** armor's entry to determine if pigment is supported:
+- **0** = pigment not supported (low-rank / base armor)
+- **1** = pigment supported (special elder dragon S armor)
+- **2** = pigment supported (high-rank S armor)
+- **3** = pigment supported (G-rank X/Z armor)
+
+To enable pigment on armor that doesn't normally support it (e.g., when transmogging to a pigment-supporting target), write `0x02` to byte +19 of the source armor's table entry:
+```
+pigment_flag_addr = entry_addr + 19
+offset = pigment_flag_addr - 0x08800000
+_L 0x0{offset:07X} 0x00000002
+```
+
+### CWCheat format
+Use type 0 (8-bit write) to set the pigment color:
+```
+offset = pigment_address - 0x08800000
+_L 0x0{offset:07X} 0x000000{color_index:02X}
+```
+
+### Example: Set all armor to Black pigment
+```ini
+_C1 Pigment Color: Black
+_L 0x008B0250 0x00000001
+_L 0x008B0254 0x00000001
+_L 0x008B0258 0x00000001
+_L 0x008B025C 0x00000001
+_L 0x008B0260 0x00000001
+```
+
+---
+
+## 11. Known Pitfalls
 
 1. **LEGS table is at pointer index 0**, not index 5. Index 5 contains `0x02030007` (a flag value, not a pointer).
 
@@ -418,7 +492,7 @@ _L 0x1015B6B0 0x000000F2    ; Entry 701 model 21 -> 242
 
 ---
 
-## 11. Scripts
+## 12. Scripts
 
 All scripts are in `/Users/Exceen/Downloads/mhfu_transmog/`:
 

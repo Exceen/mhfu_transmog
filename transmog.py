@@ -21,6 +21,7 @@ SLOT_NAMES = ["head", "chest", "arms", "waist", "legs"]
 SLOT_LABELS = {"head": "Head", "chest": "Chest", "arms": "Arms", "waist": "Waist", "legs": "Legs"}
 PAGE_SIZE = 20
 
+
 # ── ANSI Formatting ───────────────────────────────────────────────────────
 
 BOLD = "\033[1m"
@@ -301,28 +302,22 @@ def gen_universal_invisible_codes(data, slot):
 def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap_gender=False):
     """Generate CWCheat lines for armor transmog.
 
-    Args:
-        force_variant: If set (0 or 1), all source variants use this target variant
-                       instead of pairing by index.
-        swap_gender: If True, swap male/female model IDs so each gender sees
-                     the opposite gender's armor model.
-
-    Returns list of (comment, code) tuples.
+    Returns (model_lines, pigment_lines) — both lists of (comment, code) tuples.
+    model_lines: the model ID overwrites.
+    pigment_lines: byte +19 writes to enable pigment support on source entries.
     """
     table_base = int(data["armor"][slot]["table_base"], 16)
     entry_size = data["armor_entry_size"]
-    lines = []
+    model_lines = []
+    pigment_lines = []
 
-    # Pair source and target variants by index
     src_variants = source_set["variants"]
     if target_set is None:
-        # Invisible: use model (0,0) for all variants
         tgt_variants = [{"model_m": 0, "model_f": 0}] * len(src_variants)
     else:
         tgt_variants = target_set["variants"]
 
     for vi, src_v in enumerate(src_variants):
-        # Get target model
         if force_variant is not None:
             tgt_v = tgt_variants[force_variant]
         else:
@@ -342,9 +337,11 @@ def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap
             else:
                 comment = f"; {SLOT_LABELS[slot]} eid {eid} -> model({target_m},{target_f})"
             code = f"_L 0x2{offset:07X} 0x{value:08X}"
-            lines.append((comment, code))
+            model_lines.append((comment, code))
+            pig_flag_offset = (entry_addr + 19) - CWCHEAT_BASE
+            pigment_lines.append(("", f"_L 0x0{pig_flag_offset:07X} 0x00000002"))
 
-    return lines
+    return model_lines, pigment_lines
 
 
 def gen_weapon_codes(data, source_weapon, target_weapon):
@@ -509,8 +506,8 @@ def armor_slot_flow(data, slot, preset_source_search=None, preset_search=None):
         # Offer gender swap
         swap_gender = select_gender(target)
 
-    lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant, swap_gender=swap_gender)
-    return lines, src_name, tgt_name, is_invisible
+    model_lines, pigment_lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant, swap_gender=swap_gender)
+    return model_lines, pigment_lines, src_name, tgt_name, is_invisible
 
 
 def armor_flow(data):
@@ -530,7 +527,9 @@ def armor_flow(data):
     if result is None:
         return
 
-    lines, src_name, tgt_name, is_invisible = result
+    model_lines, pigment_lines, src_name, tgt_name, is_invisible = result
+    enable_pigment = input(f"\n{bold('Enable pigment color?')} {dim('[y/N] (may not always work, best on S-series armor)')}: ").strip().lower() == "y"
+    lines = model_lines + pigment_lines if enable_pigment else model_lines
     suffix = f" (invisible {SLOT_LABELS[slot].lower()})" if is_invisible else ""
     title = f"Armor Transmog: {src_name} -> {tgt_name}{suffix}"
     block = format_cheat_block(title, lines)
@@ -551,6 +550,8 @@ def armor_set_flow(data):
     if not persistent_search:
         persistent_search = None
 
+    enable_pigment = input(f"Enable pigment color? {dim('[y/N] (may not always work, best on S-series armor)')}: ").strip().lower() == "y"
+
     all_armor_lines = []
     armor_summaries = []
 
@@ -559,7 +560,8 @@ def armor_set_flow(data):
         if result is None:
             print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
-        lines, src_name, tgt_name, is_invisible = result
+        model_lines, pigment_lines, src_name, tgt_name, is_invisible = result
+        lines = model_lines + pigment_lines if enable_pigment else model_lines
         all_armor_lines.extend(lines)
         armor_summaries.append((slot, src_name, tgt_name, is_invisible))
 
