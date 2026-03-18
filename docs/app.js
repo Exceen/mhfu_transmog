@@ -22,6 +22,7 @@
     const outputInfo = document.getElementById('output-info');
     const btnCopy = document.getElementById('btn-copy');
     const btnDownload = document.getElementById('btn-download');
+    const btnNew = document.getElementById('btn-new');
     const loadingOverlay = document.getElementById('loading-overlay');
 
     // ── Data Loading ─────────────────────────────────────────────────────────
@@ -265,6 +266,11 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    });
+
+    btnNew.addEventListener('click', function () {
+        renderMode(currentMode);
+        modePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     // ── Equipment Selector Component ─────────────────────────────────────────
@@ -523,7 +529,10 @@
                     '<div id="armor-target"></div>' +
                 '</div>' +
             '</div>' +
-            '<div id="armor-options"></div>' +
+            '<div id="armor-options">' +
+                '<div class="option-group disabled"><div class="option-group-label">Variant</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>' +
+                '<div class="option-group disabled"><div class="option-group-label">Gender</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>' +
+            '</div>' +
             '<div class="option-group">' +
                 '<label><input type="checkbox" id="armor-pigment"> Enable pigment color <span class="option-detail">(may not always work as expected, seems to work well only on S-series armor)</span></label>' +
             '</div>' +
@@ -541,56 +550,58 @@
             document.getElementById('armor-generate').disabled = !(sourceItem && (targetItem || isInvisible));
         }
 
+        var disabledVariantHtml = '<div class="option-group disabled"><div class="option-group-label">Variant</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>';
+        var disabledGenderHtml = '<div class="option-group disabled"><div class="option-group-label">Gender</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>';
+
         function renderOptions() {
             var optContainer = document.getElementById('armor-options');
-            optContainer.innerHTML = '';
             forceVariant = null;
             swapGender = false;
 
-            if (isInvisible || !targetItem) return;
+            var vHtml = disabledVariantHtml;
+            var gHtml = disabledGenderHtml;
 
-            // Variant prompt
-            if (targetItem.variants && targetItem.variants.length >= 2) {
-                var setNames = targetItem.names || [];
-                var label0 = variantLabel(targetItem.variants[0], 0, setNames);
-                var label1 = variantLabel(targetItem.variants[1], 1, setNames);
+            if (!isInvisible && targetItem) {
+                if (targetItem.variants && targetItem.variants.length >= 2) {
+                    var setNames = targetItem.names || [];
+                    var label0 = variantLabel(targetItem.variants[0], 0, setNames);
+                    var label1 = variantLabel(targetItem.variants[1], 1, setNames);
 
-                var vHtml =
-                    '<div class="option-group">' +
-                        '<div class="option-group-label">Variant</div>' +
-                        '<label><input type="radio" name="variant" value="match" checked> Match armor type <span class="option-detail">(' + escapeHtml(label0) + ' -> ' + escapeHtml(label0) + ', ' + escapeHtml(label1) + ' -> ' + escapeHtml(label1) + ')</span></label>' +
-                        '<label><input type="radio" name="variant" value="0"> ' + escapeHtml(label0) + ' <span class="option-detail">(all pieces)</span></label>' +
-                        '<label><input type="radio" name="variant" value="1"> ' + escapeHtml(label1) + ' <span class="option-detail">(all pieces)</span></label>' +
-                    '</div>';
-                optContainer.innerHTML += vHtml;
+                    vHtml =
+                        '<div class="option-group">' +
+                            '<div class="option-group-label">Variant</div>' +
+                            '<label><input type="radio" name="variant" value="match" checked> Match armor type <span class="option-detail">(' + escapeHtml(label0) + ' -> ' + escapeHtml(label0) + ', ' + escapeHtml(label1) + ' -> ' + escapeHtml(label1) + ')</span></label>' +
+                            '<label><input type="radio" name="variant" value="0"> ' + escapeHtml(label0) + ' <span class="option-detail">(all pieces)</span></label>' +
+                            '<label><input type="radio" name="variant" value="1"> ' + escapeHtml(label1) + ' <span class="option-detail">(all pieces)</span></label>' +
+                        '</div>';
+                }
 
-                var radios = optContainer.querySelectorAll('input[name="variant"]');
-                for (var i = 0; i < radios.length; i++) {
-                    radios[i].addEventListener('change', function () {
-                        if (this.value === 'match') forceVariant = null;
-                        else forceVariant = parseInt(this.value);
-                    });
+                if (hasGenderDiff(targetItem)) {
+                    gHtml =
+                        '<div class="option-group">' +
+                            '<div class="option-group-label">Gender</div>' +
+                            '<label><input type="radio" name="gender" value="default" checked> Default</label>' +
+                            '<label><input type="radio" name="gender" value="swap"> Opposite gender model</label>' +
+                        '</div>';
                 }
             }
 
-            // Gender prompt
-            if (hasGenderDiff(targetItem)) {
-                var gHtml =
-                    '<div class="option-group">' +
-                        '<div class="option-group-label">Gender</div>' +
-                        '<label><input type="radio" name="gender" value="default" checked> Default</label>' +
-                        '<label><input type="radio" name="gender" value="swap"> Opposite gender model</label>' +
-                    '</div>';
-                optContainer.innerHTML += gHtml;
+            optContainer.innerHTML = vHtml + gHtml;
 
-                var gradios = optContainer.querySelectorAll('input[name="gender"]');
-                for (var j = 0; j < gradios.length; j++) {
-                    gradios[j].addEventListener('change', function () {
-                        swapGender = this.value === 'swap';
-                    });
-                }
+            // Wire up radios if active
+            var variantRadios = optContainer.querySelectorAll('input[name="variant"]');
+            for (var i = 0; i < variantRadios.length; i++) {
+                variantRadios[i].addEventListener('change', function () {
+                    if (this.value === 'match') forceVariant = null;
+                    else forceVariant = parseInt(this.value);
+                });
             }
-
+            var genderRadios = optContainer.querySelectorAll('input[name="gender"]');
+            for (var j = 0; j < genderRadios.length; j++) {
+                genderRadios[j].addEventListener('change', function () {
+                    swapGender = this.value === 'swap';
+                });
+            }
         }
 
         createSelector(document.getElementById('armor-source'), items, {
@@ -651,7 +662,9 @@
             this.disabled = true;
             document.getElementById('set-source-filter').disabled = true;
             document.getElementById('set-target-filter').disabled = true;
-            runArmorSetWizard(document.getElementById('set-wizard'), sourceFilter, targetFilter);
+            var wizard = document.getElementById('set-wizard');
+            runArmorSetWizard(wizard, sourceFilter, targetFilter);
+            wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     }
 
@@ -778,57 +791,63 @@
                     '<div id="wiz-target"></div>' +
                 '</div>' +
             '</div>' +
-            '<div id="wiz-options"></div>';
+            '<div id="wiz-options">' +
+                '<div class="option-group disabled"><div class="option-group-label">Variant</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>' +
+                '<div class="option-group disabled"><div class="option-group-label">Gender</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>' +
+            '</div>';
+
+        var wizDisabledVariantHtml = '<div class="option-group disabled"><div class="option-group-label">Variant</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>';
+        var wizDisabledGenderHtml = '<div class="option-group disabled"><div class="option-group-label">Gender</div><p class="dim" style="font-size:0.84rem">Select a target armor to configure</p></div>';
 
         function renderOptions() {
             var optContainer = document.getElementById('wiz-options');
             if (!optContainer) return;
-            optContainer.innerHTML = '';
             state.forceVariant = null;
             state.swapGender = false;
 
-            if (state.isInvisible || !state.target) return;
+            var vHtml = wizDisabledVariantHtml;
+            var gHtml = wizDisabledGenderHtml;
 
-            if (state.target.variants && state.target.variants.length >= 2) {
-                var setNames = state.target.names || [];
-                var label0 = variantLabel(state.target.variants[0], 0, setNames);
-                var label1 = variantLabel(state.target.variants[1], 1, setNames);
+            if (!state.isInvisible && state.target) {
+                if (state.target.variants && state.target.variants.length >= 2) {
+                    var setNames = state.target.names || [];
+                    var label0 = variantLabel(state.target.variants[0], 0, setNames);
+                    var label1 = variantLabel(state.target.variants[1], 1, setNames);
 
-                var vHtml =
-                    '<div class="option-group">' +
-                        '<div class="option-group-label">Variant</div>' +
-                        '<label><input type="radio" name="wiz-variant" value="match" checked> Match armor type <span class="option-detail">(' + escapeHtml(label0) + ' -> ' + escapeHtml(label0) + ', ' + escapeHtml(label1) + ' -> ' + escapeHtml(label1) + ')</span></label>' +
-                        '<label><input type="radio" name="wiz-variant" value="0"> ' + escapeHtml(label0) + ' <span class="option-detail">(all pieces)</span></label>' +
-                        '<label><input type="radio" name="wiz-variant" value="1"> ' + escapeHtml(label1) + ' <span class="option-detail">(all pieces)</span></label>' +
-                    '</div>';
-                optContainer.innerHTML += vHtml;
+                    vHtml =
+                        '<div class="option-group">' +
+                            '<div class="option-group-label">Variant</div>' +
+                            '<label><input type="radio" name="wiz-variant" value="match" checked> Match armor type <span class="option-detail">(' + escapeHtml(label0) + ' -> ' + escapeHtml(label0) + ', ' + escapeHtml(label1) + ' -> ' + escapeHtml(label1) + ')</span></label>' +
+                            '<label><input type="radio" name="wiz-variant" value="0"> ' + escapeHtml(label0) + ' <span class="option-detail">(all pieces)</span></label>' +
+                            '<label><input type="radio" name="wiz-variant" value="1"> ' + escapeHtml(label1) + ' <span class="option-detail">(all pieces)</span></label>' +
+                        '</div>';
+                }
 
-                var radios = optContainer.querySelectorAll('input[name="wiz-variant"]');
-                for (var i = 0; i < radios.length; i++) {
-                    radios[i].addEventListener('change', function () {
-                        if (this.value === 'match') state.forceVariant = null;
-                        else state.forceVariant = parseInt(this.value);
-                    });
+                if (hasGenderDiff(state.target)) {
+                    gHtml =
+                        '<div class="option-group">' +
+                            '<div class="option-group-label">Gender</div>' +
+                            '<label><input type="radio" name="wiz-gender" value="default" checked> Default</label>' +
+                            '<label><input type="radio" name="wiz-gender" value="swap"> Opposite gender model</label>' +
+                        '</div>';
                 }
             }
 
-            if (hasGenderDiff(state.target)) {
-                var gHtml =
-                    '<div class="option-group">' +
-                        '<div class="option-group-label">Gender</div>' +
-                        '<label><input type="radio" name="wiz-gender" value="default" checked> Default</label>' +
-                        '<label><input type="radio" name="wiz-gender" value="swap"> Opposite gender model</label>' +
-                    '</div>';
-                optContainer.innerHTML += gHtml;
+            optContainer.innerHTML = vHtml + gHtml;
 
-                var gradios = optContainer.querySelectorAll('input[name="wiz-gender"]');
-                for (var j = 0; j < gradios.length; j++) {
-                    gradios[j].addEventListener('change', function () {
-                        state.swapGender = this.value === 'swap';
-                    });
-                }
+            var variantRadios = optContainer.querySelectorAll('input[name="wiz-variant"]');
+            for (var i = 0; i < variantRadios.length; i++) {
+                variantRadios[i].addEventListener('change', function () {
+                    if (this.value === 'match') state.forceVariant = null;
+                    else state.forceVariant = parseInt(this.value);
+                });
             }
-
+            var genderRadios = optContainer.querySelectorAll('input[name="wiz-gender"]');
+            for (var j = 0; j < genderRadios.length; j++) {
+                genderRadios[j].addEventListener('change', function () {
+                    state.swapGender = this.value === 'swap';
+                });
+            }
         }
 
         createSelector(document.getElementById('wiz-source'), items, {
