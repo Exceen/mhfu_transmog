@@ -576,13 +576,15 @@
                 '</div></div>' +
                 '<div class="howto-step"><span class="step-num">5</span><div>' +
                     '<div class="howto-title">Example needed?</div>' +
-                    '<p>Wear the Mafumofu set and a Bone Katana, look like the Black set with a Hellish Slasher.</p>' +
+                    '<p>Wear the Mafumofu set and an Iron Katana, look like the Black set (mixed blademaster and gunner variants) with an invisible helmet and the Hellish Slasher.</p>' +
+                    '<img class="example-gif" src="transmog.gif" width="480" height="272" alt="Transmog in action: equipment changing its look in-game">' +
                     '<div class="btn-row"><button class="btn btn-primary" id="example-toggle" aria-expanded="false" aria-controls="example-codes">Show example codes</button></div>' +
                     '<pre class="example-code hidden" id="example-codes">' +
-                        '<span class="line-title">_C1 Weapon Transmog: Bone Katana -> Hellish Slasher</span>\n' +
-                        '_L 0x10157948 0x0000008A\n' +
-                        '_L 0x10157948 0x0000008A\n' +
-                        '_L 0x10157948 0x0000008A\n\n' +
+                        '<span class="line-title">_C1 Weapon Transmog: Iron Katana -> Hellish Slasher</span>\n' +
+                        '_L 0x101575B8 0x0000008A\n' +
+                        '_L 0x101575D0 0x0000008A\n' +
+                        '_L 0x101575E8 0x0000008A\n' +
+                        '_L 0x1015B590 0x0000008A\n\n' +
                         '<span class="line-title">_C1 Armor Transmog: Mafumofu -> Black Mixed</span>\n' +
                         '_L 0x20162EB0 0x00000000\n' +
                         '_L 0x20167140 0x00300030\n' +
