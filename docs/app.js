@@ -599,7 +599,7 @@
                 '<div class="online-card">' +
                     '<div class="online-card-title">Where the codes go</div>' +
                     '<ul>' +
-                        '<li><b>PPSSPP:</b> enable cheats in the settings, then paste into the cheats file (.ini). You can use the in-game cheat menu to edit it (start the game, go into the menu -> cheats -> edit cheat file). Reload the cheats but opening the cheats list or simply restart PPSSPP if you have any troubles.</li>' +
+                        '<li><b>PPSSPP:</b> enable cheats in the settings, then paste into the cheats file (.ini). You can use the in-game cheat menu to edit it (start the game, go into the menu -> cheats -> edit cheat file). Reload the cheats by opening the cheats list or simply restart PPSSPP if you have any troubles.</li>' +
                         '<li><b>Real PSP:</b> add them to your CWCheat plugin\'s cheat file (.db): CWCheat only accepts ~30 lines per cheat, so long codes are split into parts (<code>1/4</code>, <code>2/4</code>, ...). Enable <b>all</b> parts. You can also use other cheat plugins like TempAR.</li>' +
                     '</ul>' +
                 '</div>' +
