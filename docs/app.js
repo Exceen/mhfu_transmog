@@ -643,18 +643,43 @@
 
     // ── Mode 1: Weapon Transmog ──────────────────────────────────────────────
 
-    function renderWeaponMode() {
-        var allItems = buildWeaponItems();
+    // Order as in the game. Gunner weapons (bowguns, bows) are not in the data.
+    var WEAPON_TYPES = ['Great Sword', 'Long Sword', 'Sword & Shield', 'Dual Blades',
+        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance'];
 
+    function renderWeaponMode() {
         modePanel.innerHTML =
             '<div class="section-title">Weapon Transmog</div>' +
-            '<p class="hint">Select the weapon you have equipped (source) and the weapon whose appearance you want (target). ' +
-            'Targets are limited to the same weapon type, since other types would break the animations.</p>' +
+            '<p class="hint">Pick a weapon type, then select the weapon you have equipped (source) and the weapon whose appearance you want (target). ' +
+            'Targets are limited to the same weapon type, since other types would break the animations. Bowguns and bows are not supported yet.</p>' +
+            '<div class="slot-picker" id="weapon-type-picker"></div>' +
+            '<div id="weapon-content"></div>';
+
+        var picker = document.getElementById('weapon-type-picker');
+        picker.innerHTML = WEAPON_TYPES.filter(function (t) { return buildWeaponItems(t).length > 0; }).map(function (t) {
+            return '<button class="slot-btn" data-type="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
+        }).join('');
+
+        picker.addEventListener('click', function (e) {
+            var btn = e.target.closest('.slot-btn');
+            if (!btn) return;
+            var allBtns = picker.querySelectorAll('.slot-btn');
+            for (var j = 0; j < allBtns.length; j++) allBtns[j].classList.remove('active');
+            btn.classList.add('active');
+            hideOutput();
+            renderWeaponTypeFlow(document.getElementById('weapon-content'), btn.getAttribute('data-type'));
+        });
+    }
+
+    function renderWeaponTypeFlow(container, type) {
+        var typeItems = buildWeaponItems(type);
+
+        container.innerHTML =
             '<div class="selector-row">' +
                 '<div class="selector-col">' +
-                    '<div class="selector-label">Source (equipped)</div>' +
+                    '<div class="selector-label">Source ' + escapeHtml(type) + ' (equipped)</div>' +
                     '<div id="weapon-source"></div>' +
-                    '<label class="toggle-label"><input type="checkbox" id="weapon-show-all" disabled> Show all weapon types</label>' +
+                    '<label class="toggle-label"><input type="checkbox" id="weapon-show-all"> Show all weapon types as targets</label>' +
                 '</div>' +
                 '<div class="selector-col">' +
                     '<div class="selector-label">Target (visual) <span id="weapon-type-badge"></span></div>' +
@@ -674,20 +699,15 @@
 
         function rebuildTarget() {
             targetItem = null;
-            var typeFilter = (!showAll && sourceItem) ? sourceItem.type : null;
-            document.getElementById('weapon-type-badge').textContent = typeFilter ? '— ' + typeFilter : '';
-            createSelector(document.getElementById('weapon-target'), typeFilter ? buildWeaponItems(typeFilter) : allItems, {
+            document.getElementById('weapon-type-badge').textContent = showAll ? '' : '— ' + type;
+            createSelector(document.getElementById('weapon-target'), showAll ? buildWeaponItems() : typeItems, {
                 onSelect: function (item) { targetItem = item; checkReady(); }
             });
             checkReady();
         }
 
-        createSelector(document.getElementById('weapon-source'), allItems, {
-            onSelect: function (item) {
-                sourceItem = item;
-                document.getElementById('weapon-show-all').disabled = !item;
-                rebuildTarget();
-            }
+        createSelector(document.getElementById('weapon-source'), typeItems, {
+            onSelect: function (item) { sourceItem = item; checkReady(); }
         });
 
         document.getElementById('weapon-show-all').addEventListener('change', function () {

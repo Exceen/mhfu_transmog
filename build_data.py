@@ -41,6 +41,8 @@ RAM_OFFSET = 0x48
 WEAPON_TABLE_BASE = 0x089574E8
 WEAPON_ENTRY_SIZE = 24
 WEAPON_MODEL_OFFSET = 16
+# Gunner weapons (bowguns, bows) are in a separate table right after it, not supported yet
+GUNNER_TABLE_BASE = 0x0895E098
 
 # Armor tables (40-byte entries), ordered by address for gap calculation
 ARMOR_ENTRY_SIZE = 40
@@ -103,8 +105,6 @@ for _m in [2, 6, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64,
 for _m in [182, 233, 278, 279, 280, 281, 282, 283, 284, 285, 286, 344, 345, 346, 347, 373,
            374, 396, 401, 413, 427, 438, 454, 455, 496, 526, 543]:
     WEAPON_TYPES[_m] = "Gunlance"
-for _m in [11]:
-    WEAPON_TYPES[_m] = "Bowgun"
 
 
 # ── HTML Parsing ────────────────────────────────────────────────────────────
@@ -269,7 +269,7 @@ def extract_weapons(ram):
     by_model = {}
     for i in range(2000):
         o = base + i * WEAPON_ENTRY_SIZE
-        if o + WEAPON_ENTRY_SIZE > len(ram):
+        if o + WEAPON_ENTRY_SIZE > len(ram) or o + WEAPON_ENTRY_SIZE > off(GUNNER_TABLE_BASE):
             break
         model = r_u16(ram, o + WEAPON_MODEL_OFFSET)
         atk = r_u16(ram, o + 2)
