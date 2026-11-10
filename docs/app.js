@@ -57,10 +57,28 @@
         } catch (err) {
             INGAME = null; // the In-Game Picker tab explains that the code is missing
         }
+        showVersion();
         loadingOverlay.classList.add('hidden');
         initModeTabs();
         initFormatToggle();
         renderMode('instructions');
+    }
+
+    // Header badge: the highest version of the picker and multiplayer codes (they are versioned together)
+    function showVersion() {
+        const versions = [ONLINE, INGAME]
+            .flatMap(d => (d && d.cheats ? Object.values(d.cheats) : []))
+            .map(c => c.version)
+            .filter(Boolean);
+        if (!versions.length) return;
+        const num = v => v.split('.').map(Number);
+        const latest = versions.reduce((a, b) => {
+            const [x, y] = [num(a), num(b)];
+            return (x[0] - y[0] || x[1] - y[1]) >= 0 ? a : b;
+        });
+        const el = document.getElementById('site-version');
+        el.textContent = 'v' + latest;
+        el.classList.remove('hidden');
     }
 
     // ── Utility ──────────────────────────────────────────────────────────────

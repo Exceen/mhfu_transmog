@@ -103,6 +103,17 @@ header h1 {
     color: var(--text-dim);
 }
 
+.version-tag {
+    margin: 0.3em 0 0 -4px;     /* sits on the title's baseline */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-dim);
+}
+
 /* ── Step numbers (instructions) ─────────────────────────── */
 
 .step-num {
@@ -1108,6 +1119,10 @@ footer .copyright {
     }
     header h1 {
         font-size: 1.4rem;
+    }
+    .version-tag {
+        margin-top: 0.3em;
+        font-size: 1rem;
     }
     main {
         padding: 20px;
