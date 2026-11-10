@@ -218,31 +218,6 @@ main {
     font-weight: 500;
 }
 
-.toggle-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    cursor: pointer;
-    margin-top: 14px;
-    transition: color var(--transition);
-}
-.toggle-label:hover {
-    color: var(--text);
-}
-.toggle-label:has(input:disabled) {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
-}
-.toggle-label input[type="checkbox"] {
-    accent-color: var(--accent);
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
-
 .search-input {
     width: 100%;
     padding: 10px 14px;
@@ -356,7 +331,8 @@ main {
 }
 
 .slot-btn {
-    padding: 9px 20px;
+    flex: 1 1 auto;
+    padding: 6px 18px;
     background: var(--bg-card);
     color: var(--text);
     border: 1px solid var(--border);
@@ -370,6 +346,13 @@ main {
     border-color: var(--border-strong);
     background: var(--bg-card-hover);
     color: var(--text-bright);
+}
+.slot-btn .slot-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+    image-rendering: pixelated;
 }
 .slot-btn.active {
     background: var(--accent);
@@ -471,17 +454,6 @@ main {
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
-}
-
-.btn-secondary {
-    background: var(--bg-card);
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-.btn-secondary:hover {
-    border-color: var(--border-strong);
-    background: var(--bg-card-hover);
-    color: var(--text-bright);
 }
 
 .btn-skip {

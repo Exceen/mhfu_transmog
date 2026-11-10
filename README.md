@@ -1,6 +1,6 @@
 # MHFU Transmog
 
-**Fashion hunting.** Change how your weapons and armor look in Monster Hunter Freedom Unite without touching their stats, solo and online.
+**Fashion hunting is here.** Change how your weapons and armor look in Monster Hunter Freedom Unite without touching their stats, solo and online.
 
 ## 👉 [Open the Transmog Generator](https://exceen.github.io/mhfu_transmog/)
 
@@ -38,10 +38,11 @@ See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation: m
 
 ## Development
 
-The website (`docs/`) reads two committed files, which the GitHub Pages workflow copies into `docs/` on deploy. To test locally, copy them yourself and start a web server:
+The website (`docs/`) reads two committed files and the weapon and armor slot icons (`images/w_*.png`, `images/a_*.png`), which the GitHub Pages workflow copies into `docs/` on deploy. To test locally, copy them yourself and start a web server:
 
 ```bash
 cp transmog_data.json online_codes.json docs/
+mkdir -p docs/images && cp images/w_*.png images/a_*.png docs/images/
 cd docs && python3 -m http.server 8000
 ```
 
@@ -53,6 +54,5 @@ python3 online/build.py   # needs armips on PATH
 
 **Equipment data** (`transmog_data.json`). Only needed if FUComplete changes its equipment tables:
 
-1. Place your FUComplete MHFU ISO in `data/` and run `python3 extract_iso.py`.
-2. Launch the game in PPSSPP and create a save state (slot 0).
-3. Run `pip install -r requirements.txt` and `python3 build_data.py`. This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads the armor/weapon tables from the save state.
+1. Launch the game in PPSSPP **without** any transmog cheats enabled and create a save state (slot 0).
+2. Run `pip install -r requirements.txt` and `python3 build_data.py` (or `python3 build_data.py <slot>` for another save state slot). This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads the armor/weapon tables from the save state.

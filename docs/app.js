@@ -16,6 +16,7 @@
     let currentMode = 'instructions';
     let outputBlocks = [];   // [{title, lines}]
     let outputRaw = '';
+    let outputNote = null;   // string, or function(format) -> string
     let outputFormat = readFormat();
 
     // ── DOM refs ─────────────────────────────────────────────────────────────
@@ -39,7 +40,7 @@
             if (!resp.ok) throw new Error('Failed to load transmog_data.json');
             DATA = await resp.json();
         } catch (err) {
-            loadingOverlay.innerHTML = '<p style="color:var(--red)">Failed to load equipment data. Make sure transmog_data.json is in the same folder.</p>';
+            loadingOverlay.innerHTML = '<p style="color:var(--red)">Failed to load equipment data. Please reload the page.</p>';
             return;
         }
         try {
@@ -103,7 +104,7 @@
         for (var modelStr in DATA.weapons) {
             var w = DATA.weapons[modelStr];
             if (typeFilter && w.type !== typeFilter) continue;
-            items.push({ names: w.names, entries: w.entries, model: modelStr, type: w.type || '?' });
+            items.push({ names: w.names, entries: w.entries, model: modelStr, type: w.type || '?', gunner: !!w.gunner });
         }
         items.sort(function (a, b) {
             return (a.names[0] || '').toLowerCase().localeCompare((b.names[0] || '').toLowerCase());
@@ -125,9 +126,11 @@
     // ── Code Generation ──────────────────────────────────────────────────────
 
     function genWeaponCodes(sourceWeapon, targetWeapon) {
-        var weaponBase = parseInt(DATA.weapon_table_base, 16);
-        var entrySize = DATA.weapon_entry_size;
-        var modelOffset = DATA.weapon_model_offset;
+        // Bowguns and bows have their own table (entries = equipment IDs).
+        var gunner = sourceWeapon.gunner;
+        var weaponBase = parseInt(gunner ? DATA.gunner_table_base : DATA.weapon_table_base, 16);
+        var entrySize = gunner ? DATA.gunner_entry_size : DATA.weapon_entry_size;
+        var modelOffset = gunner ? DATA.gunner_model_offset : DATA.weapon_model_offset;
         var targetModel = parseInt(targetWeapon.model);
         var lines = [];
         for (var i = 0; i < sourceWeapon.entries.length; i++) {
@@ -223,7 +226,7 @@
     function showOutput(blocks, summary, note) {
         outputBlocks = blocks;
         outputSummary.textContent = summary || '';
-        outputPanel.dataset.note = note || '';
+        outputNote = note || null;
         outputPanel.classList.remove('hidden');
         renderOutput();
         outputPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -255,7 +258,7 @@
         }
         outputInfo.textContent = info;
 
-        var note = outputPanel.dataset.note;
+        var note = typeof outputNote === 'function' ? outputNote(outputFormat) : outputNote;
         var noteEl = document.getElementById('output-note');
         noteEl.innerHTML = note || '';
         noteEl.classList.toggle('hidden', !note);
@@ -550,33 +553,28 @@
 
             '<div class="howto">' +
                 '<div class="howto-step"><span class="step-num">1</span><div>' +
-                    '<div class="howto-title">Playing with others? Add the Multiplayer codes once</div>' +
-                    '<p>Open the <a href="#" data-goto="online">Multiplayer</a> tab and add those codes next to your transmog codes. ' +
-                    'They send your look to other players and show you theirs. Players without them simply see your real equipment.</p>' +
-                '</div></div>' +
-                '<div class="howto-step"><span class="step-num">2</span><div>' +
                     '<div class="howto-title">Generate your transmog</div>' +
                     '<p>Pick a tab: <a href="#" data-goto="weapon">Weapon</a>, ' +
                     '<a href="#" data-goto="armor-slot">Armor (Single Slot)</a>, <a href="#" data-goto="armor-set">Armor (Set)</a> ' +
                     'or <a href="#" data-goto="universal-invisible">Universal Invisible</a>. Choose the gear you have equipped ' +
                     '(<i>source</i>) and the gear whose look you want (<i>target</i>), then generate the codes.</p>' +
                 '</div></div>' +
-                '<div class="howto-step"><span class="step-num">3</span><div>' +
+                '<div class="howto-step"><span class="step-num">2</span><div>' +
                     '<div class="howto-title">Add the codes and re-equip</div>' +
                     '<p>Copy the codes into your cheat file (see below), make sure to have them enabled, then unequip and re-equip the gear. ' +
                     'The game only loads the new look when the gear is changed or re-equipped.</p>' +
                     '<p>The idea is to generate codes that transform your whole equipment to a different look. You like two specific looks and ' +
                     'want to swap between them? Generate one code per look for the same equipped gear, then disable one, enable the other and re-equip!</p>' +
                 '</div></div>' +
-                '<div class="howto-step"><span class="step-num">4</span><div>' +
+                '<div class="howto-step"><span class="step-num">3</span><div>' +
                     '<div class="howto-title">Your save data stays untouched</div>' +
-                    '<p>Your save data is never touched: your equipment, stats and items are saved exactly as they are. ' +
+                    '<p>Your equipment, stats and items are saved exactly as they are. ' +
                     'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running. ' +
                     'Disable them and restart the game, and everything looks like before.</p>' +
                 '</div></div>' +
-                '<div class="howto-step"><span class="step-num">5</span><div>' +
+                '<div class="howto-step"><span class="step-num">4</span><div>' +
                     '<div class="howto-title">Example needed?</div>' +
-                    '<p>Wear the Mafumofu set and an Iron Katana, look like the Black set (mixed blademaster and gunner variants) with an invisible helmet and the Hellish Slasher.</p>' +
+                    '<p>You wear the Mafumofu set and an Iron Katana, but want to look like the Black set (mixed Blademaster and Gunner pieces) with an invisible helmet and the Hellish Slasher?</p>' +
                     '<img class="example-gif" src="transmog.gif" width="480" height="272" alt="Transmog in action: equipment changing its look in-game">' +
                     '<div class="btn-row"><button class="btn btn-primary" id="example-toggle" aria-expanded="false" aria-controls="example-codes">Show example codes</button></div>' +
                     '<pre class="example-code hidden" id="example-codes">' +
@@ -615,7 +613,7 @@
                 '<div class="online-card">' +
                     '<div class="online-card-title">Changing or removing a transmog</div>' +
                     '<ul>' +
-                        '<li>To change a look, generate a new code, disable the old code, enable the new code, re-equip.</li>' +
+                        '<li>To change a look, generate a new code for the same equipped gear, disable the old code, enable the new code, re-equip. You can have multiple codes running simultaneously for different gear (look X for armor A & look Y for armor B). Don\'t enable two codes for the same gear at once.</li>' +
                         '<li>To remove it, disable the code and restart the game. Disabling alone doesn\'t undo the change.</li>' +
                     '</ul>' +
                 '</div>' +
@@ -623,8 +621,8 @@
                     '<div class="online-card-title">Requirements</div>' +
                     '<ul>' +
                         '<li>Monster Hunter Freedom Unite. Only tested with the <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> patch v1.4.0; other versions may work but are untested.</li>' +
-                        '<li>Multiplayer: everyone in the room should use the multiplayer codes in order to see each others styles.</li>' +
-                        '<li>Weapons: stay within the same weapon type, other types break the animations.</li>' +
+                        '<li>Multiplayer: everyone in the room should use the multiplayer codes in order to see each other\'s styles.</li>' +
+                        '<li>Weapons can only take the look of another weapon of the same type.</li>' +
                     '</ul>' +
                 '</div>' +
             '</div>' +
@@ -643,21 +641,21 @@
 
     // ── Mode 1: Weapon Transmog ──────────────────────────────────────────────
 
-    // Order as in the game. Gunner weapons (bowguns, bows) are not in the data.
     var WEAPON_TYPES = ['Great Sword', 'Long Sword', 'Sword & Shield', 'Dual Blades',
-        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance'];
+        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance', 'Light Bowgun', 'Heavy Bowgun', 'Bow'];
 
     function renderWeaponMode() {
         modePanel.innerHTML =
             '<div class="section-title">Weapon Transmog</div>' +
             '<p class="hint">Pick a weapon type, then select the weapon you have equipped (source) and the weapon whose appearance you want (target). ' +
-            'Targets are limited to the same weapon type, since other types would break the animations. Bowguns and bows are not supported yet.</p>' +
+            'Targets are always the same weapon type, so a Great Sword stays a Great Sword.</p>' +
             '<div class="slot-picker" id="weapon-type-picker"></div>' +
             '<div id="weapon-content"></div>';
 
         var picker = document.getElementById('weapon-type-picker');
         picker.innerHTML = WEAPON_TYPES.filter(function (t) { return buildWeaponItems(t).length > 0; }).map(function (t) {
-            return '<button class="slot-btn" data-type="' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
+            var icon = 'images/w_' + t.toLowerCase().replace(/[^a-z]/g, '').replace('swordshield', 'swordandshield') + '.png';
+            return '<button class="slot-btn" data-type="' + escapeHtml(t) + '"><img class="slot-icon" src="' + icon + '" alt="">' + escapeHtml(t) + '</button>';
         }).join('');
 
         picker.addEventListener('click', function (e) {
@@ -679,10 +677,9 @@
                 '<div class="selector-col">' +
                     '<div class="selector-label">Source ' + escapeHtml(type) + ' (equipped)</div>' +
                     '<div id="weapon-source"></div>' +
-                    '<label class="toggle-label"><input type="checkbox" id="weapon-show-all"> Show all weapon types as targets</label>' +
                 '</div>' +
                 '<div class="selector-col">' +
-                    '<div class="selector-label">Target (visual) <span id="weapon-type-badge"></span></div>' +
+                    '<div class="selector-label">Target (visual) — ' + escapeHtml(type) + '</div>' +
                     '<div id="weapon-target"></div>' +
                 '</div>' +
             '</div>' +
@@ -691,31 +688,18 @@
             '</div>';
 
         var sourceItem = null, targetItem = null;
-        var showAll = false;
 
         function checkReady() {
             document.getElementById('weapon-generate').disabled = !(sourceItem && targetItem);
         }
 
-        function rebuildTarget() {
-            targetItem = null;
-            document.getElementById('weapon-type-badge').textContent = showAll ? '' : '— ' + type;
-            createSelector(document.getElementById('weapon-target'), showAll ? buildWeaponItems() : typeItems, {
-                onSelect: function (item) { targetItem = item; checkReady(); }
-            });
-            checkReady();
-        }
-
         createSelector(document.getElementById('weapon-source'), typeItems, {
             onSelect: function (item) { sourceItem = item; checkReady(); }
         });
-
-        document.getElementById('weapon-show-all').addEventListener('change', function () {
-            showAll = this.checked;
-            rebuildTarget();
+        createSelector(document.getElementById('weapon-target'), typeItems, {
+            onSelect: function (item) { targetItem = item; checkReady(); }
         });
-
-        rebuildTarget();
+        checkReady();
 
         document.getElementById('weapon-generate').addEventListener('click', function () {
             if (!sourceItem || !targetItem) return;
@@ -743,7 +727,7 @@
     function renderSlotPicker(container, onSelect) {
         var html = '';
         for (var i = 0; i < SLOT_NAMES.length; i++) {
-            html += '<button class="slot-btn" data-slot="' + SLOT_NAMES[i] + '">' + SLOT_LABELS[SLOT_NAMES[i]] + '</button>';
+            html += '<button class="slot-btn" data-slot="' + SLOT_NAMES[i] + '"><img class="slot-icon" src="images/a_' + SLOT_NAMES[i] + '.png" alt="">' + SLOT_LABELS[SLOT_NAMES[i]] + '</button>';
         }
         container.innerHTML = html;
 
@@ -814,7 +798,7 @@
     function renderArmorSetMode() {
         modePanel.innerHTML =
             '<div class="section-title">Armor Transmog (Set)</div>' +
-            '<p class="hint">Set persistent search filters, then select source and target for each armor slot.</p>' +
+            '<p class="hint">Optional: enter a search term for your equipped set and for the look you want. It\'s pre-filled for every slot. Then select source and target for each armor slot.</p>' +
             '<div class="filter-row">' +
                 '<div class="filter-col"><label>Source search filter</label><input type="text" id="set-source-filter" placeholder="e.g. Mafumofu"></div>' +
                 '<div class="filter-col"><label>Target search filter</label><input type="text" id="set-target-filter" placeholder="e.g. Black"></div>' +
@@ -955,7 +939,7 @@
     function renderUniversalInvisibleMode() {
         modePanel.innerHTML =
             '<div class="section-title">Universal Invisible Slot</div>' +
-            '<p class="hint">Makes ALL armor in a slot invisible by writing model 0 to every entry. No matter what armor you equip in this slot, it will be invisible.</p>' +
+            '<p class="hint">Makes every armor piece in the chosen slot invisible, whatever you have equipped there.</p>' +
             '<div class="slot-picker" id="invis-slot-picker"></div>';
 
         renderSlotPicker(document.getElementById('invis-slot-picker'), function (slot) {
@@ -994,7 +978,7 @@
                     '<div class="online-card-title">Setup</div>' +
                     '<ol>' +
                         '<li>Keep your normal transmog codes enabled; these codes send what they set.</li>' +
-                        '<li>Add the Multiplayer codes and restart the game.</li>' +
+                        '<li>Add the Multiplayer codes and enable them. No restart needed.</li>' +
                         '<li>After changing any codes, re-equip and change area (or rejoin) so others get the update.</li>' +
                     '</ol>' +
                 '</div>' +
@@ -1024,8 +1008,11 @@
             var names = [];
             if (armorBox.checked) { blocks.push({ title: armor.title, lines: armor.lines }); names.push('armor'); }
             if (weaponBox.checked) { blocks.push({ title: weapon.title, lines: weapon.lines }); names.push('weapon'); }
-            showOutput(blocks, 'Multiplayer transmog: ' + names.join(' + '),
-                'If you use these codes on a real PSP then the codes are split into multiple blocks because of some limitations. Make sure that every block is enabled!');
+            showOutput(blocks, 'Multiplayer transmog: ' + names.join(' + '), function (fmt) {
+                return fmt === 'psp'
+                    ? 'Real PSP format: CWCheat allows at most 30 lines per cheat, so these codes are split into parts. Enable <b>every</b> part!'
+                    : 'Playing on a real PSP? Select <b>Real PSP</b> above: CWCheat there allows at most 30 lines per cheat, so the codes have to be split into parts.';
+            });
         });
     }
 

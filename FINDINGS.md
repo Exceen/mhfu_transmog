@@ -240,6 +240,17 @@ Game code addresses the same table as `0x089574C8 + eid * 24` with the **model a
 where `eid` is the weapon's equipment ID (as stored in the player's equipment entry). This is the
 same memory: `0x089574E8 + i*24 + 16 = 0x089574C8 + (i+2)*24`, so `eid = entry_index + 2`.
 
+### Gunner weapons (bowguns, bows)
+Bowguns and bows have their own table right after the blademaster table: `0x0895E098 + eid * 28`,
+model as u16 at `+0`, eids 1–353 (eid 0 unused). `getNetWeaponModel` (`0x08851E4C`) uses it when the
+weapon entry's type byte (`+1`) is not 5. Light/Heavy Bowguns and Bows are mixed in this table.
+
+### Weapon class per model
+`0x08975984 + model` is one byte per weapon model (`weXXX.pac`) with the weapon class, in the usual
+order: 0 Great Sword, 1 Heavy Bowgun, 2 Hammer, 3 Lance, 4 Sword & Shield, 5 Light Bowgun,
+6 Dual Blades, 7 Long Sword, 8 Hunting Horn, 9 Gunlance, 10 Bow. Neither weapon table stores a class.
+`build_data.py` reads the types from here (earlier hand-made lists had 74 wrong types).
+
 ---
 
 ## 5. Armor Transmog — How to Generate CWCheat Codes
@@ -507,7 +518,7 @@ _L 0x008B0260 0x00000001
 
 ## 12. Scripts
 
-All scripts are in `/Users/Exceen/Downloads/mhfu_transmog/`:
+These research scripts are in [`archive/`](archive/):
 
 | Script | Purpose |
 |--------|---------|
@@ -523,7 +534,7 @@ All scripts are in `/Users/Exceen/Downloads/mhfu_transmog/`:
 
 ---
 
-## 13. Online Transmog (multiplayer)
+## 13. Multiplayer Transmog
 
 Transmog codes only patch your own tables. Other players draw your hunter from the equipment IDs
 they receive, looked up in their own tables. The online codes (`online/armor.asm`, `online/weapon.asm`,
@@ -545,7 +556,7 @@ Equipment entry (12 bytes, same layout everywhere):
 | Offset | Type | Content |
 |--------|------|---------|
 | +0 | u8 | 1 |
-| +1 | u8 | type2 (0 legs, 1 head, 2 chest, 3 arms, 4 waist, 5 weapon) |
+| +1 | u8 | type2 (0 legs, 1 head, 2 chest, 3 arms, 4 waist, 5 blademaster weapon, 6 gunner weapon) |
 | +2 | u16 | equipment ID (eid) |
 | +4 | u8 | armor: level. weapon: 0 |
 | +5 | u8 | unused (0) |
@@ -571,7 +582,7 @@ fields, then calls the model getters below).
 | `0x08851994` | getLocalArmorModel(base, p): reads your equipped gear |
 | `0x088515D0` | getArmorModel(_, gender, p, eid) |
 | `0x08851CE8` | getNetPigmentFlag(base, player, p): armor table byte +19 of the record's eid (`lbu v0, 0x13(v0)` at `0x08851D64`) |
-| `0x08851E4C` | getNetWeaponModel(base, player): `0x089574C8 + eid*24` (type byte `+0x31` must be 5) |
+| `0x08851E4C` | getNetWeaponModel(base, player): type byte `+0x31` 5 → `0x089574C8 + eid*24`, otherwise gunner table `0x0895E098 + eid*28` |
 | `0x0885CB60` | getArmorEntry(_, type2, eid) |
 | `0x08856C3C` | p → type2 |
 
@@ -589,7 +600,21 @@ All in your own network record only; your equipped gear (and the save file) is n
 | weapon model, 10 bits | bits 0-4: weapon entry `+4` bits 11-15; bits 5-9: bit 7 of each armor entry's level byte (`+4`, slot = bit - 5) | 0 = nothing sent, else model + 1 |
 
 Receiver pigment: off → 0; on → the receiver's own flag if non-zero, else 2 (what the pigment
-enable codes write). Armor models are at most ~341 and weapon models at most 550 in FUComplete v1.4.0.
+enable codes write). Armor models are at most ~341 and weapon models at most 552 in FUComplete v1.4.0.
+The weapon code (since v2.1) sends blademaster (type 5) and gunner (type 6) weapons; v2.0 only type 5.
+
+### Compatibility rules
+
+Many players may run different versions of these codes, so every version must work with every other:
+
+- Never change the meaning of an existing bit; only use free bits for new features.
+- Receivers read only the bits they know, so newer senders never break older receivers.
+- 0 always means "nothing sent": the receiver then falls back to the game's own lookup, so an older
+  sender that lacks a feature simply shows the real gear.
+- The armor and weapon codes keep each other's bits (armor: weapon `+4` bits 0-10; weapon: bits 11-15
+  and the level bytes' bit 7), so any mix of versions of the two codes works.
+- Probably still free: bits 4-6 of each armor entry's level byte (levels seen so far: 4-8; check the
+  maximum before using them), 15 bits in total. Weapon `+4` and the armor `+5` bytes are fully used.
 
 ### Hooks and code caves
 

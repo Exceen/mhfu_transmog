@@ -1,7 +1,9 @@
-; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v1.0 - separate from the armor cheat
+; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v2.1 - separate from the armor cheat
 ;
 ; Works together with the offline weapon transmog cheats, which rewrite weapon model fields.
-; The weapon table as the code indexes it: 0x089574C8 + eid*24, model = u16 at +0.
+; Weapon entry type (+1): 5 = blademaster weapon, 6 = gunner weapon (bowguns, bows).
+; Blademaster table as the code indexes it: 0x089574C8 + eid*24, model = u16 at +0.
+; Gunner table: 0x0895E098 + eid*28, model = u16 at +0. (v2.0 only handled type 5.)
 ;
 ; Sent value, 10 bits: 0 = nothing sent, else model + 1 (models go up to 550).
 ;   bits 0-4: weapon entry +4, bits 11-15 (bits 0-10 belong to the armor cheat)
@@ -18,6 +20,7 @@
 .psp
 
 WEAPON_TABLE        equ 0x089574C8
+GUNNER_TABLE        equ 0x0895E098
 WSEND_HOOK          equ 0x08852B3C
 WRECV_HOOK          equ 0x08851E4C
 
@@ -27,16 +30,27 @@ WRECV_HOOK          equ 0x08851E4C
 ; ---------------------------------------------------------------------------
 ; Sender. Replaces "addiu a0, v1, 0x81 ; addiu a2, zero, 8". v1 = your network record.
 cave_wsend:
-    lbu     t0, 0x31(v1)
+    lbu     t0, 0x31(v1)            ; entry type
     addiu   at, zero, 5
-    bne     t0, at, @@done          ; not a weapon entry
+    beq     t0, at, @@blade
     lhu     t1, 0x32(v1)            ; eid
+    addiu   at, zero, 6
+    bne     t0, at, @@done          ; neither weapon type
+    sll     t2, t1, 3
+    subu    t2, t2, t1
+    sll     t2, t2, 2               ; eid * 28
+    lui     t3, hi(GUNNER_TABLE)
+    addu    t3, t3, t2
+    b       @@model
+    lhu     t2, lo(GUNNER_TABLE)(t3)    ; model (from your patched table)
+@@blade:
     sll     t2, t1, 1
     addu    t2, t2, t1
     sll     t2, t2, 3               ; eid * 24
     lui     t3, hi(WEAPON_TABLE)
     addu    t3, t3, t2
     lhu     t2, lo(WEAPON_TABLE)(t3)    ; model (from your patched table)
+@@model:
     addiu   t2, t2, 1               ; value = model + 1
     sltiu   at, t2, 0x400
     beql    at, zero, @@have
@@ -77,9 +91,10 @@ cave_wrecv:
     sll     v1, v1, 2               ; player * 0x8C
     addu    v1, a0, v1
     addiu   v1, v1, 0x30            ; network record
-    lbu     t0, 0x31(v1)
-    addiu   at, zero, 5
-    bne     t0, at, @@orig
+    lbu     t0, 0x31(v1)            ; entry type
+    addiu   t0, t0, -5
+    sltiu   at, t0, 2               ; 5 (blademaster) or 6 (gunner)
+    beq     at, zero, @@orig
     lhu     t1, 0x34(v1)
     srl     t1, t1, 11              ; bits 0-4
     addiu   t5, v1, 0x40            ; armor level bytes

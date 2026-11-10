@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v1.0
+; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v2.1 (unchanged since v2.0)
 ;
 ; Works together with the offline transmog cheats, which rewrite the model fields of the
 ; armor tables. The sender looks up the model its (patched) table gives for each equipped

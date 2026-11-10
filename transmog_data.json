@@ -2,6 +2,9 @@
   "weapon_table_base": "0x089574E8",
   "weapon_entry_size": 24,
   "weapon_model_offset": 16,
+  "gunner_table_base": "0x0895E098",
+  "gunner_entry_size": 28,
+  "gunner_model_offset": 0,
   "armor_entry_size": 40,
   "weapons": {
     "10": {
@@ -57,7 +60,7 @@
         207,
         640
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "144": {
       "names": [
@@ -152,7 +155,7 @@
         18,
         682
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "251": {
       "names": [
@@ -180,7 +183,7 @@
         21,
         684
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "245": {
       "names": [
@@ -221,7 +224,7 @@
         25,
         692
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "19": {
       "names": [
@@ -260,7 +263,7 @@
         31,
         708
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "20": {
       "names": [
@@ -325,7 +328,7 @@
         39,
         706
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "237": {
       "names": [
@@ -340,7 +343,7 @@
         413,
         711
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "24": {
       "names": [
@@ -420,7 +423,7 @@
         49,
         719
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "229": {
       "names": [
@@ -457,7 +460,7 @@
         110,
         1114
       ],
-      "type": "Great Sword"
+      "type": "Hammer"
     },
     "30": {
       "names": [
@@ -1798,7 +1801,7 @@
         446,
         680
       ],
-      "type": "Sword & Shield"
+      "type": "Great Sword"
     },
     "137": {
       "names": [
@@ -1826,7 +1829,7 @@
         284,
         679
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "258": {
       "names": [
@@ -1900,7 +1903,7 @@
         222,
         1137
       ],
-      "type": "Sword & Shield"
+      "type": "Hammer"
     },
     "113": {
       "names": [
@@ -1939,7 +1942,7 @@
         374,
         648
       ],
-      "type": "Sword & Shield"
+      "type": "Great Sword"
     },
     "118": {
       "names": [
@@ -1952,7 +1955,7 @@
         491,
         700
       ],
-      "type": "Sword & Shield"
+      "type": "Great Sword"
     },
     "119": {
       "names": [
@@ -1965,7 +1968,7 @@
         493,
         726
       ],
-      "type": "Sword & Shield"
+      "type": "Great Sword"
     },
     "122": {
       "names": [
@@ -1989,7 +1992,7 @@
         231,
         1144
       ],
-      "type": "Sword & Shield"
+      "type": "Hammer"
     },
     "124": {
       "names": [
@@ -2192,7 +2195,7 @@
         258,
         683
       ],
-      "type": "Dual Blades"
+      "type": "Great Sword"
     },
     "145": {
       "names": [
@@ -2237,7 +2240,7 @@
         602,
         693
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "248": {
       "names": [
@@ -2252,7 +2255,7 @@
         603,
         694
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "238": {
       "names": [
@@ -2265,7 +2268,7 @@
         414,
         637
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "241": {
       "names": [
@@ -2278,7 +2281,7 @@
         418,
         664
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "153": {
       "names": [
@@ -2306,7 +2309,7 @@
         600,
         691
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "249": {
       "names": [
@@ -2319,7 +2322,7 @@
         385,
         697
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "154": {
       "names": [
@@ -2358,7 +2361,7 @@
         275,
         601
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "157": {
       "names": [
@@ -2380,7 +2383,7 @@
         278,
         641
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "159": {
       "names": [
@@ -2421,7 +2424,7 @@
         412,
         660
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "172": {
       "names": [
@@ -2467,7 +2470,7 @@
         380,
         710
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "161": {
       "names": [
@@ -2741,7 +2744,7 @@
         317,
         818
       ],
-      "type": "Gunlance"
+      "type": "Lance"
     },
     "183": {
       "names": [
@@ -3141,7 +3144,7 @@
         368,
         993
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "252": {
       "names": [
@@ -3154,7 +3157,7 @@
         388,
         613
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "228": {
       "names": [
@@ -3169,7 +3172,7 @@
         389,
         649
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "221": {
       "names": [
@@ -3195,7 +3198,7 @@
         416,
         712
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "235": {
       "names": [
@@ -3208,7 +3211,7 @@
         411,
         646
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "242": {
       "names": [
@@ -3221,7 +3224,7 @@
         419,
         651
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "223": {
       "names": [
@@ -3232,7 +3235,7 @@
         377,
         975
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "230": {
       "names": [
@@ -3343,7 +3346,7 @@
         591,
         592
       ],
-      "type": "Sword & Shield"
+      "type": "Great Sword"
     },
     "173": {
       "names": [
@@ -3415,7 +3418,7 @@
         479,
         695
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "388": {
       "names": [
@@ -3428,7 +3431,7 @@
         481,
         696
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "376": {
       "names": [
@@ -3454,7 +3457,7 @@
         495,
         666
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "378": {
       "names": [
@@ -3504,7 +3507,7 @@
         504,
         829
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "344": {
       "names": [
@@ -3731,7 +3734,7 @@
         553,
         1145
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "380": {
       "names": [
@@ -3744,7 +3747,7 @@
         556,
         935
       ],
-      "type": "Dual Blades"
+      "type": "Sword & Shield"
     },
     "381": {
       "names": [
@@ -3822,7 +3825,7 @@
         571,
         1113
       ],
-      "type": "Hammer"
+      "type": "Hunting Horn"
     },
     "351": {
       "names": [
@@ -3833,7 +3836,7 @@
         568,
         1023
       ],
-      "type": "Hammer"
+      "type": "Hunting Horn"
     },
     "362": {
       "names": [
@@ -3874,7 +3877,7 @@
         583,
         1138
       ],
-      "type": "Hunting Horn"
+      "type": "Hammer"
     },
     "367": {
       "names": [
@@ -3957,7 +3960,7 @@
         595,
         596
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "447": {
       "names": [
@@ -3970,7 +3973,7 @@
         598,
         599
       ],
-      "type": "Sword & Shield"
+      "type": "Long Sword"
     },
     "515": {
       "names": [
@@ -3981,7 +3984,7 @@
         604,
         605
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "468": {
       "names": [
@@ -4014,7 +4017,7 @@
         611,
         612
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "472": {
       "names": [
@@ -4025,7 +4028,7 @@
         615,
         616
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "410": {
       "names": [
@@ -4036,7 +4039,7 @@
         617,
         618
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "469": {
       "names": [
@@ -4069,7 +4072,7 @@
         623,
         624
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "513": {
       "names": [
@@ -4091,7 +4094,7 @@
         627,
         628
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "512": {
       "names": [
@@ -4128,7 +4131,7 @@
         635,
         636
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "446": {
       "names": [
@@ -4174,7 +4177,7 @@
         654,
         655
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "548": {
       "names": [
@@ -4185,7 +4188,7 @@
         656,
         657
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "517": {
       "names": [
@@ -4218,7 +4221,7 @@
         667,
         668
       ],
-      "type": "Long Sword"
+      "type": "Great Sword"
     },
     "423": {
       "names": [
@@ -4267,7 +4270,7 @@
       "entries": [
         731
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "538": {
       "names": [
@@ -4276,7 +4279,7 @@
       "entries": [
         732
       ],
-      "type": "Great Sword"
+      "type": "Long Sword"
     },
     "539": {
       "names": [
@@ -4358,7 +4361,7 @@
         753,
         754
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "495": {
       "names": [
@@ -4382,7 +4385,7 @@
         758,
         759
       ],
-      "type": "Gunlance"
+      "type": "Lance"
     },
     "396": {
       "names": [
@@ -4439,7 +4442,7 @@
         777,
         778
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "455": {
       "names": [
@@ -4509,7 +4512,7 @@
         793,
         794
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "543": {
       "names": [
@@ -4533,7 +4536,7 @@
         800,
         801
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "426": {
       "names": [
@@ -4582,7 +4585,7 @@
       "entries": [
         860
       ],
-      "type": "Lance"
+      "type": "Gunlance"
     },
     "462": {
       "names": [
@@ -4595,7 +4598,7 @@
         863,
         864
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "483": {
       "names": [
@@ -4608,7 +4611,7 @@
         866,
         867
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "476": {
       "names": [
@@ -4685,7 +4688,7 @@
         886,
         887
       ],
-      "type": "Sword & Shield"
+      "type": "Dual Blades"
     },
     "481": {
       "names": [
@@ -4731,7 +4734,7 @@
         901,
         902
       ],
-      "type": "Dual Blades"
+      "type": "Sword & Shield"
     },
     "516": {
       "names": [
@@ -4742,7 +4745,7 @@
         903,
         904
       ],
-      "type": "Dual Blades"
+      "type": "Sword & Shield"
     },
     "519": {
       "names": [
@@ -4849,7 +4852,7 @@
         936,
         937
       ],
-      "type": "Dual Blades"
+      "type": "Sword & Shield"
     },
     "429": {
       "names": [
@@ -4869,7 +4872,7 @@
       "entries": [
         942
       ],
-      "type": "Dual Blades"
+      "type": "Sword & Shield"
     },
     "440": {
       "names": [
@@ -5036,7 +5039,7 @@
         1042,
         1043
       ],
-      "type": "Hunting Horn"
+      "type": "Hammer"
     },
     "451": {
       "names": [
@@ -5082,7 +5085,7 @@
         1051,
         1052
       ],
-      "type": "Hunting Horn"
+      "type": "Hammer"
     },
     "415": {
       "names": [
@@ -5226,6 +5229,1776 @@
         1146
       ],
       "type": "Sword & Shield"
+    },
+    "115": {
+      "names": [
+        "Shooter’s Barrel",
+        "Demonlock",
+        "Island of the Gods",
+        "Island of the Gods G"
+      ],
+      "entries": [
+        1,
+        32,
+        67,
+        208
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "90": {
+      "names": [
+        "Chain Blitz",
+        "Hi Chain Blitz"
+      ],
+      "entries": [
+        2,
+        172
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "199": {
+      "names": [
+        "Shotgun (White)",
+        "Bullet Storm",
+        "Shotgun (White) G"
+      ],
+      "entries": [
+        3,
+        37,
+        210
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "94": {
+      "names": [
+        "Shotgun (Azure)",
+        "Aqua Blade Shower",
+        "Shotgun (Azure) G"
+      ],
+      "entries": [
+        4,
+        38,
+        211
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "95": {
+      "names": [
+        "Shotgun (Green)",
+        "Green Blade Shower",
+        "Shotgun (Emerald) G"
+      ],
+      "entries": [
+        5,
+        39,
+        212
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "96": {
+      "names": [
+        "Shotgun (Blood)",
+        "Crimson Blade Shower",
+        "Shotgun (Blood) G"
+      ],
+      "entries": [
+        6,
+        40,
+        213
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "98": {
+      "names": [
+        "Desert Storm",
+        "Desert Tempest",
+        "Desert Tempest G"
+      ],
+      "entries": [
+        7,
+        41,
+        215
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "200": {
+      "names": [
+        "Sandfall",
+        "Sandfall+",
+        "Sandfall G"
+      ],
+      "entries": [
+        8,
+        42,
+        216
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "97": {
+      "names": [
+        "Maelstrom",
+        "Maelstrom+",
+        "Nebula Storm",
+        "Maelstrom G"
+      ],
+      "entries": [
+        9,
+        43,
+        173,
+        221
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "331": {
+      "names": [
+        "Jade Storm",
+        "Jade Tempest",
+        "Jade Typhoon",
+        "Jade Typhoon G"
+      ],
+      "entries": [
+        10,
+        44,
+        174,
+        222
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "322": {
+      "names": [
+        "Lobster Gun",
+        "King Lobster Gun",
+        "Royal Lobster Gun",
+        "King Lobster Gun G"
+      ],
+      "entries": [
+        11,
+        45,
+        175,
+        223
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "390": {
+      "names": [
+        "Amezari Crossbow",
+        "Amezari Crossbow G"
+      ],
+      "entries": [
+        12,
+        224
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "297": {
+      "names": [
+        "Tail String",
+        "Tail String+",
+        "Tail Catapult",
+        "Tail Launcher"
+      ],
+      "entries": [
+        13,
+        14,
+        46,
+        192
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "197": {
+      "names": [
+        "Kut-Ku Anger",
+        "Kut-Ku Counterattack",
+        "Kut-Ku Counteratk G"
+      ],
+      "entries": [
+        15,
+        180,
+        229
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "198": {
+      "names": [
+        "Kut-Ku Rage",
+        "Kut-Ku Barrage",
+        "Kut-Ku Barrage G"
+      ],
+      "entries": [
+        16,
+        181,
+        230
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "296": {
+      "names": [
+        "Raven Do",
+        "Wolf Do",
+        "Crow Do"
+      ],
+      "entries": [
+        17,
+        47,
+        193
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "217": {
+      "names": [
+        "Angel Parasol",
+        "Angel Parasol G"
+      ],
+      "entries": [
+        18,
+        217
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "208": {
+      "names": [
+        "Sakura Parasol",
+        "Peach Parasol",
+        "Peach Parasol G"
+      ],
+      "entries": [
+        19,
+        48,
+        218
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "382": {
+      "names": [
+        "Tigrex Tank",
+        "Tigrex Wargun",
+        "Tigrex Wargun+"
+      ],
+      "entries": [
+        20,
+        49,
+        205
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "99": {
+      "names": [
+        "Grenade Launcher",
+        "Grenade Launcher+",
+        "Grenade Revolver"
+      ],
+      "entries": [
+        21,
+        50,
+        183
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "100": {
+      "names": [
+        "Titan Launcher",
+        "Titan Launcher+",
+        "Titan Panzer"
+      ],
+      "entries": [
+        22,
+        51,
+        201
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "207": {
+      "names": [
+        "Uranos Grenade",
+        "Chronos Grenade",
+        "Chronos Panzer"
+      ],
+      "entries": [
+        23,
+        52,
+        202
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "92": {
+      "names": [
+        "Valkyrie Fire",
+        "Valkyrie Blaze",
+        "Fierce Moss Green"
+      ],
+      "entries": [
+        24,
+        54,
+        185
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "201": {
+      "names": [
+        "Valkyrie Heart",
+        "Valkyrie Heart+",
+        "Sakura Semi-Auto"
+      ],
+      "entries": [
+        25,
+        55,
+        189
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "93": {
+      "names": [
+        "Spartacus Fire",
+        "Spartacus Blaze",
+        "Fierce Wine Red"
+      ],
+      "entries": [
+        26,
+        57,
+        186
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "202": {
+      "names": [
+        "Spartacus Soul",
+        "Spartacus Soul+",
+        "Azure Semi-Auto"
+      ],
+      "entries": [
+        27,
+        58,
+        190
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "205": {
+      "names": [
+        "Azure Sakura",
+        "Supreme Azure Sakura",
+        "Pollination"
+      ],
+      "entries": [
+        28,
+        61,
+        191
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "368": {
+      "names": [
+        "Felyne Ragdoll",
+        "Felyne Helldoll",
+        "Felyne Helldoll G"
+      ],
+      "entries": [
+        29,
+        64,
+        219
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "391": {
+      "names": [
+        "Melynx Ragdoll",
+        "Melynx Helldoll",
+        "Melynx Helldoll G"
+      ],
+      "entries": [
+        30,
+        65,
+        220
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "152": {
+      "names": [
+        "Black Belt Bowgun",
+        "Expert Bowgun",
+        "Warrior’s Bowgun"
+      ],
+      "entries": [
+        31,
+        66,
+        184
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "295": {
+      "names": [
+        "Blessed Lamp",
+        "Cursed Lamp",
+        "Genie’s Lamp"
+      ],
+      "entries": [
+        33,
+        68,
+        200
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "116": {
+      "names": [
+        "Black Parasol",
+        "Dark Parasol",
+        "Dark Parasol G"
+      ],
+      "entries": [
+        34,
+        69,
+        231
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "11": {
+      "names": [
+        "Great Crossbow Gun",
+        "Crossbow Gun G"
+      ],
+      "entries": [
+        35,
+        209
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "91": {
+      "names": [
+        "Hornet Gun",
+        "Hornet Gun G"
+      ],
+      "entries": [
+        36,
+        214
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "298": {
+      "names": [
+        "Rajang Barrage",
+        "Ten-Thousand Volts"
+      ],
+      "entries": [
+        53,
+        204
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "203": {
+      "names": [
+        "Gold Valkyrie",
+        "Gold Semi-Auto"
+      ],
+      "entries": [
+        56,
+        197
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "204": {
+      "names": [
+        "Silver Spartacus",
+        "Silver Semi-Auto"
+      ],
+      "entries": [
+        59,
+        198
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "218": {
+      "names": [
+        "Crimson Blue",
+        "Promenade"
+      ],
+      "entries": [
+        60,
+        187
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "206": {
+      "names": [
+        "Profusion",
+        "Prosperity"
+      ],
+      "entries": [
+        62,
+        199
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "299": {
+      "names": [
+        "Fire Wrath",
+        "EngravedFireWyvnBow"
+      ],
+      "entries": [
+        63,
+        203
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "101": {
+      "names": [
+        "Bone Shooter",
+        "Great Arbalest+"
+      ],
+      "entries": [
+        70,
+        238
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "103": {
+      "names": [
+        "Rapidcaster",
+        "Rapidcaster G"
+      ],
+      "entries": [
+        71,
+        270
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "212": {
+      "names": [
+        "Monodevilcaster",
+        "Monodevilcaster+",
+        "Monodevilcaster G"
+      ],
+      "entries": [
+        72,
+        94,
+        285
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "211": {
+      "names": [
+        "Duelcaster",
+        "Duelcaster+",
+        "Duelcaster G"
+      ],
+      "entries": [
+        73,
+        95,
+        286
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "104": {
+      "names": [
+        "Quickcaster",
+        "Quickcaster+",
+        "Quick Quiver"
+      ],
+      "entries": [
+        74,
+        96,
+        256
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "109": {
+      "names": [
+        "Injector Cannon",
+        "Injector Cannon G"
+      ],
+      "entries": [
+        75,
+        269
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "110": {
+      "names": [
+        "Flechette Gun",
+        "Honeycomber",
+        "Honeycomber G"
+      ],
+      "entries": [
+        76,
+        97,
+        271
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "341": {
+      "names": [
+        "Ladybug Cannon",
+        "Ladybug Cannon+",
+        "GreatLadybugCannon+"
+      ],
+      "entries": [
+        77,
+        98,
+        249
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "107": {
+      "names": [
+        "Yian Kut-Ku Cannon",
+        "Super Kut-Ku Cannon",
+        "SuperKut-KuCannon G"
+      ],
+      "entries": [
+        78,
+        245,
+        281
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "147": {
+      "names": [
+        "Blue Kut-Ku Cannon",
+        "Mega Kut-Ku Cannon",
+        "Ultra Kut-Ku Cannon",
+        "UltraKut-KuCannon G"
+      ],
+      "entries": [
+        79,
+        99,
+        246,
+        282
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "301": {
+      "names": [
+        "Raven Heirloom",
+        "Wolf Heirloom",
+        "Crow Heirloom"
+      ],
+      "entries": [
+        80,
+        100,
+        252
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "102": {
+      "names": [
+        "Tankmage",
+        "Tankmage+",
+        "Tanksorcerer",
+        "Tanksorcerer G"
+      ],
+      "entries": [
+        81,
+        101,
+        239,
+        272
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "209": {
+      "names": [
+        "Bastionmage",
+        "Blastion Cannon",
+        "Bastionwitch",
+        "Bastionwitch G"
+      ],
+      "entries": [
+        82,
+        102,
+        240,
+        273
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "302": {
+      "names": [
+        "Crab Buster",
+        "Heavy Buster Crab",
+        "Crab Buster G"
+      ],
+      "entries": [
+        83,
+        103,
+        283
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "105": {
+      "names": [
+        "Meteor Cannon",
+        "Meteor Cannon G"
+      ],
+      "entries": [
+        84,
+        276
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "321": {
+      "names": [
+        "Rock Eater",
+        "Earth Eater",
+        "Gaia Eater"
+      ],
+      "entries": [
+        85,
+        105,
+        250
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "383": {
+      "names": [
+        "Tigrex Howl",
+        "Tigrex Skull",
+        "Tigrex Skull+"
+      ],
+      "entries": [
+        86,
+        106,
+        264
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "300": {
+      "names": [
+        "Daora’s Delphinidae",
+        "Daora Grande",
+        "Daora’s Ceti"
+      ],
+      "entries": [
+        87,
+        109,
+        258
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "364": {
+      "names": [
+        "Lunastra’s Cannon",
+        "Lunastra’s Flames",
+        "Lunastra’s Flames G"
+      ],
+      "entries": [
+        88,
+        236,
+        280
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "342": {
+      "names": [
+        "Teostra’s Artillery",
+        "Teostra’s Flames",
+        "Teostra Flamethrower"
+      ],
+      "entries": [
+        89,
+        110,
+        261
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "108": {
+      "names": [
+        "Lao-Shan Lung Cannon",
+        "Supreme Lao-Shan Can",
+        "Lao-ShanLungCannon G"
+      ],
+      "entries": [
+        90,
+        111,
+        287
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "303": {
+      "names": [
+        "Bronze Fire",
+        "Gaoren’s Fire",
+        "Gaoren Orb"
+      ],
+      "entries": [
+        91,
+        113,
+        266
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "546": {
+      "names": [
+        "Black Cannon",
+        "Black Cannon G"
+      ],
+      "entries": [
+        92,
+        277
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "13": {
+      "names": [
+        "Great Arbalest",
+        "Arbalest G"
+      ],
+      "entries": [
+        93,
+        268
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "210": {
+      "names": [
+        "Meteor Buster",
+        "Meteor Shower"
+      ],
+      "entries": [
+        104,
+        248
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "215": {
+      "names": [
+        "Gravios Howl",
+        "Gravios Gigahowl"
+      ],
+      "entries": [
+        107,
+        259
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "142": {
+      "names": [
+        "Gravios Roar",
+        "Gravios Gigaroar"
+      ],
+      "entries": [
+        108,
+        260
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "213": {
+      "names": [
+        "Empr Lao-Shan Cannon",
+        "UltimateLao-ShaoCan"
+      ],
+      "entries": [
+        112,
+        255
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "106": {
+      "names": [
+        "Vor Cannon",
+        "Vor Buster"
+      ],
+      "entries": [
+        114,
+        262
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "214": {
+      "names": [
+        "Destiny’s Hand",
+        "Destiny’s Arm"
+      ],
+      "entries": [
+        115,
+        257
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "304": {
+      "names": [
+        "Hunter’s Bow I",
+        "Hunter’s Bow II",
+        "Hunter’s Bow III",
+        "Hunter’s Bow IV",
+        "Hunter’s Bow G"
+      ],
+      "entries": [
+        116,
+        117,
+        118,
+        119,
+        288
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "121": {
+      "names": [
+        "Hunter’s Power BowI",
+        "Hunter’s Power BowII",
+        "Hunter’s PowerBowIII",
+        "Hunter’s Power BowIV"
+      ],
+      "entries": [
+        120,
+        121,
+        122,
+        289
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "305": {
+      "names": [
+        "Wild Bow I",
+        "Wild Bow II",
+        "Wild Bow III",
+        "Wild Bow IV",
+        "Wild Bow G"
+      ],
+      "entries": [
+        123,
+        124,
+        125,
+        126,
+        294
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "306": {
+      "names": [
+        "Wild Power Bow I",
+        "Wild Power Bow II",
+        "Wild Power Bow G"
+      ],
+      "entries": [
+        127,
+        128,
+        295
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "392": {
+      "names": [
+        "Blango Fur Bow I",
+        "Blango Fur Bow II",
+        "Blango Fur Bow III",
+        "Blango Fur Bow IV",
+        "Blango Fur Bow G"
+      ],
+      "entries": [
+        129,
+        130,
+        131,
+        132,
+        292
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "339": {
+      "names": [
+        "Abominable Bow I",
+        "Abominable Bow II"
+      ],
+      "entries": [
+        133,
+        293
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "337": {
+      "names": [
+        "Kut-Ku Stave I",
+        "Kut-Ku Stave II",
+        "Kut-Ku Stave III",
+        "Kut-Ku Stave G"
+      ],
+      "entries": [
+        134,
+        135,
+        136,
+        298
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "338": {
+      "names": [
+        "Blue Kut-Ku Stave I",
+        "Blue Kut-Ku Stave II",
+        "BlueKut-KuStave III"
+      ],
+      "entries": [
+        137,
+        299,
+        300
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "340": {
+      "names": [
+        "Daimyo’s Warbow I",
+        "Daimyo’s Warbow II",
+        "Daimyo’s Warbow III",
+        "Daimyo’s Warbow IV",
+        "Daimyo’s Warbow G"
+      ],
+      "entries": [
+        138,
+        139,
+        140,
+        141,
+        309
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "309": {
+      "names": [
+        "Sonic Bow I",
+        "Sonic Bow II",
+        "Sonic Bow III",
+        "Sonic Bow IV",
+        "Sonic Bow G"
+      ],
+      "entries": [
+        142,
+        143,
+        144,
+        307,
+        308
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "232": {
+      "names": [
+        "Queen Blaster I",
+        "Queen Blaster II",
+        "Queen Blaster III",
+        "Queen Blaster IV",
+        "Queen Blaster V"
+      ],
+      "entries": [
+        145,
+        146,
+        147,
+        331,
+        332
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "307": {
+      "names": [
+        "Heartshot Bow I",
+        "Heartshot Bow II",
+        "Heartshot Bow III"
+      ],
+      "entries": [
+        148,
+        149,
+        333
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "308": {
+      "names": [
+        "Prominence Bow I",
+        "Prominence Bow II",
+        "Prominence Bow III",
+        "Prominence Bow IV",
+        "Prominence Bow V"
+      ],
+      "entries": [
+        150,
+        151,
+        152,
+        329,
+        330
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "312": {
+      "names": [
+        "Courageous Hope",
+        "Courageous Wish",
+        "Courageous Dream"
+      ],
+      "entries": [
+        153,
+        154,
+        343
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "310": {
+      "names": [
+        "Diablos Horn Bow I",
+        "Diablos Horn Bow II",
+        "Diablos Horn Bow G"
+      ],
+      "entries": [
+        155,
+        156,
+        340
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "384": {
+      "names": [
+        "Tiger Arrow I",
+        "Tiger Arrow II",
+        "Tigrex Whisker",
+        "Tigrex Whisker+"
+      ],
+      "entries": [
+        157,
+        158,
+        159,
+        318
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "333": {
+      "names": [
+        "Dragonhead Harp I",
+        "Dragonhead Harp II",
+        "Dragonhead Harp III"
+      ],
+      "entries": [
+        160,
+        338,
+        339
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "313": {
+      "names": [
+        "Dragon Bow Halo",
+        "Dragon Bow Solar",
+        "Dragon Bow Solar G"
+      ],
+      "entries": [
+        161,
+        162,
+        327
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "311": {
+      "names": [
+        "Dragon Bow Earth",
+        "Dragon Bow Mountain",
+        "Dragon Bow Chaos"
+      ],
+      "entries": [
+        163,
+        164,
+        326
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "385": {
+      "names": [
+        "Akantor Bow",
+        "Akantor Chaos Bow"
+      ],
+      "entries": [
+        165,
+        344
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "314": {
+      "names": [
+        "Exterminator Bow I",
+        "Exterminator Bow II"
+      ],
+      "entries": [
+        166,
+        324
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "315": {
+      "names": [
+        "Glorious Victory I",
+        "Glorious Victory II"
+      ],
+      "entries": [
+        167,
+        325
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "501": {
+      "names": [
+        "Assault Conga",
+        "Assault Conga+",
+        "Combat Conga",
+        "Combat Conga G"
+      ],
+      "entries": [
+        168,
+        170,
+        178,
+        227
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "466": {
+      "names": [
+        "Shakalaka Prized Bow",
+        "Hexed Shaka Bow",
+        "Hexed Shaka Bow G"
+      ],
+      "entries": [
+        169,
+        176,
+        225
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "430": {
+      "names": [
+        "Hidden Gaze",
+        "Owl’s Eye Darkbow"
+      ],
+      "entries": [
+        171,
+        182
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "419": {
+      "names": [
+        "Heartfelt Cast",
+        "Heartfelt Cast G"
+      ],
+      "entries": [
+        177,
+        226
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "530": {
+      "names": [
+        "Jungle Assault",
+        "Jungle Assault G"
+      ],
+      "entries": [
+        179,
+        228
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "502": {
+      "names": [
+        "Shotgun (Snake)"
+      ],
+      "entries": [
+        188
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "500": {
+      "names": [
+        "Lava Storm"
+      ],
+      "entries": [
+        194
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "528": {
+      "names": [
+        "Desert Tail"
+      ],
+      "entries": [
+        195
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "503": {
+      "names": [
+        "Mythical Three-Horn"
+      ],
+      "entries": [
+        196
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "545": {
+      "names": [
+        "Absolute Bow"
+      ],
+      "entries": [
+        206
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "441": {
+      "names": [
+        "Ukanlos Flame Bow"
+      ],
+      "entries": [
+        207
+      ],
+      "gunner": true,
+      "type": "Light Bowgun"
+    },
+    "403": {
+      "names": [
+        "Sand Diver",
+        "Desert Diver",
+        "Desert Diver G"
+      ],
+      "entries": [
+        232,
+        234,
+        274
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "506": {
+      "names": [
+        "Piercing Crab",
+        "Heavy Piercing Crab",
+        "Ceanataur Blaster"
+      ],
+      "entries": [
+        233,
+        235,
+        253
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "431": {
+      "names": [
+        "Hidden Sniper",
+        "Evil Wind Darkcannon"
+      ],
+      "entries": [
+        237,
+        247
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "404": {
+      "names": [
+        "Pressurized Plesioth",
+        "PressurizedPlesiothG"
+      ],
+      "entries": [
+        241,
+        275
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "504": {
+      "names": [
+        "Queen Needle",
+        "Queen Needle G"
+      ],
+      "entries": [
+        242,
+        279
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "405": {
+      "names": [
+        "Power Stinger",
+        "Power Stinger G"
+      ],
+      "entries": [
+        243,
+        278
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "529": {
+      "names": [
+        "Violet Punisher",
+        "Violet Punisher G"
+      ],
+      "entries": [
+        244,
+        284
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "406": {
+      "names": [
+        "Icethrower"
+      ],
+      "entries": [
+        251
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "531": {
+      "names": [
+        "Terra C Blaster"
+      ],
+      "entries": [
+        254
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "505": {
+      "names": [
+        "Dark Duelcaster"
+      ],
+      "entries": [
+        263
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "467": {
+      "names": [
+        "AncientDrgnwoodCan"
+      ],
+      "entries": [
+        265
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "442": {
+      "names": [
+        "Ukanlos Cannon"
+      ],
+      "entries": [
+        267
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "420": {
+      "names": [
+        "Icicle Bow I",
+        "Icicle Bow II"
+      ],
+      "entries": [
+        290,
+        291
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "511": {
+      "names": [
+        "Jungle Bow I",
+        "Jungle Bow II"
+      ],
+      "entries": [
+        296,
+        297
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "510": {
+      "names": [
+        "Wolf Bow",
+        "Crow Bow"
+      ],
+      "entries": [
+        301,
+        302
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "551": {
+      "names": [
+        "Defect Swordfish Bow",
+        "Whole Swordfish Bow",
+        "PerfectSwordfishBow",
+        "Swordfish Bow G"
+      ],
+      "entries": [
+        303,
+        304,
+        305,
+        306
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "532": {
+      "names": [
+        "Grt Purple Emperor I",
+        "GrtPurpleEmperor II"
+      ],
+      "entries": [
+        310,
+        311
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "464": {
+      "names": [
+        "Blue Blade Bow I",
+        "Blue Blade Bow II",
+        "Blue Blade Bow III",
+        "Showroom Model"
+      ],
+      "entries": [
+        312,
+        313,
+        314,
+        315
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "533": {
+      "names": [
+        "Carmine Bow",
+        "Eraser"
+      ],
+      "entries": [
+        316,
+        317
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "432": {
+      "names": [
+        "Hidden Bow",
+        "Midnight Bow"
+      ],
+      "entries": [
+        319,
+        320
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "547": {
+      "names": [
+        "Black Bow I",
+        "Black Bow II",
+        "Black Bow G"
+      ],
+      "entries": [
+        321,
+        322,
+        323
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "509": {
+      "names": [
+        "AncientDragonwoodBow"
+      ],
+      "entries": [
+        328
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "397": {
+      "names": [
+        "Wing Bow I",
+        "Wing Bow II",
+        "Wing Bow III",
+        "Wing Bow IV"
+      ],
+      "entries": [
+        334,
+        335,
+        336,
+        337
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "508": {
+      "names": [
+        "Gale Horn Bow",
+        "DiablosKingHornBow"
+      ],
+      "entries": [
+        341,
+        342
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "443": {
+      "names": [
+        "Ukanlos Bow"
+      ],
+      "entries": [
+        345
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "421": {
+      "names": [
+        "Khezu Bow I",
+        "Khezu Bow II"
+      ],
+      "entries": [
+        346,
+        347
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "457": {
+      "names": [
+        "Beast Thunderbow",
+        "BeastKingThunderbow"
+      ],
+      "entries": [
+        348,
+        349
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "465": {
+      "names": [
+        "Icy Steel Bow",
+        "Daora’s Sagittarii"
+      ],
+      "entries": [
+        350,
+        351
+      ],
+      "gunner": true,
+      "type": "Bow"
+    },
+    "552": {
+      "names": [
+        "Pirate J Cannon"
+      ],
+      "entries": [
+        352
+      ],
+      "gunner": true,
+      "type": "Heavy Bowgun"
+    },
+    "537": {
+      "names": [
+        "Diasorte Arrow"
+      ],
+      "entries": [
+        353
+      ],
+      "gunner": true,
+      "type": "Bow"
     }
   },
   "armor": {

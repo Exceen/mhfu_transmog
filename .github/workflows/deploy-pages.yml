@@ -25,6 +25,8 @@ jobs:
         run: |
           cp transmog_data.json docs/transmog_data.json
           cp online_codes.json docs/online_codes.json
+          mkdir -p docs/images
+          cp images/w_*.png images/a_*.png docs/images/
 
       - uses: actions/configure-pages@v5
 

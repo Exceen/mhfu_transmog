@@ -19,7 +19,7 @@ CHEATS = [
     {
         "id": "armor",
         "title": "Multiplayer Armor Transmog",
-        "version": "1.0",
+        "version": "2.1",
         "src": "armor.asm",
         "bin": "armor.bin",
         "hooks_bin": "armor_hooks.bin",
@@ -30,7 +30,7 @@ CHEATS = [
     {
         "id": "weapon",
         "title": "Multiplayer Weapon Transmog",
-        "version": "1.0",
+        "version": "2.1",
         "src": "weapon.asm",
         "bin": "weapon.bin",
         "hooks_bin": "weapon_hooks.bin",

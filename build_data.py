@@ -13,13 +13,15 @@ import json
 import os
 import re
 import struct
+import sys
 import urllib.request
 from html.parser import HTMLParser
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
 STATE_DIR = os.path.expanduser("~/Documents/PPSSPP/PSP/PPSSPP_STATE")
-STATE_SLOT = 0
+# Use a save state WITHOUT active transmog cheats, otherwise the patched models end up in the data.
+STATE_SLOT = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "transmog_data.json")
 
 FUCOMPLETE_BASE = "https://fucomplete.github.io/files_doc/player"
@@ -41,8 +43,10 @@ RAM_OFFSET = 0x48
 WEAPON_TABLE_BASE = 0x089574E8
 WEAPON_ENTRY_SIZE = 24
 WEAPON_MODEL_OFFSET = 16
-# Gunner weapons (bowguns, bows) are in a separate table right after it, not supported yet
+# Gunner weapons (bowguns, bows): separate table right after it, indexed by equipment ID
 GUNNER_TABLE_BASE = 0x0895E098
+GUNNER_ENTRY_SIZE = 28
+GUNNER_MODEL_OFFSET = 0
 
 # Armor tables (40-byte entries), ordered by address for gap calculation
 ARMOR_ENTRY_SIZE = 40
@@ -68,43 +72,11 @@ ARMOR_MAX_ENTRIES = {
     "legs":  420,
 }
 
-# Weapon model -> type mapping (derived from entry ordering in the weapon table)
-WEAPON_TYPES = {}
-for _m in [4, 5, 8, 9, 10, 12, 14, 17, 18, 19, 20, 21, 22, 24, 25, 26, 29, 135, 138, 144,
-           149, 153, 154, 155, 156, 157, 158, 159, 160, 161, 163, 172, 228, 229, 234, 243,
-           244, 246, 247, 248, 249, 252, 324, 335, 353, 376, 388, 394, 399, 400, 410, 433,
-           444, 463, 468, 469, 470, 471, 472, 474, 512, 513, 514, 515, 535, 538, 539, 541, 548]:
-    WEAPON_TYPES[_m] = "Great Sword"
-for _m in [0, 1, 15, 16, 23, 27, 28, 137, 162, 224, 230, 235, 236, 237, 238, 239, 240, 241,
-           242, 245, 250, 251, 375, 378, 379, 422, 423, 434, 445, 446, 448, 473, 475, 517]:
-    WEAPON_TYPES[_m] = "Long Sword"
-for _m in [7, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
-           89, 111, 112, 114, 117, 118, 119, 123, 136, 139, 141, 143, 150, 164, 165, 166,
-           167, 168, 169, 170, 171, 173, 220, 223, 227, 287, 288, 289, 325, 329, 332, 354,
-           355, 360, 365, 377, 395, 407, 408, 447, 458, 462, 476, 477, 478, 479, 483, 499]:
-    WEAPON_TYPES[_m] = "Sword & Shield"
-for _m in [124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 140, 174, 175, 176, 177,
-           178, 179, 180, 222, 290, 291, 292, 293, 294, 316, 317, 323, 330, 356, 361, 380,
-           381, 393, 409, 428, 429, 439, 440, 456, 459, 460, 461, 480, 481, 482, 516, 518,
-           519, 536, 544]:
-    WEAPON_TYPES[_m] = "Dual Blades"
-for _m in [3, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-           146, 148, 189, 190, 191, 192, 193, 194, 195, 196, 219, 221, 225, 226, 253, 254,
-           255, 256, 257, 258, 259, 260, 318, 319, 320, 326, 327, 334, 336, 350, 351, 362,
-           366, 367, 387, 389, 414, 424, 435, 449, 484, 485, 486, 487, 521]:
-    WEAPON_TYPES[_m] = "Hammer"
-for _m in [231, 261, 262, 263, 264, 265, 266, 267, 268, 269, 348, 349, 352, 363, 369, 370,
-           398, 402, 415, 416, 417, 418, 425, 436, 450, 451, 452, 488, 489, 490, 491, 520,
-           522, 523, 542, 549]:
-    WEAPON_TYPES[_m] = "Hunting Horn"
-for _m in [2, 6, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
-           67, 68, 69, 113, 120, 122, 145, 151, 181, 183, 184, 185, 186, 187, 188, 216, 270,
-           271, 272, 273, 274, 275, 276, 277, 328, 343, 357, 358, 359, 371, 372, 386, 411,
-           412, 426, 437, 453, 492, 493, 494, 495, 497, 498, 524, 525, 527, 534, 550]:
-    WEAPON_TYPES[_m] = "Lance"
-for _m in [182, 233, 278, 279, 280, 281, 282, 283, 284, 285, 286, 344, 345, 346, 347, 373,
-           374, 396, 401, 413, 427, 438, 454, 455, 496, 526, 543]:
-    WEAPON_TYPES[_m] = "Gunlance"
+# Weapon class per model: one byte per model number (weXXX.pac), read by the game itself.
+# Values use the usual Monster Hunter class order.
+WEAPON_CLASS_TABLE = 0x08975984
+WEAPON_CLASSES = ["Great Sword", "Heavy Bowgun", "Hammer", "Lance", "Sword & Shield",
+                  "Light Bowgun", "Dual Blades", "Long Sword", "Hunting Horn", "Gunlance", "Bow"]
 
 
 # ── HTML Parsing ────────────────────────────────────────────────────────────
@@ -281,6 +253,28 @@ def extract_weapons(ram):
     return by_model
 
 
+def extract_gunner_weapons(ram):
+    """Returns {model_id: [equipment IDs]} for bowguns and bows (ID 0 is unused)."""
+    base = off(GUNNER_TABLE_BASE)
+    by_model = {}
+    for eid in range(1, 2000):
+        o = base + eid * GUNNER_ENTRY_SIZE
+        if o + GUNNER_ENTRY_SIZE > len(ram):
+            break
+        model = r_u16(ram, o + GUNNER_MODEL_OFFSET)
+        if model == 0 or model > 1000:
+            break
+        by_model.setdefault(model, []).append(eid)
+    total = sum(len(v) for v in by_model.values())
+    print(f"  Gunner weapon table: {total} entries, {len(by_model)} unique models")
+    return by_model
+
+
+def weapon_class(ram, model):
+    c = r_u8(ram, off(WEAPON_CLASS_TABLE) + model)
+    return WEAPON_CLASSES[c] if c < len(WEAPON_CLASSES) else None
+
+
 def extract_armor(ram, slot):
     """Returns list of (eid, model_m, model_f, flag) tuples for the given slot."""
     base = off(ARMOR_TABLES[slot])
@@ -403,6 +397,7 @@ def main():
     print("[2/3] Reading save state...")
     ram = load_ram()
     weapon_entries = extract_weapons(ram)
+    gunner_entries = extract_gunner_weapons(ram)
     armor_raw = {slot: extract_armor(ram, slot) for slot in ARMOR_TABLES}
     print()
 
@@ -413,8 +408,16 @@ def main():
     for model, indices in weapon_entries.items():
         names = weapon_names.get(model, [f"Unknown Weapon (model {model})"])
         w = {"names": names, "entries": sorted(indices)}
-        if model in WEAPON_TYPES:
-            w["type"] = WEAPON_TYPES[model]
+        cls = weapon_class(ram, model)
+        if cls:
+            w["type"] = cls
+        weapons[str(model)] = w
+    for model, eids in gunner_entries.items():
+        names = weapon_names.get(model, [f"Unknown Weapon (model {model})"])
+        w = {"names": names, "entries": sorted(eids), "gunner": True}
+        cls = weapon_class(ram, model)
+        if cls:
+            w["type"] = cls
         weapons[str(model)] = w
     print(f"  Weapons: {len(weapons)} models")
 
@@ -434,6 +437,9 @@ def main():
         "weapon_table_base": f"0x{WEAPON_TABLE_BASE:08X}",
         "weapon_entry_size": WEAPON_ENTRY_SIZE,
         "weapon_model_offset": WEAPON_MODEL_OFFSET,
+        "gunner_table_base": f"0x{GUNNER_TABLE_BASE:08X}",
+        "gunner_entry_size": GUNNER_ENTRY_SIZE,
+        "gunner_model_offset": GUNNER_MODEL_OFFSET,
         "armor_entry_size": ARMOR_ENTRY_SIZE,
         "weapons": weapons,
         "armor": armor,

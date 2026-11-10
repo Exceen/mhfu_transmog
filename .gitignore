@@ -209,7 +209,7 @@ __marimo__/
 
 
 # Game data files (copyrighted — users must provide their own)
-data/*.BIN
+archive/data/*.BIN
 
 # Python
 .venv/
@@ -226,3 +226,4 @@ docs/transmog_data.json
 # Online cheat build output (online_codes.json is the committed artifact)
 online/bin/
 docs/online_codes.json
+docs/images/
