@@ -568,6 +568,12 @@
                     '<p>The idea is to generate codes that transform your whole equipment to a different look. You like two specific looks and ' +
                     'want to swap between them? Just disable one code and enable the other!</p>' +
                 '</div></div>' +
+                '<div class="howto-step"><span class="step-num">4</span><div>' +
+                    '<div class="howto-title">Your save data stays untouched</div>' +
+                    '<p>Your save data is never touched: your equipment, stats and items are saved exactly as they are. ' +
+                    'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running ' +
+                    'and only work as long as they are enabled. Disable them and everything looks like before.</p>' +
+                '</div></div>' +
             '</div>' +
 
             '<div class="info-grid">' +
