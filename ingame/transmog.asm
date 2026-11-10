@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete v1.4.0) IN-GAME TRANSMOG PICKER, v3.0
+; MHFU (ULJM05500, FUComplete v1.4.0) IN-GAME TRANSMOG PICKER, v3.1
 ;
 ; Pick looks in the game instead of generating table-patch cheats on the website.
 ;
@@ -20,10 +20,12 @@
 ;                 +12 u8 look pigment flag                  +13 u8 original pigment flag
 ; type: 0 legs, 1 head, 2 chest, 3 arms, 4 waist, 5 blademaster weapon, 6 gunner weapon.
 ;
-; The code lives at CAVE, in the unused low part of the main thread's 32 KB stack. That stack exists
-; before the first cheat write. (Not in a sound thread's stack like the Multiplayer codes: those
-; stacks are created and 0xFF-filled about a second after boot, which wiped this code while
-; cave_frame was already being called -> crash at boot during development.)
+; Memory: the code lives at CAVE, in the low part of the main thread's 32 KB stack, which exists
+; before the first cheat write (cave_frame runs from the first frame on). The data lives in the
+; unused low part of a sound thread's stack (like the Multiplayer codes): the game writes now and
+; then to scattered addresses low in the main thread's stack (e.g. 0x09FF99FC at boot, where v3.0
+; kept its rules), but never there. That stack is created and 0xFF-filled about a second after boot;
+; this only clears the run magic, so cave_frame simply loads the rules again.
 ;
 ; Hooks (both in the EBOOT, nothing is written into overlays):
 ;   0x08868F5C  jal sceCtrlReadBufferPositive (once per frame) -> cave_frame: load the file once,
@@ -35,11 +37,11 @@
 .psp
 
 CAVE            equ 0x09FF9100
-DATA            equ 0x09FF9800
+DATA            equ 0x09FE2000          ; run-time data, see the note on memory below
 RUN_MAGIC       equ 0x324D4F47          ; "GOM2", set once the rules are loaded (new value whenever
                                         ; the data layout changes, so old save states reload)
 FILE_MAGIC      equ 0x31474D54          ; "TMG1"
-NRULES          equ 127                 ; fills the space up to 0x09FFA000 (another code starts there)
+NRULES          equ 127                 ; keep the file format of v3.0 (2036 bytes)
 RULES_SIZE      equ NRULES * 16
 FILE_SIZE       equ 4 + RULES_SIZE
 ; DATA + 0 run magic, + 4 unused, + 8 file magic,

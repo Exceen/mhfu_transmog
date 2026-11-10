@@ -35,8 +35,10 @@
 .include "bin/picker_syms.inc"      ; find_rule, find_word, entry_addr, put3, save_file,
                                     ; PICKER_DATA, PICKER_RUN_MAGIC
 
-CAVE            equ 0x09FF84E0
-DATA            equ 0x09FF8B20
+CAVE            equ 0x09FF8880          ; main thread stack; the game writes to 0x09FF8878 (v3.0 crashed
+                                        ; the real PSP at the village load because its code was there)
+DATA            equ 0x09FE2C00          ; sound thread stack: never written by the game after boot; the
+                                        ; boot-time 0xFF fill only clears the cache (reloaded on use)
 ; DATA + 0 cache magic, + 4 name hash of the cached sets, + 8 path (60 bytes),
 ; + 0x44 file: magic + sets
 CACHE_MAGIC     equ 0x31534D43          ; "CMS1"

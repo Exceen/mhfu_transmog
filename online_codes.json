@@ -2,8 +2,8 @@
   "game": "ULJM05500",
   "cheats": {
     "armor": {
-      "title": "Multiplayer Armor Transmog v3.0",
-      "version": "3.0",
+      "title": "Multiplayer Armor Transmog v3.1",
+      "version": "3.1",
       "cave": [
         "0x09FF0400",
         "0x09FF059B"
@@ -119,8 +119,8 @@
       ]
     },
     "weapon": {
-      "title": "Multiplayer Weapon Transmog v3.0",
-      "version": "3.0",
+      "title": "Multiplayer Weapon Transmog v3.1",
+      "version": "3.1",
       "cave": [
         "0x09FF0600",
         "0x09FF072B"

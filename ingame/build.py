@@ -18,7 +18,7 @@ HERE = Path(__file__).resolve().parent
 BIN = HERE / "bin"
 OUTPUT = HERE / "transmog_codes.txt"
 JSON_OUTPUT = HERE.parent / "ingame_codes.json"
-VERSION = "3.0"
+VERSION = "3.1"
 PSP_MAX_LINES = 30  # real PSP CWCheat: max lines per cheat, title line included
 CWCHEAT_BASE = 0x08800000
 
@@ -29,8 +29,9 @@ PICKER = {
     "bin": "transmog.bin",
     "hooks_bin": "transmog_hooks.bin",
     "cave": 0x09FF9100,
-    "data": 0x09FF9800,      # run-time data behind the code, not written by the cheat
-    "data_end": 0x09FFA000,  # another community code starts here
+    "code_end": 0x09FF9800,  # keep the code below this (main thread stack, see transmog.asm)
+    "data": 0x09FE2000,      # run-time data, not written by the cheat (sound thread stack)
+    "data_end": 0x09FE2C00,  # the Per-Set data starts here
     "hook_addrs": [0x08868F5C, 0x0883062C, 0x08830630],
 }
 NRULES = 127  # keep equal to NRULES in transmog.asm
@@ -41,9 +42,10 @@ SETS = {
     "src": "sets.asm",
     "bin": "sets.bin",
     "hooks_bin": "sets_hooks.bin",
-    "cave": 0x09FF84E0,  # behind another community code (up to 0x09FF84D3)
-    "data": 0x09FF8B20,
-    "data_end": 0x09FF8FFF,  # another community code starts here
+    "cave": 0x09FF8880,      # the game writes to 0x09FF8878, see sets.asm
+    "code_end": 0x09FF8FFF,  # another community code starts here
+    "data": 0x09FE2C00,
+    "data_end": 0x09FE3400,
     "hook_addrs": [0x0888368C, 0x08883690, 0x088507AC, 0x088507B0],
 }
 SETS_DATA_SIZE = 0x48 + 20 * 6 * 8  # keep equal to the layout in sets.asm
@@ -68,7 +70,7 @@ def assemble(c, sym=None):
     cave = words(BIN / c["bin"])
     hooks = words(BIN / c["hooks_bin"])
     assert len(hooks) == len(c["hook_addrs"]), c["id"]
-    assert c["cave"] + len(cave) * 4 <= c["data"], f"{c['id']}: code runs into its data"
+    assert c["cave"] + len(cave) * 4 <= c["code_end"], f"{c['id']}: code too long for its place"
     # Hooks go last: when the lines run in order, the code they jump to already exists.
     lines = [cw(c["cave"] + i * 4, w) for i, w in enumerate(cave)]
     lines += [cw(a, w) for a, w in zip(c["hook_addrs"], hooks)]
@@ -78,7 +80,8 @@ def assemble(c, sym=None):
     return {
         "title": title,
         "version": VERSION,
-        "cave": [f"0x{c['cave']:08X}", f"0x{c['data_end'] - 1:08X}"],
+        "cave": [f"0x{c['cave']:08X}", f"0x{c['cave'] + len(cave) * 4 - 1:08X}"],
+        "data": [f"0x{c['data']:08X}", f"0x{c['data_end'] - 1:08X}"],
         "lines": lines,
     }
 

@@ -740,8 +740,9 @@ a thread is created). Codes sit in parts of stacks that the threads never reach:
 
 | Range | Stack | Code |
 |-------|-------|------|
+| `0x09FE1C00-0x09FE9C00` | `CsePspAtrac3DecodeThrd` (32 KB, uses ~`0x180` at its top) | data only: picker `0x09FE2000-0x09FE280F` (run magic, unused word, file magic, 127 rules × 16 bytes, reload-pending flag), Per-Set cache `0x09FE2C00-0x09FE3007` |
 | `0x09FE9C00-0x09FF1C00` | `CsePspAtrac3DecodeThrd` (32 KB, uses ~`0x1B0` at its top) | Multiplayer armor / weapon / marker at `0x09FF0400-0x09FF09CB` |
-| `0x09FF7C00-0x09FFFC00` | `user_main` (32 KB, deepest use seen `0x09FFDB80`) | in-game transmog code `0x09FF9100-0x09FF96DF`, its data `0x09FF9800-0x09FF9FFF` (run magic, unused word, file magic, 127 rules × 16 bytes, reload-pending flag) |
+| `0x09FF7C00-0x09FFFC00` | `user_main` (32 KB, deepest use seen `0x09FFDB80`) | code only: picker `0x09FF9100-0x09FF96E3`, Per-Set `0x09FF8880-0x09FF8EA7`; bonus Item Sets `0x09FFA080-0x09FFA59F` |
 
 The sound thread stacks are created about one second **after** boot, and creating them wipes
 whatever a cheat wrote there. A hook that already runs at that time (like the per-frame hook) then
@@ -750,6 +751,17 @@ jumps into `0xFF`s until the next cheat refresh: a development build of the pick
 which exists before the first cheat write. Other community codes use the bottom of that stack too
 (seen in one cheat file: `0x09FF7DFC-0x09FF84D3`, `0x09FF8FFF-0x09FF900B`, `0x09FFA000-0x09FFA03F`,
 `0x09FFD4C0-0x09FFD5F7`), so `0x09FF9100-0x09FF9FFF` was chosen to stay clear of them.
+
+The low part of `user_main` is **not** completely free, though. Logging every game write from boot
+through the village load (PPSSPP, no cheats) shows a few scattered writes far below the stack pointer:
+`0x09FF81FC-0x09FF8207`, `0x09FF8878` (written repeatedly during the character and village load by
+`0x088BBEE4`/`0x088BBF00`), `0x09FF99FC` (once at boot), `0x09FFB568`. v3.0 had the Per-Set code
+over `0x09FF8878` and crashed the real PSP right at the village load; it also kept the picker's
+rules over `0x09FF99FC`. Since v3.1 only code that must exist from boot is there, placed clear of these
+addresses, and all run-time data is in the first sound thread's stack, which the game never writes to
+after creating it (its boot-time `0xFF` fill only clears the run magic / cache, and the codes reload
+their files). The sound function `0x0888368C` is first called ~1.2 s after that fill, the equip
+function only at the village load.
 
 ### Rules and file
 
@@ -781,5 +793,5 @@ the models after equipping a set, so the looks show at once.
 Storage: `ms0:/PSP/SAVEDATA/MHFU_TRANSMOG_SETS_<hash>.BIN`, `<hash>` = djb2 of the 8 UTF-16
 characters of the name (save data `+0`) as 8 hex digits; content `TMS1` + 20 sets × 6 slots × 8
 bytes (`+0` u16 `0x8000 | type << 12 | eid`, `+2`/`+4` look models, `+6` pigment flag, `+7` 1 = has a
-look). The current character's sets are cached at `0x09FF8B20` (code `0x09FF84E0-0x09FF8B07`, in the
-`user_main` stack behind another community code that ends at `0x09FF84D3`).
+look). The current character's sets are cached at `0x09FE2C00` (sound thread stack); the code is at
+`0x09FF8880-0x09FF8EA7` (see "Where the code caves really are").

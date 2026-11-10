@@ -22,7 +22,7 @@ CHEATS = [
     {
         "id": "armor",
         "title": "Multiplayer Armor Transmog",
-        "version": "3.0",
+        "version": "3.1",
         "src": "armor.asm",
         "bin": "armor.bin",
         "hooks_bin": "armor_hooks.bin",
@@ -33,7 +33,7 @@ CHEATS = [
     {
         "id": "weapon",
         "title": "Multiplayer Weapon Transmog",
-        "version": "3.0",
+        "version": "3.1",
         "src": "weapon.asm",
         "bin": "weapon.bin",
         "hooks_bin": "weapon_hooks.bin",
@@ -46,7 +46,7 @@ CHEATS = [
 MARKER = {
     "id": "marker",
     "title": "Multiplayer Marker",
-    "version": "3.0",
+    "version": "3.1",
     "src": "marker.asm",
     "bin": "marker.bin",
     "hooks_bin": "marker_hooks.bin",
@@ -114,6 +114,8 @@ def marker_text(m):
         "## PPSSPP\n\n"
         f"_C1 {m['title']}\n" + "\n".join(lines) + "\n\n"
         f"## Real PSP (CWCheat: max {PSP_MAX_LINES} lines per cheat, enable ALL parts)\n\n"
+        "Note: on a real PSP, loading a save into the village with this code enabled often crashes the\n"
+        "game (not always). Enable it once you're in the village; after that it works fine.\n\n"
         + psp + "\n"
     )
 
