@@ -629,6 +629,26 @@ Many players may run different versions of these codes, so every version must wo
 The caves are in the `0xFF`-filled region `0x09FF0000-0x09FFFFFF` (free on PPSSPP and real PSP).
 The hook lines come last in each code, so the cave is complete before anything jumps into it.
 
+### Multiplayer Marker (optional)
+
+`online/marker.asm` (output `online/marker_codes.txt`, not on the website) marks other players in the
+gathering hall who send the bits above with a `°` in front of their name.
+
+- Hook: text function `0x08890D7C(a0 ctx, a1 x, a2 y, a3 UTF-16 string)`, replaces its first 2
+  instructions. Cave `0x09FF0800`, buffers `0x09FF09A0-0x09FF09CB`.
+- Hall player list: `A = *0x09A07284`, entry `i` at `A + 0x57C + i*0xC8` (`i` 0-7, 4-7 repeat 0-3),
+  player count `A + 0xEE3`. Entry `+0x00`: 6-byte MAC (the game finds players by it, `0x0883B514`),
+  `+0x08`: name (UTF-16), `+0x40`: weapon entry, `+0x4C + type2*12`: armor entries. Name tags
+  (`0x088358A4`, `0x088359E8`) and the player list (`0x0883B8AC`) draw the names straight from it;
+  your own name tag uses your save name (`0x09995E40`) instead.
+- Detection: weapon `+4` bits 10-15 or bit 7 of any armor level byte (sent by either code; always 0 from
+  an unmodified game).
+- Self check: entry MAC == own MAC from `sceNetGetLocalEtherAddr` (import stub `0x0890BFF8`, fetched
+  once). `*0x089C7508 + 0x28` is **not** your hall index (0 on host and guest). If the MAC can't be
+  fetched, the self check is skipped (rather mark yourself than miss another player).
+- Font: Shift-JIS symbols are full width; Latin-1/ASCII are half width. Names are UTF-16.
+- Quest displays use other copies of the names, so the marker only appears in the hall.
+
 ### Debugging online
 
 Save states are disabled while ad-hoc is active. PPSSPP's remote debugger (Settings → Tools →

@@ -24,6 +24,8 @@ Normally transmog only changes your own game: other players see your real gear. 
 
 Tested on PPSSPP (two machines over an ad-hoc server) and on a real PSP.
 
+**Optional: Multiplayer Marker.** Shows in the gathering hall who uses the Multiplayer codes: other players running them get a `°` in front of their name (name tags and player list). Your own name never changes, and only you see the marker. It isn't on the website; copy it from [`online/marker_codes.txt`](online/marker_codes.txt) (PPSSPP and Real PSP parts).
+
 ## Compatibility
 
 Monster Hunter Freedom Unite (ULJM05500). Tested with [FUComplete](https://github.com/FUComplete/FUComplete) v1.4.0 only; other versions may work but are untested. For multiplayer, everyone in the room should use the same game version.
@@ -46,7 +48,7 @@ mkdir -p docs/images && cp images/w_*.png images/a_*.png docs/images/
 cd docs && python3 -m http.server 8000
 ```
 
-**Multiplayer codes** (`online_codes.json`) are assembled from `online/armor.asm` and `online/weapon.asm`. Only needed after changing the assembly:
+**Multiplayer codes** (`online_codes.json`) are assembled from `online/armor.asm` and `online/weapon.asm`, the optional marker (`online/marker_codes.txt`) from `online/marker.asm`. Only needed after changing the assembly:
 
 ```bash
 python3 online/build.py   # needs armips on PATH

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Assemble the online transmog cheats and write ../online_codes.json.
+"""Assemble the online transmog cheats and write ../online_codes.json and marker_codes.txt.
 
 Requires armips (https://github.com/Kingcom/armips) on PATH. Only needed when the
-assembly changes; online_codes.json is committed, and the website reads it.
+assembly changes; both outputs are committed. The website reads online_codes.json;
+the optional Multiplayer Marker is kept out of it and only written to marker_codes.txt.
 
 Usage: python3 online/build.py
 """
@@ -13,6 +14,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OUTPUT = HERE.parent / "online_codes.json"
+MARKER_OUTPUT = HERE / "marker_codes.txt"
+PSP_MAX_LINES = 30  # real PSP CWCheat: max lines per cheat, title line included
 CWCHEAT_BASE = 0x08800000
 
 CHEATS = [
@@ -39,6 +42,19 @@ CHEATS = [
     },
 ]
 
+# Optional, not on the website (see MARKER_OUTPUT).
+MARKER = {
+    "id": "marker",
+    "title": "Multiplayer Marker",
+    "version": "2.1",
+    "src": "marker.asm",
+    "bin": "marker.bin",
+    "hooks_bin": "marker_hooks.bin",
+    "cave": 0x09FF0800,
+    "data_end": 0x09FF09CB,  # buffers behind the code
+    "hook_addrs": [0x08890D7C, 0x08890D80],
+}
+
 
 def cw(addr, value):
     return f"_L 0x2{addr - CWCHEAT_BASE:07X} 0x{value:08X}"
@@ -60,6 +76,8 @@ def build(c):
     lines = [cw(c["cave"] + i * 4, w) for i, w in enumerate(cave)]
     lines += [cw(a, w) for a, w in zip(c["hook_addrs"], hooks)]
     end = c["cave"] + len(cave) * 4 - 1
+    assert end < c.get("data_end", end + 1), f"{c['id']}: code runs into its buffers"
+    end = c.get("data_end", end)
     print(f"{c['title']} v{c['version']}: cave 0x{c['cave']:08X}-0x{end:08X}, {len(lines)} lines")
     return {
         "title": f"{c['title']} v{c['version']}",
@@ -72,11 +90,32 @@ def build(c):
 def main():
     (HERE / "bin").mkdir(exist_ok=True)
     cheats = {c["id"]: build(c) for c in CHEATS}
-    spans = sorted((int(v["cave"][0], 16), int(v["cave"][1], 16)) for v in cheats.values())
+    marker = build(MARKER)
+    spans = sorted((int(v["cave"][0], 16), int(v["cave"][1], 16)) for v in [*cheats.values(), marker])
     for (_, a_end), (b_start, _) in zip(spans, spans[1:]):
         assert a_end < b_start, "code caves overlap"
     OUTPUT.write_text(json.dumps({"game": "ULJM05500", "cheats": cheats}, indent=2) + "\n")
     print(f"wrote {OUTPUT.name}")
+    MARKER_OUTPUT.write_text(marker_text(marker), encoding="utf-8")
+    print(f"wrote {MARKER_OUTPUT.name}")
+
+
+def marker_text(m):
+    per = PSP_MAX_LINES - 1
+    lines = m["lines"]
+    parts = -(-len(lines) // per)
+    psp = "\n\n".join(f"_C1 {m['title']} {p + 1}/{parts}\n" + "\n".join(lines[p * per:(p + 1) * per])
+                       for p in range(parts))
+    return (
+        f"{m['title']} (optional, not on the website)\n"
+        "Gathering hall only: other players who run the Multiplayer Armor and/or Weapon Transmog codes\n"
+        "get a \u00b0 in front of their name (name tags and player list). Your own name never changes.\n"
+        "Only you see the marker; it doesn't change anything that is sent or saved.\n\n"
+        "## PPSSPP\n\n"
+        f"_C1 {m['title']}\n" + "\n".join(lines) + "\n\n"
+        f"## Real PSP (CWCheat: max {PSP_MAX_LINES} lines per cheat, enable ALL parts)\n\n"
+        + psp + "\n"
+    )
 
 
 if __name__ == "__main__":
