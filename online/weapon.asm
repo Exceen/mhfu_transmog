@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v3.1 - separate from the armor cheat
+; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v3.2 - separate from the armor cheat
 ;
 ; Works together with the offline weapon transmog cheats, which rewrite weapon model fields.
 ; Weapon entry type (+1): 5 = blademaster weapon, 6 = gunner weapon (bowguns, bows).

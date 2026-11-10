@@ -22,18 +22,18 @@ CHEATS = [
     {
         "id": "armor",
         "title": "Multiplayer Armor Transmog",
-        "version": "3.1",
+        "version": "3.2",
         "src": "armor.asm",
         "bin": "armor.bin",
         "hooks_bin": "armor_hooks.bin",
         "cave": 0x09FF0400,
         # address patched by each word of hooks_bin, in order
-        "hook_addrs": [0x08852B44, 0x088517A8, 0x088517AC, 0x08851D64],
+        "hook_addrs": [0x08852B44, 0x088517A8, 0x088517AC, 0x08851D64, 0x08851BCC],
     },
     {
         "id": "weapon",
         "title": "Multiplayer Weapon Transmog",
-        "version": "3.1",
+        "version": "3.2",
         "src": "weapon.asm",
         "bin": "weapon.bin",
         "hooks_bin": "weapon_hooks.bin",
@@ -46,7 +46,7 @@ CHEATS = [
 MARKER = {
     "id": "marker",
     "title": "Multiplayer Marker",
-    "version": "3.1",
+    "version": "3.2",
     "src": "marker.asm",
     "bin": "marker.bin",
     "hooks_bin": "marker_hooks.bin",

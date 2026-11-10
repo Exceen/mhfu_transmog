@@ -10,8 +10,8 @@ Two ways, both for PPSSPP and real PSP hardware (CWCheat): install the **In-Game
 
 ## Features
 
-- **In-Game Picker** (v3.1): one code, installed once. In the item box (*Arrange Items → Equipment*) pick up the piece whose look you want and press Square on the piece that should get it. Looks are saved on the memory stick, not in your save data
-- **Per-Set Transmog** (v3.1, optional add-on for the picker): every equipment set remembers the looks its pieces had when it was registered and puts them back when you equip it, so the same piece can look different in different sets
+- **In-Game Picker** (v3.2): one code, installed once. In the item box (*Arrange Items → Equipment*) pick up the piece whose look you want and press Square on the piece that should get it. Looks are saved on the memory stick, not in your save data
+- **Per-Set Transmog** (v3.2, optional add-on for the picker): every equipment set remembers the looks its pieces had when it was registered and puts them back when you equip it, so the same piece can look different in different sets
 - **Weapon**: make a weapon look like another weapon of the same type
 - **Armor (Single Slot)** and **Armor (Set)**: change the look of one piece or a whole set, including invisible pieces, opposite-gender models, Blademaster/Gunner variants and pigment on/off
 - **Universal Invisible**: hide every piece of an armor slot, whatever is equipped
@@ -22,11 +22,11 @@ Stats, skills, slots and decorations always stay those of the gear you actually 
 
 ## Multiplayer
 
-Normally transmog only changes your own game: other players see your real gear. Add the **Multiplayer Armor Transmog** and/or **Multiplayer Weapon Transmog** codes (v3.1) from the website's *Multiplayer* tab, and every player who also runs them sees your transmog, whether it comes from generated codes or from the In-Game Picker. Players without them simply see your real equipment; nothing breaks for them. All versions of the Multiplayer codes work with each other.
+Normally transmog only changes your own game: other players see your real gear. Add the **Multiplayer Armor Transmog** and/or **Multiplayer Weapon Transmog** codes (v3.2) from the website's *Multiplayer* tab, and every player who also runs them sees your transmog, whether it comes from generated codes or from the In-Game Picker. Players without them simply see your real equipment; nothing breaks for them. All versions of the Multiplayer codes work with each other.
 
 Tested on PPSSPP (two machines over an ad-hoc server) and on a real PSP.
 
-**Optional: Multiplayer Marker** (v3.1). Shows in the gathering hall who uses the Multiplayer codes: other players running them get a `°` in front of their name (name tags and player list). Your own name never changes, and only you see the marker. It isn't on the website; copy it from [`online/marker_codes.txt`](online/marker_codes.txt) (PPSSPP and Real PSP parts). On a real PSP, enable it after loading into the village: loading a save with it enabled often crashes the game.
+**Optional: Multiplayer Marker** (v3.2). Shows in the gathering hall who uses the Multiplayer codes: other players running them get a `°` in front of their name (name tags and player list). Your own name never changes, and only you see the marker. It isn't on the website; copy it from [`online/marker_codes.txt`](online/marker_codes.txt) (PPSSPP and Real PSP parts). On a real PSP, enable it after loading into the village: loading a save with it enabled often crashes the game.
 
 ## Compatibility
 

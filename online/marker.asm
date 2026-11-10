@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) Multiplayer Marker v3.1 - optional, not on the website
+; MHFU (ULJM05500, FUComplete) Multiplayer Marker v3.2 - optional, not on the website
 ;
 ; Gathering hall: marks OTHER players who run the Multiplayer transmog codes with "°"
 ; ("°Name") in the name tags and the player list. Nothing stored is changed: the

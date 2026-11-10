@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v3.1
+; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v3.2
 ;
 ; Works together with the offline transmog cheats, which rewrite the model fields of the
 ; armor tables. The sender looks up the model its (patched) table gives for each equipped
@@ -25,6 +25,14 @@
 ;   0x088517A8  getNetArmorModel(base, player, p) -> cave_recv
 ;               p: 0 legs, 1 hair (untouched), 2 head, 3 chest, 4 arms, 5 waist; type2 = p ? p-1 : 0
 ;   0x08851D64  getNetPigmentFlag: "lbu v0, 0x13(v0)" (s0 = record, a1 = type2) -> cave_pig
+;   0x08851BCC  in 0x08851B68 "has armor model" flag: "lhu a3, 0x3E(v0)" -> cave_flag (since v3.2)
+;
+; The model loader gets both the model (getNetArmorModel) and that flag. The game computes the
+; flag from the receiver's OWN table (model of the record's eid != 0). With a received model the
+; two can disagree: e.g. the receiver's own transmog gives the sender's head piece model 0 (no
+; helmet), the sender sends a helmet model -> the helmet model is loaded as a hairstyle into the
+; 0x1000-byte hair buffer -> overflow -> crash in the gathering hall. So with a received model
+; the flag follows that model.
 
 .psp
 
@@ -33,6 +41,9 @@ MEMCPY              equ 0x0880CD4C
 SEND_HOOK           equ 0x08852B44
 NET_HOOK            equ 0x088517A8
 PIG_HOOK            equ 0x08851D64
+FLAG_HOOK           equ 0x08851BCC
+FLAG_CALL           equ 0x08851BD4          ; jal 0x08851C68 (own-table flag), delay slot follows
+FLAG_RET            equ 0x08851BDC          ; epilogue of 0x08851B68, returns v0
 
 .create "bin/armor.bin", 0x09FF0400
 .org 0x09FF0400
@@ -164,6 +175,25 @@ cave_pig:
 @@orig:
     j       PIG_HOOK + 4
     lbu     v0, 0x13(v0)
+
+; ---------------------------------------------------------------------------
+; Has-armor-model flag. Replaces "lhu a3, 0x3E(v0)" at FLAG_HOOK; its delay slot "move a0, s2"
+; already ran. s0 = record, v1 = type2, v0 = record + type2 * 12.
+cave_flag:
+    lhu     a3, 0x3E(v0)            ; the replaced instruction (eid)
+    lbu     t0, 0x41(v0)            ; sent value bits 0-7 (armor entry +5)
+    lhu     t1, 0x34(s0)            ; weapon +4
+    srlv    t1, t1, v1
+    andi    t1, t1, 1
+    sll     t1, t1, 8
+    or      t0, t0, t1
+    beq     t0, zero, @@orig        ; nothing sent: the game's own-table flag
+    addiu   t0, t0, -1              ; model (0x1FE for model -1: non-zero, like the table's -1)
+    j       FLAG_RET
+    sltu    v0, zero, t0            ; flag = model != 0
+@@orig:
+    j       FLAG_CALL
+    nop
 cave_end:
 
 .close
@@ -174,4 +204,5 @@ cave_end:
 .word 0x08000000 | ((cave_recv >> 2) & 0x03FFFFFF)     ; at NET_HOOK
 .word 0                                                 ; at NET_HOOK + 4
 .word 0x08000000 | ((cave_pig >> 2) & 0x03FFFFFF)      ; at PIG_HOOK (delay slot kept)
+.word 0x08000000 | ((cave_flag >> 2) & 0x03FFFFFF)     ; at FLAG_HOOK (delay slot kept)
 .close

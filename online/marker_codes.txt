@@ -1,11 +1,11 @@
-Multiplayer Marker v3.1 (optional, not on the website)
+Multiplayer Marker v3.2 (optional, not on the website)
 Gathering hall only: other players who run the Multiplayer Armor and/or Weapon Transmog codes
 get a ° in front of their name (name tags and player list). Your own name never changes.
 Only you see the marker; it doesn't change anything that is sent or saved.
 
 ## PPSSPP
 
-_C1 Multiplayer Marker v3.1
+_C1 Multiplayer Marker v3.2
 _L 0x217F0800 0x3C0209A0
 _L 0x217F0804 0x8C427284
 _L 0x217F0808 0x1040004F
@@ -99,7 +99,7 @@ _L 0x20090D80 0x00000000
 Note: on a real PSP, loading a save into the village with this code enabled often crashes the
 game (not always). Enable it once you're in the village; after that it works fine.
 
-_C1 Multiplayer Marker v3.1 1/3
+_C1 Multiplayer Marker v3.2 1/3
 _L 0x217F0800 0x3C0209A0
 _L 0x217F0804 0x8C427284
 _L 0x217F0808 0x1040004F
@@ -130,7 +130,7 @@ _L 0x217F0868 0xAFA80018
 _L 0x217F086C 0x3C0409FF
 _L 0x217F0870 0x0E242FFE
 
-_C1 Multiplayer Marker v3.1 2/3
+_C1 Multiplayer Marker v3.2 2/3
 _L 0x217F0874 0x248409C0
 _L 0x217F0878 0x3C1909FF
 _L 0x217F087C 0xAF2209C8
@@ -161,7 +161,7 @@ _L 0x217F08DC 0x90580048
 _L 0x217F08E0 0x90590054
 _L 0x217F08E4 0x0319C025
 
-_C1 Multiplayer Marker v3.1 3/3
+_C1 Multiplayer Marker v3.2 3/3
 _L 0x217F08E8 0x90590060
 _L 0x217F08EC 0x0319C025
 _L 0x217F08F0 0x9059006C

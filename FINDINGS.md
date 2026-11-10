@@ -581,6 +581,7 @@ fields, then calls the model getters below).
 | `0x088517A8` | getNetArmorModel(base, player, p): reads the record (gender `+0x10`, eid `+0x3E + type2*12`) |
 | `0x08851994` | getLocalArmorModel(base, p): reads your equipped gear |
 | `0x088515D0` | getArmorModel(_, gender, p, eid) |
+| `0x08851B68` | has-armor-model flag (base, player, p): `0x08851C68` checks the receiver's **own** table model of the record's eid != 0; passed to the model loader together with getNetArmorModel's model (0 = load the model as a hairstyle) |
 | `0x08851CE8` | getNetPigmentFlag(base, player, p): armor table byte +19 of the record's eid (`lbu v0, 0x13(v0)` at `0x08851D64`) |
 | `0x08851E4C` | getNetWeaponModel(base, player): type byte `+0x31` 5 → `0x089574C8 + eid*24`, otherwise gunner table `0x0895E098 + eid*28` |
 | `0x0885CB60` | getArmorEntry(_, type2, eid) |
@@ -606,11 +607,23 @@ with such a head piece and a received look showed the default hairstyle until th
 (which uses the local lookup, not the record). This also affected your own hunter, because the
 game builds it from your record when you load into the village.
 
+The model loader also gets a "has armor model" flag (`0x08851B68`), which the game computes from the
+receiver's own table for the record's eid. With a received model the two can disagree. Example: the
+receiver's own transmog gives the sender's head piece model 0, but the sender sends a helmet model.
+The helmet is then loaded as a hairstyle into the per-player hair buffer, which is only `0x1000`
+bytes (per-player model block `0x1A800` bytes at obj `+0x23C`, part offsets at `0x089A3100`, copied
+by DMA at `0x08868024`). It overflows into the next part, and the bone code (`0x08860534`) crashes on
+garbage pointers. This happens in the gathering hall with a second player present; alone or offline
+nothing is received, so it doesn't happen. v3.1 receivers crash this way; since v3.2 the flag follows
+the received model (model != 0; model -1 counts as non-zero, like the table's -1). Without a received
+model the game's own flag is kept.
+
 Receiver pigment: off → 0; on → the receiver's own flag if non-zero, else 2 (what the pigment
 enable codes write). Armor models are at most ~341 and weapon models at most 552 in FUComplete v1.4.0.
 The weapon code (since v2.1) sends blademaster (type 5) and gunner (type 6) weapons; v2.0 only type 5.
 All four codes (Multiplayer Armor, Weapon, Marker and the In-Game Picker) are versioned together since
-v3.0; in v3.0 only the armor receiver changed (head model 0, above).
+v3.0; in v3.0 only the armor receiver changed (head model 0, above), in v3.2 only the armor receiver's
+model flag (above).
 
 ### Compatibility rules
 
@@ -632,6 +645,7 @@ Many players may run different versions of these codes, so every version must wo
 | armor sender | `0x09FF0400` | `0x08852B44` | `j 0x0880CD4C` (memcpy tail call at the end of `0x0885298C`; `$v1` = your record) |
 | armor receiver | | `0x088517A8` | first 2 instructions of getNetArmorModel |
 | pigment receiver | | `0x08851D64` | `lbu v0, 0x13(v0)` (`$s0` = record, `$a1` = type2) |
+| armor model flag (v3.2) | | `0x08851BCC` | `lhu a3, 0x3E(v0)` in `0x08851B68` (`$s0` = record, `$v1` = type2; delay slot `move a0, s2` kept). Received model → returns via the epilogue `0x08851BDC`, else continues at the `jal 0x08851C68` at `0x08851BD4` |
 | weapon sender | `0x09FF0600` | `0x08852B3C` | `addiu a0, v1, 0x81; addiu a2, zero, 8` (runs before the armor sender, then continues into it) |
 | weapon receiver | | `0x08851E4C` | first 2 instructions of getNetWeaponModel |
 

@@ -2,11 +2,11 @@
   "game": "ULJM05500",
   "cheats": {
     "armor": {
-      "title": "Multiplayer Armor Transmog v3.1",
-      "version": "3.1",
+      "title": "Multiplayer Armor Transmog v3.2",
+      "version": "3.2",
       "cave": [
         "0x09FF0400",
-        "0x09FF059B"
+        "0x09FF05CF"
       ],
       "lines": [
         "_L 0x217F0400 0x906F0010",
@@ -112,15 +112,29 @@
         "_L 0x217F0590 0x00000000",
         "_L 0x217F0594 0x0A21475A",
         "_L 0x217F0598 0x90420013",
+        "_L 0x217F059C 0x9447003E",
+        "_L 0x217F05A0 0x90480041",
+        "_L 0x217F05A4 0x96090034",
+        "_L 0x217F05A8 0x00694806",
+        "_L 0x217F05AC 0x31290001",
+        "_L 0x217F05B0 0x00094A00",
+        "_L 0x217F05B4 0x01094025",
+        "_L 0x217F05B8 0x11000003",
+        "_L 0x217F05BC 0x2508FFFF",
+        "_L 0x217F05C0 0x0A2146F7",
+        "_L 0x217F05C4 0x0008102B",
+        "_L 0x217F05C8 0x0A2146F5",
+        "_L 0x217F05CC 0x00000000",
         "_L 0x20052B44 0x0A7FC100",
         "_L 0x200517A8 0x0A7FC12C",
         "_L 0x200517AC 0x00000000",
-        "_L 0x20051D64 0x0A7FC155"
+        "_L 0x20051D64 0x0A7FC155",
+        "_L 0x20051BCC 0x0A7FC167"
       ]
     },
     "weapon": {
-      "title": "Multiplayer Weapon Transmog v3.1",
-      "version": "3.1",
+      "title": "Multiplayer Weapon Transmog v3.2",
+      "version": "3.2",
       "cave": [
         "0x09FF0600",
         "0x09FF072B"
