@@ -4,12 +4,13 @@
 
 ## 👉 [Open the Transmog Generator](https://exceen.github.io/mhfu_transmog/)
 
-The website generates CWCheat codes for PPSSPP and real PSP hardware. Everything is explained in its *Instructions* tab.
+Two ways, both for PPSSPP and real PSP hardware (CWCheat): install the **In-Game Picker** once and choose looks in your item box, or let the website generate a code for each look. Everything is explained in the website's *Instructions* tab.
 
 ![Transmog demo](images/transmog.gif)
 
 ## Features
 
+- **In-Game Picker** (v3.0): one code, installed once. In the item box (*Arrange Items → Equipment*) pick up the piece whose look you want and press Square on the piece that should get it. Looks are saved on the memory stick, not in your save data
 - **Weapon**: make a weapon look like another weapon of the same type
 - **Armor (Single Slot)** and **Armor (Set)**: change the look of one piece or a whole set, including invisible pieces, opposite-gender models, Blademaster/Gunner variants and pigment on/off
 - **Universal Invisible**: hide every piece of an armor slot, whatever is equipped
@@ -20,11 +21,11 @@ Stats, skills, slots and decorations always stay those of the gear you actually 
 
 ## Multiplayer
 
-Normally transmog only changes your own game: other players see your real gear. Add the **Multiplayer Armor Transmog** and/or **Multiplayer Weapon Transmog** codes from the website's *Multiplayer* tab, and every player who also runs them sees your transmog. Players without them simply see your real equipment; nothing breaks for them.
+Normally transmog only changes your own game: other players see your real gear. Add the **Multiplayer Armor Transmog** and/or **Multiplayer Weapon Transmog** codes (v3.0) from the website's *Multiplayer* tab, and every player who also runs them sees your transmog, whether it comes from generated codes or from the In-Game Picker. Players without them simply see your real equipment; nothing breaks for them. All versions of the Multiplayer codes work with each other.
 
 Tested on PPSSPP (two machines over an ad-hoc server) and on a real PSP.
 
-**Optional: Multiplayer Marker.** Shows in the gathering hall who uses the Multiplayer codes: other players running them get a `°` in front of their name (name tags and player list). Your own name never changes, and only you see the marker. It isn't on the website; copy it from [`online/marker_codes.txt`](online/marker_codes.txt) (PPSSPP and Real PSP parts).
+**Optional: Multiplayer Marker** (v3.0). Shows in the gathering hall who uses the Multiplayer codes: other players running them get a `°` in front of their name (name tags and player list). Your own name never changes, and only you see the marker. It isn't on the website; copy it from [`online/marker_codes.txt`](online/marker_codes.txt) (PPSSPP and Real PSP parts).
 
 ## Compatibility
 
@@ -34,16 +35,18 @@ Monster Hunter Freedom Unite (ULJM05500). Tested with [FUComplete](https://githu
 
 The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. The generated codes overwrite these model IDs, so one piece of equipment looks like another while keeping its stats.
 
+The In-Game Picker does the same at run time: it keeps a list of "this piece looks like that one", writes it into the tables when the game starts and whenever you change a look in the item box, and saves the list to `PSP/SAVEDATA/MHFU_TRANSMOG.BIN`.
+
 On its own this only affects your game, because other players look up your equipment in their own tables. The Multiplayer codes hook the game in two places: when your equipment is sent to other players, the sender stores the model numbers from your (patched) tables in spare bits of that data; when another player's hunter is drawn, the receiver uses those models instead of its own lookup. Unmodified games ignore the extra bits.
 
 See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation: memory table layouts, address calculations, network data and known pitfalls.
 
 ## Development
 
-The website (`docs/`) reads two committed files and the weapon and armor slot icons (`images/w_*.png`, `images/a_*.png`), which the GitHub Pages workflow copies into `docs/` on deploy. To test locally, copy them yourself and start a web server:
+The website (`docs/`) reads three committed files and the weapon and armor slot icons (`images/w_*.png`, `images/a_*.png`), which the GitHub Pages workflow copies into `docs/` on deploy. To test locally, copy them yourself and start a web server:
 
 ```bash
-cp transmog_data.json online_codes.json docs/
+cp transmog_data.json online_codes.json ingame_codes.json docs/
 mkdir -p docs/images && cp images/w_*.png images/a_*.png docs/images/
 cd docs && python3 -m http.server 8000
 ```
@@ -52,6 +55,12 @@ cd docs && python3 -m http.server 8000
 
 ```bash
 python3 online/build.py   # needs armips on PATH
+```
+
+**In-Game Picker** (`ingame_codes.json`, plus [`ingame/transmog_codes.txt`](ingame/transmog_codes.txt) for copying by hand) is assembled from `ingame/transmog.asm`; usage and notes are in [`ingame/README.md`](ingame/README.md):
+
+```bash
+python3 ingame/build.py   # needs armips on PATH
 ```
 
 **Equipment data** (`transmog_data.json`). Only needed if FUComplete changes its equipment tables:

@@ -22,7 +22,7 @@ CHEATS = [
     {
         "id": "armor",
         "title": "Multiplayer Armor Transmog",
-        "version": "2.1",
+        "version": "3.0",
         "src": "armor.asm",
         "bin": "armor.bin",
         "hooks_bin": "armor_hooks.bin",
@@ -33,7 +33,7 @@ CHEATS = [
     {
         "id": "weapon",
         "title": "Multiplayer Weapon Transmog",
-        "version": "2.1",
+        "version": "3.0",
         "src": "weapon.asm",
         "bin": "weapon.bin",
         "hooks_bin": "weapon_hooks.bin",
@@ -46,7 +46,7 @@ CHEATS = [
 MARKER = {
     "id": "marker",
     "title": "Multiplayer Marker",
-    "version": "2.1",
+    "version": "3.0",
     "src": "marker.asm",
     "bin": "marker.bin",
     "hooks_bin": "marker_hooks.bin",

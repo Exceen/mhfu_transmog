@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v2.1 (unchanged since v2.0)
+; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v3.0
 ;
 ; Works together with the offline transmog cheats, which rewrite the model fields of the
 ; armor tables. The sender looks up the model its (patched) table gives for each equipped
@@ -127,6 +127,10 @@ cave_recv:
     beql    t2, at, @@ret
     ori     v0, zero, 0xFFFF        ; model -1 (the game returns it as u16)
     addiu   v0, t2, -1              ; model
+    bne     v0, zero, @@ret
+    addiu   at, zero, 2
+    beql    a2, at, @@ret           ; head model 0 (e.g. piercings): the hairstyle, like the
+    lbu     v0, 0x14(v1)            ; game's own lookup does (v1 = record)
 @@ret:
     jr      ra
     nop

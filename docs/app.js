@@ -8,11 +8,13 @@
     const SLOT_NAMES = ['head', 'chest', 'arms', 'waist', 'legs'];
     const SLOT_LABELS = { head: 'Head', chest: 'Chest', arms: 'Arms', waist: 'Waist', legs: 'Legs' };
     const FORMAT_KEY = 'mhfu-transmog-format';
+    const PATH_KEY = 'mhfu-transmog-path'; // last choice in the Instructions tab
 
     // ── State ────────────────────────────────────────────────────────────────
 
     let DATA = null;
     let ONLINE = null;
+    let INGAME = null;
     let currentMode = 'instructions';
     let outputBlocks = [];   // [{title, lines}]
     let outputRaw = '';
@@ -48,6 +50,12 @@
             if (resp.ok) ONLINE = await resp.json();
         } catch (err) {
             ONLINE = null; // the Online tab explains that the codes are missing
+        }
+        try {
+            const resp = await fetch('ingame_codes.json');
+            if (resp.ok) INGAME = await resp.json();
+        } catch (err) {
+            INGAME = null; // the In-Game Picker tab explains that the code is missing
         }
         loadingOverlay.classList.add('hidden');
         initModeTabs();
@@ -497,18 +505,31 @@
 
     // ── Mode Tab Handling ────────────────────────────────────────────────────
 
+    // The code generators are sub-tabs of the "Generate Codes" tab.
+    const GENERATOR_MODES = ['weapon', 'armor-slot', 'armor-set', 'universal-invisible'];
+    let lastGeneratorMode = 'weapon';
+
     function selectMode(mode) {
+        if (mode === 'generate') mode = lastGeneratorMode;
+        var isGenerator = GENERATOR_MODES.indexOf(mode) !== -1;
+        if (isGenerator) lastGeneratorMode = mode;
         var tabs = document.querySelectorAll('.tab');
         for (var j = 0; j < tabs.length; j++) {
-            tabs[j].classList.toggle('active', tabs[j].getAttribute('data-mode') === mode);
+            var m = tabs[j].getAttribute('data-mode');
+            tabs[j].classList.toggle('active', m === mode || (m === 'generate' && isGenerator));
         }
+        var subtabs = document.querySelectorAll('.subtab');
+        for (var k = 0; k < subtabs.length; k++) {
+            subtabs[k].classList.toggle('active', subtabs[k].getAttribute('data-mode') === mode);
+        }
+        document.getElementById('sub-tabs').classList.toggle('hidden', !isGenerator);
         if (mode === currentMode) return;
         currentMode = mode;
         renderMode(mode);
     }
 
     function initModeTabs() {
-        var tabs = document.querySelectorAll('.tab');
+        var tabs = document.querySelectorAll('.tab, .subtab');
         for (var i = 0; i < tabs.length; i++) {
             tabs[i].addEventListener('click', function () {
                 selectMode(this.getAttribute('data-mode'));
@@ -534,23 +555,148 @@
             case 'armor-set': renderArmorSetMode(); break;
             case 'universal-invisible': renderUniversalInvisibleMode(); break;
             case 'online': renderOnlineMode(); break;
+            case 'ingame': renderIngameMode(); break;
         }
     }
 
     // ── Mode 0: Instructions ─────────────────────────────────────────────────
 
+    function readPath() {
+        try {
+            var v = localStorage.getItem(PATH_KEY);
+            return v === 'picker' || v === 'codes' ? v : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function savePath(path) {
+        try { localStorage.setItem(PATH_KEY, path); } catch (e) { /* private mode etc. */ }
+    }
+
+    var WHERE_CODES_GO_CARD =
+        '<div class="online-card">' +
+            '<div class="online-card-title">Where the codes go</div>' +
+            '<ul>' +
+                '<li><b>PPSSPP:</b> enable cheats in the settings, then paste into the cheats file (.ini). You can use the in-game cheat menu to edit it (start the game, go into the menu -> cheats -> edit cheat file). Reload the cheats by opening the cheats list or simply restart PPSSPP if you have any troubles.</li>' +
+                '<li><b>Real PSP:</b> add them to your CWCheat plugin\'s cheat file (.db): CWCheat only accepts ~30 lines per cheat, so long codes are split into parts (<code>1/4</code>, <code>2/4</code>, ...). Enable <b>all</b> parts. You can also use other cheat plugins like TempAR.</li>' +
+            '</ul>' +
+        '</div>';
+
+    // Same Multiplayer step for both ways, highlighted like the old callout.
+    function multiplayerStep(num) {
+        return '<div class="howto-step howto-highlight"><span class="step-num">' + num + '</span><div>' +
+            '<div class="howto-title">Playing with others? Add the Multiplayer codes!</div>' +
+            '<p>Transmog only changes your own game. Without the <a href="#" data-goto="online">Multiplayer codes</a>, ' +
+            'other players keep seeing your normal equipment. Add them too, so others see your looks and you see theirs. ' +
+            'Everyone who should see your transmog needs them as well.</p>' +
+        '</div></div>';
+    }
+
+    var REPORT_LINE =
+        '<p class="report-line">Something not working, or a look that\'s broken or wrong? ' +
+            '<a href="https://github.com/Exceen/mhfu_transmog/issues" target="_blank" rel="noopener">Report an issue on GitHub</a></p>';
+
     function renderInstructionsMode() {
         modePanel.innerHTML =
             '<div class="section-title">Instructions</div>' +
-            '<p class="hint">By using this website you can generate cheat codes (let\'s call them <i>transmog codes</i>) that change how your weapon and armor <b>look</b>. Stats, skills, slots and ' +
+            '<p class="hint">Transmog changes how your weapon and armor <b>look</b>. Stats, skills, slots and ' +
             'decorations always stay those of the gear you actually have equipped.</p>' +
+            '<div class="path-question">How do you want to transmog?</div>' +
+            '<div class="path-choice" role="group" aria-label="Transmog method">' +
+                '<button class="path-option" data-path="picker" aria-pressed="false">' +
+                    '<span class="path-title">In-Game Picker <span class="path-badge">Recommended</span></span>' +
+                    '<span class="path-desc">Install one code once, then pick looks in your item box whenever you like. No new codes for a new look.</span>' +
+                '</button>' +
+                '<button class="path-option" data-path="codes" aria-pressed="false">' +
+                    '<span class="path-title">Generate codes</span>' +
+                    '<span class="path-desc">Create one code per look on this website. Also gives you looks you don\'t own, invisible pieces, ' +
+                    'opposite-gender models, Blademaster/Gunner variants and pigment options.</span>' +
+                '</button>' +
+            '</div>' +
+            '<div id="instr-body"></div>';
 
-            '<div class="callout">' +
-                '<div class="callout-title">Playing with others? You need the Multiplayer codes too!</div>' +
-                '<p>Transmog codes only change your own game. Without the <a href="#" data-goto="online">Multiplayer codes</a>, ' +
-                'other players will keep seeing your normal equipment. Everyone who should see your transmog needs them as well.</p>' +
+        var buttons = modePanel.querySelectorAll('.path-option');
+        function show(path) {
+            for (var i = 0; i < buttons.length; i++) {
+                var on = buttons[i].getAttribute('data-path') === path;
+                buttons[i].classList.toggle('active', on);
+                buttons[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+            }
+            var body = document.getElementById('instr-body');
+            if (path === 'picker') renderPickerInstructions(body);
+            else if (path === 'codes') renderCodeInstructions(body);
+            else body.innerHTML = '';
+        }
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function () {
+                var path = this.getAttribute('data-path');
+                savePath(path);
+                show(path);
+            });
+        }
+        show(readPath());
+    }
+
+    function renderPickerInstructions(body) {
+        var parts = INGAME && INGAME.cheat ? Math.ceil(INGAME.cheat.lines.length / (PSP_MAX_LINES - 1)) : null;
+        body.innerHTML =
+            '<div class="howto">' +
+                '<div class="howto-step"><span class="step-num">1</span><div>' +
+                    '<div class="howto-title">Install the In-Game Picker</div>' +
+                    '<p>Get the code from the <a href="#" data-goto="ingame">In-Game Picker</a> tab, add it to your cheat file ' +
+                    '(see below) and enable it' + (parts ? ' (on a real PSP it has ' + parts + ' parts: enable all of them)' : '') +
+                    '. You only do this once.</p>' +
+                '</div></div>' +
+                multiplayerStep(2) +
+                '<div class="howto-step"><span class="step-num">3</span><div>' +
+                    '<div class="howto-title">Pick your looks</div>' +
+                    '<p>Item box &rarr; <b>Arrange Items</b> &rarr; <b>Equipment</b>. Pick up the piece whose look you want with <b>Circle</b>, ' +
+                    'move to the piece that should get that look and press <b>Square</b> instead of Circle. ' +
+                    'If that piece is equipped, your hunter changes at once.</p>' +
+                    '<img class="example-gif" src="transmog.gif" width="480" height="272" alt="Transmog in action: equipment changing its look in-game">' +
+                '</div></div>' +
+                '<div class="howto-step"><span class="step-num">4</span><div>' +
+                    '<div class="howto-title">Change or undo</div>' +
+                    '<p>Give the piece another look the same way. To undo, pick up the piece and press <b>Square</b> on that same piece.</p>' +
+                '</div></div>' +
+                '<div class="howto-step"><span class="step-num">5</span><div>' +
+                    '<div class="howto-title">Your save data stays untouched</div>' +
+                    '<p>Your looks are kept in their own file on the memory stick (<code>PSP/SAVEDATA/MHFU_TRANSMOG.BIN</code>), ' +
+                    'not in your save data. Disable the code and restart the game, and everything looks like before.</p>' +
+                '</div></div>' +
             '</div>' +
 
+            '<div class="info-grid">' +
+                WHERE_CODES_GO_CARD +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Good to know</div>' +
+                    '<ul>' +
+                        '<li>Both pieces must be the same armor slot; weapons must be the same weapon type. Otherwise you hear the error sound.</li>' +
+                        '<li>A look belongs to the kind of piece, not to one single item: all your copies of that piece change.</li>' +
+                        '<li>You can only use looks of pieces that are in your box. For anything else, <a href="#" data-goto="weapon">generate codes</a>.</li>' +
+                        '<li>Up to 127 kinds of pieces can have a look. All characters share them.</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Together with generated codes</div>' +
+                    '<ul>' +
+                        '<li>You can use both, but not for the same piece: a generated code overwrites the look you picked for that piece.</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Requirements</div>' +
+                    '<ul>' +
+                        '<li>Monster Hunter Freedom Unite. Only tested with the <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> patch v1.4.0; other versions may work but are untested.</li>' +
+                        '<li>Multiplayer: everyone in the room should use the Multiplayer codes in order to see each other\'s styles.</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>' +
+            REPORT_LINE;
+    }
+
+    function renderCodeInstructions(body) {
+        body.innerHTML =
             '<div class="howto">' +
                 '<div class="howto-step"><span class="step-num">1</span><div>' +
                     '<div class="howto-title">Generate your transmog</div>' +
@@ -566,13 +712,14 @@
                     '<p>The idea is to generate codes that transform your whole equipment to a different look. You like two specific looks and ' +
                     'want to swap between them? Generate one code per look for the same equipped gear, then disable one, enable the other and re-equip!</p>' +
                 '</div></div>' +
-                '<div class="howto-step"><span class="step-num">3</span><div>' +
+                multiplayerStep(3) +
+                '<div class="howto-step"><span class="step-num">4</span><div>' +
                     '<div class="howto-title">Your save data stays untouched</div>' +
                     '<p>Your equipment, stats and items are saved exactly as they are. ' +
                     'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running. ' +
                     'Disable them and restart the game, and everything looks like before.</p>' +
                 '</div></div>' +
-                '<div class="howto-step"><span class="step-num">4</span><div>' +
+                '<div class="howto-step"><span class="step-num">5</span><div>' +
                     '<div class="howto-title">Example needed?</div>' +
                     '<p>You wear the Mafumofu set and an Iron Katana, but want to look like the Black set (mixed Blademaster and Gunner pieces) with an invisible helmet and the Hellish Slasher?</p>' +
                     '<img class="example-gif" src="transmog.gif" width="480" height="272" alt="Transmog in action: equipment changing its look in-game">' +
@@ -594,13 +741,7 @@
             '</div>' +
 
             '<div class="info-grid">' +
-                '<div class="online-card">' +
-                    '<div class="online-card-title">Where the codes go</div>' +
-                    '<ul>' +
-                        '<li><b>PPSSPP:</b> enable cheats in the settings, then paste into the cheats file (.ini). You can use the in-game cheat menu to edit it (start the game, go into the menu -> cheats -> edit cheat file). Reload the cheats by opening the cheats list or simply restart PPSSPP if you have any troubles.</li>' +
-                        '<li><b>Real PSP:</b> add them to your CWCheat plugin\'s cheat file (.db): CWCheat only accepts ~30 lines per cheat, so long codes are split into parts (<code>1/4</code>, <code>2/4</code>, ...). Enable <b>all</b> parts. You can also use other cheat plugins like TempAR.</li>' +
-                    '</ul>' +
-                '</div>' +
+                WHERE_CODES_GO_CARD +
                 '<div class="online-card">' +
                     '<div class="online-card-title">Options</div>' +
                     '<ul>' +
@@ -621,14 +762,12 @@
                     '<div class="online-card-title">Requirements</div>' +
                     '<ul>' +
                         '<li>Monster Hunter Freedom Unite. Only tested with the <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> patch v1.4.0; other versions may work but are untested.</li>' +
-                        '<li>Multiplayer: everyone in the room should use the multiplayer codes in order to see each other\'s styles.</li>' +
+                        '<li>Multiplayer: everyone in the room should use the Multiplayer codes in order to see each other\'s styles.</li>' +
                         '<li>Weapons can only take the look of another weapon of the same type.</li>' +
                     '</ul>' +
                 '</div>' +
             '</div>' +
-
-            '<p class="report-line">Something not working, or a look that\'s broken or wrong? ' +
-                '<a href="https://github.com/Exceen/mhfu_transmog/issues" target="_blank" rel="noopener">Report an issue on GitHub</a></p>';
+            REPORT_LINE;
 
         var exampleBtn = document.getElementById('example-toggle');
         var exampleCodes = document.getElementById('example-codes');
@@ -963,13 +1102,13 @@
 
         modePanel.innerHTML =
             '<div class="section-title">Multiplayer</div>' +
-            '<p class="hint">The transmog codes from the other tabs only change your own game. ' +
+            '<p class="hint">The transmog codes from the other tabs and the In-Game Picker only change your own game. ' +
             'Add these codes so other players see your transmog too, and you see theirs.</p>' +
             '<div class="online-grid">' +
                 '<div class="online-card">' +
                     '<div class="online-card-title">How it works</div>' +
                     '<ul>' +
-                        '<li>Your game sends the models your transmog codes picked (and your pigment setting) along with your normal equipment data.</li>' +
+                        '<li>Your game sends the looks your transmog codes or the In-Game Picker set (and your pigment setting) along with your normal equipment data.</li>' +
                         '<li>Players <b>with</b> these codes see your transmog. Players <b>without</b> them see your real equipment, nothing breaks for them.</li>' +
                         '<li>Stats are never touched. Ideally everyone in the room should use the same game version (tested: FUComplete v1.4.0).</li>' +
                     '</ul>' +
@@ -977,9 +1116,9 @@
                 '<div class="online-card">' +
                     '<div class="online-card-title">Setup</div>' +
                     '<ol>' +
-                        '<li>Keep your normal transmog codes enabled; these codes send what they set.</li>' +
+                        '<li>Keep your transmog codes or the In-Game Picker enabled; these codes send the looks they set.</li>' +
                         '<li>Add the Multiplayer codes and enable them. No restart needed.</li>' +
-                        '<li>After changing any codes, re-equip and change area (or rejoin) so others get the update.</li>' +
+                        '<li>After changing a look, re-equip and change area (or rejoin) so others get the update.</li>' +
                     '</ol>' +
                 '</div>' +
             '</div>' +
@@ -1012,6 +1151,87 @@
                 return fmt === 'psp'
                     ? 'Real PSP format: CWCheat allows at most 30 lines per cheat, so these codes are split into parts. Enable <b>every</b> part!'
                     : 'Playing on a real PSP? Select <b>Real PSP</b> above: CWCheat there allows at most 30 lines per cheat, so the codes have to be split into parts.';
+            });
+        });
+    }
+
+    // ── Mode 6: In-Game Picker ───────────────────────────────────────────────
+
+    function renderIngameMode() {
+        if (!INGAME || !INGAME.cheat) {
+            modePanel.innerHTML =
+                '<div class="section-title">In-Game Picker</div>' +
+                '<p class="error-msg">ingame_codes.json could not be loaded.</p>';
+            return;
+        }
+        var cheat = INGAME.cheat;
+
+        modePanel.innerHTML =
+            '<div class="section-title">In-Game Picker</div>' +
+            '<p class="hint">One code that you install once. After that you pick the looks in the game, in your item box. ' +
+            'No new codes are needed when you want a different look.</p>' +
+            '<div class="howto">' +
+                '<div class="howto-step"><span class="step-num">1</span><div>' +
+                    '<div class="howto-title">Open the equipment box</div>' +
+                    '<p>Item box &rarr; <b>Arrange Items</b> &rarr; <b>Equipment</b>.</p>' +
+                '</div></div>' +
+                '<div class="howto-step"><span class="step-num">2</span><div>' +
+                    '<div class="howto-title">Pick up the look</div>' +
+                    '<p>Pick up the piece whose look you want with <b>Circle</b>, as if you wanted to move it.</p>' +
+                '</div></div>' +
+                '<div class="howto-step"><span class="step-num">3</span><div>' +
+                    '<div class="howto-title">Give it to another piece</div>' +
+                    '<p>Move to the piece that should get that look and press <b>Square</b> instead of Circle. ' +
+                    'You hear a confirm sound. If that piece is equipped, your hunter changes at once; otherwise when you equip it.</p>' +
+                '</div></div>' +
+                '<div class="howto-step"><span class="step-num">4</span><div>' +
+                    '<div class="howto-title">Undo</div>' +
+                    '<p>Pick up a piece and press <b>Square</b> on that same piece. It looks like itself again.</p>' +
+                '</div></div>' +
+            '</div>' +
+            '<div class="info-grid">' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Good to know</div>' +
+                    '<ul>' +
+                        '<li>Both pieces must be the same armor slot; weapons must be the same weapon type. Otherwise you hear the error sound and keep the piece picked up.</li>' +
+                        '<li>A look belongs to the kind of piece, not to one single item: all your copies of that piece change.</li>' +
+                        '<li>You can only use looks of pieces that are in your box.</li>' +
+                        '<li>Without a picked-up piece, Square shows the Info window as usual.</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Where the looks are saved</div>' +
+                    '<ul>' +
+                        '<li>In <code>PSP/SAVEDATA/MHFU_TRANSMOG.BIN</code> on the memory stick, not in your save data. They are loaded when the game starts.</li>' +
+                        '<li>All characters share them. Delete the file to reset every look.</li>' +
+                        '<li>Up to 127 kinds of pieces can have a look. A 128th gives the error sound and changes nothing; undo another one first.</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">With the other tabs</div>' +
+                    '<ul>' +
+                        '<li>The picker changes the same game data as the codes from the other tabs. Don\'t use a generated code and an in-game look for the same piece.</li>' +
+                        '<li>Playing with others? Add the <a href="#" data-goto="online">Multiplayer codes</a>; they send the looks you picked.</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Requirements</div>' +
+                    '<ul>' +
+                        '<li>Monster Hunter Freedom Unite. Only tested with the <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> patch v1.4.0.</li>' +
+                        '<li>Real PSP: the code is long, so it is split into ' + Math.ceil(cheat.lines.length / (PSP_MAX_LINES - 1)) + ' parts. Enable <b>all</b> of them.</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>' +
+            '<div class="btn-row">' +
+                '<button class="btn btn-primary" id="ingame-generate">Show Code</button>' +
+            '</div>';
+
+        document.getElementById('ingame-generate').addEventListener('click', function () {
+            showOutput([{ title: cheat.title, lines: cheat.lines }],
+                cheat.title + ' (' + cheat.lines.length + ' lines)', function (fmt) {
+                return fmt === 'psp'
+                    ? 'Real PSP format: CWCheat allows at most 30 lines per cheat, so this code is split into parts. Enable <b>every</b> part!'
+                    : 'Playing on a real PSP? Select <b>Real PSP</b> above: CWCheat there allows at most 30 lines per cheat, so the code has to be split into parts.';
             });
         });
     }

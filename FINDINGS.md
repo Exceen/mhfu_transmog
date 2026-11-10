@@ -599,9 +599,18 @@ All in your own network record only; your equipped gear (and the save file) is n
 | pigment info present | weapon entry `+4` bit 10 | set by every online armor sender |
 | weapon model, 10 bits | bits 0-4: weapon entry `+4` bits 11-15; bits 5-9: bit 7 of each armor entry's level byte (`+4`, slot = bit - 5) | 0 = nothing sent, else model + 1 |
 
+Head model 0 (no helmet model, e.g. piercings and the website's "invisible head") means "draw the
+hairstyle" to the game: its own head lookup returns the hairstyle byte of the record (`+0x14`) in
+that case. Since v3.0 the armor receiver does the same; v2.x returned the 0 itself, so a hunter
+with such a head piece and a received look showed the default hairstyle until the next re-equip
+(which uses the local lookup, not the record). This also affected your own hunter, because the
+game builds it from your record when you load into the village.
+
 Receiver pigment: off → 0; on → the receiver's own flag if non-zero, else 2 (what the pigment
 enable codes write). Armor models are at most ~341 and weapon models at most 552 in FUComplete v1.4.0.
 The weapon code (since v2.1) sends blademaster (type 5) and gunner (type 6) weapons; v2.0 only type 5.
+All four codes (Multiplayer Armor, Weapon, Marker and the In-Game Picker) are versioned together since
+v3.0; in v3.0 only the armor receiver changed (head model 0, above).
 
 ### Compatibility rules
 
@@ -658,3 +667,94 @@ returns base64 memory, so the records of all players can be read live: `online/r
 does that and decodes what each player sends (`pip install websocket-client`). A second PPSSPP instance needs
 its own MAC address (`[SystemParam] MacAddress` in `ppsspp.ini`), or the ad-hoc server merges both players.
 
+
+---
+
+## 14. In-Game Transmog Picker
+
+`ingame/transmog.asm` (built by `ingame/build.py` into `ingame_codes.json` for the website and
+`ingame/transmog_codes.txt`) lets you pick looks
+in the equipment box instead of generating table patches on the website. It applies the same table
+patches (sections 5 and 6) from a rule list, so the Multiplayer codes work with it unchanged. Usage
+is in [`ingame/README.md`](ingame/README.md). All addresses are for FUComplete v1.4.0.
+
+### Equipment box
+
+| Address | Content |
+|---------|---------|
+| `0x09995EE8` | equipment box: 1000 entries × 12 bytes (save data `0x09995E40` + `0xA8`), 10 pages of 100, same entry layout as in section 13 |
+| `0x09995E40 + 0x4020` | u16[6]: box index of the equipped weapon, legs, head, chest, arms, waist |
+
+The spare byte `+5` of an **armor** entry is not usable in the box or in the equipped gear: the game
+reads `+4` as a 16-bit level in dozens of places (`lhu` at `0x08820514`, `0x088206F4`, `0x0885EC44`,
+`0x0885EC6C`, …), so a non-zero `+5` gives "Lv 257" and maximum defense. It is only free in the
+network record (section 13), where nobody computes with it. That is why the in-game code stores its
+choices outside the save data.
+
+### Change Equipment menu (village overlay, only loaded in the village / hall)
+
+| Address | Content |
+|---------|---------|
+| `0x09B154C0` | menu state `S`: `+0x39` submenu depth, `+0x3A` grid state (0 browsing, 1 confirm, 2 changing equipment), `+0x3B` step of state 2, `+0x42` u16 cursor = box index, `+0x4C` equipped entry of that slot, `+0x50` entry under the cursor (0 if it is the equipped one), `+0x5D` skill info shown, `+0x5F` sort menu open |
+| `0x09ADA5E8` | item box menu handler(S, pressed buttons) |
+| `0x09ADAAC8` | Change Equipment handler(S, pressed buttons); the buttons are PSP pad bits (`0x8000` Square = skill info, `0x2000` Circle, `0x4000` Cross) |
+| `0x09ADAD48` | its per-frame call of `0x0883062C` (EBOOT, compares two entries) while browsing a non-empty slot; here `s1` = pressed buttons, `s2` = S, `s4` = save data |
+| `0x09A9C3D0` | reload the hunter's models, `a0 = *0x09B1E310`; with `S+0x3A = 2`, `S+0x3B = 0` the menu waits for it and returns to the grid |
+
+Hooking the EBOOT function `0x0883062C` and checking `ra == 0x09ADAD50` gives a hook that only acts
+in this menu without writing into the overlay (which would corrupt other overlays, e.g. in quests).
+Clearing a bit in `s1` there hides that button press from the game. (Development builds of the
+picker used this for a Triangle + Square shortcut; the released code only uses the Arrange menu below.)
+
+### Arrange Items → Equipment (same overlay, same menu state `S`)
+
+| Address | Content |
+|---------|---------|
+| `S + 0x37` | 0 = Item, 1 = Equipment; the cursor is the u16 at `S + 0x40 + 2 * that` |
+| `S + 0x3A` | 0 = nothing picked up, 1 = a piece is picked up; `S + 0x44` u16 = its box index |
+| `S + 0x5D` | Info window (2 = equipment info) |
+| `0x09ADDB98` | Arrange handler(S, pressed buttons); Circle with a picked-up piece swaps the two 12-byte entries |
+| `0x09AE31B8` | its input function; for Square on a non-empty equipment slot it sets `S + 0x5D = 2` and calls `0x0883062C` at `0x09AE3408` (`s1` = S, `a1` = entry under the cursor) |
+| `0x09AE3470` | in that function: return 0 (no button for the handler) |
+
+So the same EBOOT hook with `ra == 0x09AE3410` catches "Square while a piece is picked up": the cave
+does its work, clears `S + 0x5D` and `S + 0x3A` and returns to `0x09AE3470` instead of running the
+compare function. This menu has no "changing equipment" state, so after `0x09A9C3D0` the per-frame
+hook waits until the byte at `*0x09B1E308` is 0 and then calls `0x09A9C580` (`a0 = *0x09B1E310`),
+which is what the Change Equipment menu does in its state 2.
+
+### Other addresses
+
+| Address | Content |
+|---------|---------|
+| `0x08A5DD38` | u32 pad buttons currently held (PSP bits, `0x1000` Triangle) |
+| `0x08868F5C` | the only `jal sceCtrlReadBufferPositive` (once per frame, from boot on) |
+| `0x0888368C` | play a menu sound: `a0 = *0x08A5DE5C`, `a2` = id (`0x11` open, `0x13` confirm, `0x14` cancel, `0x15` error), `a1`, `a3`, `t0`-`t3` and `0(sp)` = 0 |
+| `*0x089C6CBC + 0x5FC` | u16 id of the help text at the top of a menu (`0x0A` = "Select the Equipment to be changed.") |
+| `0x0890B938` / `B908` / `B8F8` / `B918` | sceIoOpen / sceIoRead / sceIoWrite / sceIoClose import stubs |
+
+### Where the code caves really are
+
+`0x09FE0000-0x09FFFFFF` is not free memory but the thread stacks (`0xFF`-filled by the kernel when
+a thread is created). Codes sit in parts of stacks that the threads never reach:
+
+| Range | Stack | Code |
+|-------|-------|------|
+| `0x09FE9C00-0x09FF1C00` | `CsePspAtrac3DecodeThrd` (32 KB, uses ~`0x1B0` at its top) | Multiplayer armor / weapon / marker at `0x09FF0400-0x09FF09CB` |
+| `0x09FF7C00-0x09FFFC00` | `user_main` (32 KB, deepest use seen `0x09FFDB80`) | in-game transmog code `0x09FF9100-0x09FF96DF`, its data `0x09FF9800-0x09FF9FFF` (run magic, unused word, file magic, 127 rules × 16 bytes, reload-pending flag) |
+
+The sound thread stacks are created about one second **after** boot, and creating them wipes
+whatever a cheat wrote there. A hook that already runs at that time (like the per-frame hook) then
+jumps into `0xFF`s until the next cheat refresh: a development build of the picker had its code at
+`0x09FEF000` and crashed PPSSPP at every boot. Code that runs from boot on must be in the `user_main` stack,
+which exists before the first cheat write. Other community codes use the bottom of that stack too
+(seen in one cheat file: `0x09FF7DFC-0x09FF84D3`, `0x09FF8FFF-0x09FF900B`, `0x09FFA000-0x09FFA03F`,
+`0x09FFD4C0-0x09FFD5F7`), so `0x09FF9100-0x09FF9FFF` was chosen to stay clear of them.
+
+### Rules and file
+
+A rule is 16 bytes: `+0` u32 `0x80000000 | type << 16 | eid` (0 = free), `+4`/`+6` look models
+male/female (weapons: model at `+4`), `+8`/`+10` original models, `+12` look pigment flag, `+13`
+original pigment flag. Applying a rule writes the look into the eid's table entry; removing it writes
+the originals back. The rules are stored in `ms0:/PSP/SAVEDATA/MHFU_TRANSMOG.BIN` (4-byte magic
+`TMG1` + 127 rules; shorter files from versions with fewer rules still load); the file is read on the first frame after boot and written after every change.

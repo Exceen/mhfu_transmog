@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MHFU Transmog</title>
-    <meta name="description" content="Generate CWCheat transmog codes for Monster Hunter Freedom Unite: change how weapons and armor look without changing stats, also visible online.">
+    <meta name="description" content="Transmog for Monster Hunter Freedom Unite: pick looks in the game or generate CWCheat codes, change how weapons and armor look without changing stats, also visible online.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,12 +16,17 @@
 
     <nav id="mode-tabs">
         <button class="tab tab-info active" data-mode="instructions">Instructions</button>
+        <button class="tab tab-ingame" data-mode="ingame">In-Game Picker</button>
         <button class="tab tab-online" data-mode="online">Multiplayer</button>
         <span class="tab-divider" aria-hidden="true"></span>
-        <button class="tab" data-mode="weapon">Weapon</button>
-        <button class="tab" data-mode="armor-slot">Armor (Single Slot)</button>
-        <button class="tab" data-mode="armor-set">Armor (Set)</button>
-        <button class="tab" data-mode="universal-invisible">Universal Invisible</button>
+        <button class="tab" data-mode="generate">Generate Codes</button>
+    </nav>
+
+    <nav id="sub-tabs" class="hidden" aria-label="Code generator">
+        <button class="subtab" data-mode="weapon">Weapon</button>
+        <button class="subtab" data-mode="armor-slot">Armor (Single Slot)</button>
+        <button class="subtab" data-mode="armor-set">Armor (Set)</button>
+        <button class="subtab" data-mode="universal-invisible">Universal Invisible</button>
     </nav>
 
     <main id="mode-panel">
@@ -53,7 +58,7 @@
     </section>
 
     <footer>
-        <p>Generate CWCheat codes for equipment visual overrides in Monster Hunter Freedom Unite</p>
+        <p>Pick equipment looks in the game or generate CWCheat codes for them in Monster Hunter Freedom Unite</p>
         <p>Works on real PSP (CWCheat) and in PPSSPP. Tested with <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> v1.4.0</p>
         <p><a href="https://github.com/Exceen/mhfu_transmog" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://github.com/Exceen/mhfu_transmog/issues" target="_blank" rel="noopener">Report an issue</a></p>
         <p class="copyright">&copy; Exceen</p>

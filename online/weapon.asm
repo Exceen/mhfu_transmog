@@ -1,9 +1,9 @@
-; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v2.1 - separate from the armor cheat
+; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v3.0 - separate from the armor cheat
 ;
 ; Works together with the offline weapon transmog cheats, which rewrite weapon model fields.
 ; Weapon entry type (+1): 5 = blademaster weapon, 6 = gunner weapon (bowguns, bows).
 ; Blademaster table as the code indexes it: 0x089574C8 + eid*24, model = u16 at +0.
-; Gunner table: 0x0895E098 + eid*28, model = u16 at +0. (v2.0 only handled type 5.)
+; Gunner table: 0x0895E098 + eid*28, model = u16 at +0.
 ;
 ; Sent value, 10 bits: 0 = nothing sent, else model + 1 (models go up to 550).
 ;   bits 0-4: weapon entry +4, bits 11-15 (bits 0-10 belong to the armor cheat)
