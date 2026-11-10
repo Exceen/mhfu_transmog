@@ -710,6 +710,29 @@ main {
     background: var(--bg-card-hover);
     color: var(--text-bright);
 }
+#output-actions #btn-report {
+    margin-left: auto;
+    padding: 8px 16px;
+    border: 1px solid rgba(240, 204, 85, 0.4);
+    border-radius: var(--radius-sm);
+    color: #f0cc55;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+#output-actions #btn-report:hover {
+    background: rgba(240, 204, 85, 0.08);
+}
+
+.report-line {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+    text-align: center;
+}
+
 #output-actions button.copied {
     border-color: var(--green);
     color: var(--green);

@@ -627,7 +627,10 @@
                         '<li>Weapons: stay within the same weapon type, other types break the animations.</li>' +
                     '</ul>' +
                 '</div>' +
-            '</div>';
+            '</div>' +
+
+            '<p class="report-line">Something not working, or a look that\'s broken or wrong? ' +
+                '<a href="https://github.com/Exceen/mhfu_transmog/issues" target="_blank" rel="noopener">Report an issue on GitHub</a></p>';
 
         var exampleBtn = document.getElementById('example-toggle');
         var exampleCodes = document.getElementById('example-codes');
