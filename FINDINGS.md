@@ -758,3 +758,28 @@ male/female (weapons: model at `+4`), `+8`/`+10` original models, `+12` look pig
 original pigment flag. Applying a rule writes the look into the eid's table entry; removing it writes
 the originals back. The rules are stored in `ms0:/PSP/SAVEDATA/MHFU_TRANSMOG.BIN` (4-byte magic
 `TMG1` + 127 rules; shorter files from versions with fewer rules still load); the file is read on the first frame after boot and written after every change.
+
+### Per-Set Transmog (`ingame/sets.asm`)
+
+Equipment sets: 20 per character at save data `+0x4334` (`0x0999A174`), 32 bytes each: u16[6] box
+indexes (weapon, legs, head, chest, arms, waist; `0xFFFF` = empty), then 5 × 4 bytes pigment per
+armor slot. The menus are in the village overlay (the gathering hall uses the same one):
+
+| Address | Content |
+|---------|---------|
+| `0x09ADC568` | Reg Curr Equip: `jal 0x0888368C` (confirm sound, return address `0x09ADC570`), then the equipped indexes (save data `+0x4020`) are copied into set `S + 0x7F` (`s4` = S, `s3` = save data) |
+| `0x09ADB3E8` | EditEquipmentSet → Register: same sound call (return address `0x09ADB3F0`, `s1` = S); the edited set is at `S + 0xA2` and is copied into set `S + 0x7F` by `memcpy` at `0x09ADB444` |
+| `0x09AE6FF0` | equip set (`a1` = set entry); calls `0x088507AC` (EBOOT: put box piece `a1` into its slot, `a0` = player base) for the weapon (return address `0x09AE702C`, `s3` = set entry) and each armor piece `i` (return address `0x09AE7064`, `s1 = 12 * i`, `s3` = set entry `+ 2 * i`); called from `0x09ADBCA4` and `0x09ADC284` |
+
+The add-on hooks the two EBOOT functions (`0x0888368C`, `0x088507AC`) with return-address checks.
+Register stores each piece's current picker rule (look or "own look") per set; equip applies the
+stored record of a slot if the piece being equipped is still the same kind, through the picker's
+own functions (`find_rule`, `find_word`, `entry_addr`, `put3`, `save_file`; their addresses come
+from the picker's symbol file at build time, so both codes must be built together). The game reloads
+the models after equipping a set, so the looks show at once.
+
+Storage: `ms0:/PSP/SAVEDATA/MHFU_TRANSMOG_SETS_<hash>.BIN`, `<hash>` = djb2 of the 8 UTF-16
+characters of the name (save data `+0`) as 8 hex digits; content `TMS1` + 20 sets × 6 slots × 8
+bytes (`+0` u16 `0x8000 | type << 12 | eid`, `+2`/`+4` look models, `+6` pigment flag, `+7` 1 = has a
+look). The current character's sets are cached at `0x09FF8B20` (code `0x09FF84E0-0x09FF8B07`, in the
+`user_main` stack behind another community code that ends at `0x09FF84D3`).

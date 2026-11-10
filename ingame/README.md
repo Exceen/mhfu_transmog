@@ -28,8 +28,24 @@ You can only use looks of pieces that are in your box.
 - Other players who wear a piece you gave a look are shown with that look on your screen, unless
   they send their own look with the Multiplayer codes (same as with the website's codes).
 
+## Per-Set Transmog (optional add-on)
+
+A second code that needs the picker (same version). With it, every equipment set (item box →
+Change Equipment → Equipment Set) has its own looks:
+
+- **Reg Curr Equip**, or **Register** in EditEquipmentSet, stores the look each piece of the set
+  has right now (or that it shows its own look).
+- **Equipment Set** puts exactly these looks back when you equip the set.
+
+So the same piece can look different in different sets. Looks you pick in Arrange Items become part
+of a set the next time you register it; sets registered before the add-on was installed keep the
+current looks until you register them again. The looks are saved per character in
+`ms0:/PSP/SAVEDATA/MHFU_TRANSMOG_SETS_<hash>.BIN` (`<hash>` comes from the character name, so two
+characters with the same name share their set looks). Real PSP: 14 parts.
+
 ## Build
 
-`python3 ingame/build.py` (needs [armips](https://github.com/Kingcom/armips)) writes
-`../ingame_codes.json` (website) and `transmog_codes.txt`. Technical notes:
+`python3 ingame/build.py` (needs [armips](https://github.com/Kingcom/armips)) assembles
+`transmog.asm` and `sets.asm` (which calls into the picker, using addresses from the picker's symbol
+file) and writes `../ingame_codes.json` (website) and `transmog_codes.txt`. Technical notes:
 [FINDINGS.md, section 14](../FINDINGS.md).

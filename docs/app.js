@@ -639,7 +639,7 @@
     }
 
     function renderPickerInstructions(body) {
-        var parts = INGAME && INGAME.cheat ? Math.ceil(INGAME.cheat.lines.length / (PSP_MAX_LINES - 1)) : null;
+        var parts = INGAME && INGAME.cheats ? Math.ceil(INGAME.cheats.picker.lines.length / (PSP_MAX_LINES - 1)) : null;
         body.innerHTML =
             '<div class="howto">' +
                 '<div class="howto-step"><span class="step-num">1</span><div>' +
@@ -676,12 +676,15 @@
                         '<li>A look belongs to the kind of piece, not to one single item: all your copies of that piece change.</li>' +
                         '<li>You can only use looks of pieces that are in your box. For anything else, <a href="#" data-goto="weapon">generate codes</a>.</li>' +
                         '<li>Up to 127 kinds of pieces can have a look. All characters share them.</li>' +
+                        '<li>You can also use generated codes, but not for the same piece: a generated code overwrites the look you picked for that piece.</li>' +
                     '</ul>' +
                 '</div>' +
                 '<div class="online-card">' +
-                    '<div class="online-card-title">Together with generated codes</div>' +
+                    '<div class="online-card-title">Different looks per equipment set (optional)</div>' +
                     '<ul>' +
-                        '<li>You can use both, but not for the same piece: a generated code overwrites the look you picked for that piece.</li>' +
+                        '<li>Add the <b>Per-Set Transmog</b> code from the <a href="#" data-goto="ingame">In-Game Picker</a> tab as well.</li>' +
+                        '<li>Then every equipment set remembers the looks its pieces have when you register it, and puts them back when you equip the set. ' +
+                        'The same piece can look different in different sets.</li>' +
                     '</ul>' +
                 '</div>' +
                 '<div class="online-card">' +
@@ -1158,13 +1161,15 @@
     // ── Mode 6: In-Game Picker ───────────────────────────────────────────────
 
     function renderIngameMode() {
-        if (!INGAME || !INGAME.cheat) {
+        if (!INGAME || !INGAME.cheats) {
             modePanel.innerHTML =
                 '<div class="section-title">In-Game Picker</div>' +
                 '<p class="error-msg">ingame_codes.json could not be loaded.</p>';
             return;
         }
-        var cheat = INGAME.cheat;
+        var cheat = INGAME.cheats.picker;
+        var sets = INGAME.cheats.sets;
+        function partCount(c) { return Math.ceil(c.lines.length / (PSP_MAX_LINES - 1)); }
 
         modePanel.innerHTML =
             '<div class="section-title">In-Game Picker</div>' +
@@ -1190,6 +1195,15 @@
                 '</div></div>' +
             '</div>' +
             '<div class="info-grid">' +
+                '<div class="online-card">' +
+                    '<div class="online-card-title">Different looks per equipment set (optional)</div>' +
+                    '<ul>' +
+                        '<li>Add the <b>Per-Set Transmog</b> code (it needs the picker). Every equipment set then remembers the looks its pieces have ' +
+                        'when you register it (<b>Reg Curr Equip</b>, or <b>Register</b> in EditEquipmentSet), and puts them back when you equip the set.</li>' +
+                        '<li>So the same piece can look different in different sets. Looks you pick in Arrange Items become part of a set the next time you register it.</li>' +
+                        '<li>Saved per character in <code>PSP/SAVEDATA/MHFU_TRANSMOG_SETS_….BIN</code>.</li>' +
+                    '</ul>' +
+                '</div>' +
                 '<div class="online-card">' +
                     '<div class="online-card-title">Good to know</div>' +
                     '<ul>' +
@@ -1218,20 +1232,29 @@
                     '<div class="online-card-title">Requirements</div>' +
                     '<ul>' +
                         '<li>Monster Hunter Freedom Unite. Only tested with the <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> patch v1.4.0.</li>' +
-                        '<li>Real PSP: the code is long, so it is split into ' + Math.ceil(cheat.lines.length / (PSP_MAX_LINES - 1)) + ' parts. Enable <b>all</b> of them.</li>' +
+                        '<li>Real PSP: the codes are long, so they are split into parts (picker ' + partCount(cheat) + ', per-set ' + partCount(sets) + '). Enable <b>all</b> of them.</li>' +
                     '</ul>' +
                 '</div>' +
             '</div>' +
+            '<div class="option-group">' +
+                '<div class="option-group-label">Codes</div>' +
+                '<label><input type="checkbox" checked disabled> ' + escapeHtml(cheat.title) +
+                    ' <span class="option-detail">(' + cheat.lines.length + ' lines, required)</span></label>' +
+                '<label><input type="checkbox" id="ingame-sets"> ' + escapeHtml(sets.title) +
+                    ' <span class="option-detail">(' + sets.lines.length + ' lines, optional: different looks per equipment set)</span></label>' +
+            '</div>' +
             '<div class="btn-row">' +
-                '<button class="btn btn-primary" id="ingame-generate">Show Code</button>' +
+                '<button class="btn btn-primary" id="ingame-generate">Show Codes</button>' +
             '</div>';
 
         document.getElementById('ingame-generate').addEventListener('click', function () {
-            showOutput([{ title: cheat.title, lines: cheat.lines }],
-                cheat.title + ' (' + cheat.lines.length + ' lines)', function (fmt) {
+            var blocks = [{ title: cheat.title, lines: cheat.lines }];
+            var withSets = document.getElementById('ingame-sets').checked;
+            if (withSets) blocks.push({ title: sets.title, lines: sets.lines });
+            showOutput(blocks, cheat.title + (withSets ? ' + ' + sets.title : ''), function (fmt) {
                 return fmt === 'psp'
-                    ? 'Real PSP format: CWCheat allows at most 30 lines per cheat, so this code is split into parts. Enable <b>every</b> part!'
-                    : 'Playing on a real PSP? Select <b>Real PSP</b> above: CWCheat there allows at most 30 lines per cheat, so the code has to be split into parts.';
+                    ? 'Real PSP format: CWCheat allows at most 30 lines per cheat, so these codes are split into parts. Enable <b>every</b> part!'
+                    : 'Playing on a real PSP? Select <b>Real PSP</b> above: CWCheat there allows at most 30 lines per cheat, so the codes have to be split into parts.';
             });
         });
     }

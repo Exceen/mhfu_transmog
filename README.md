@@ -11,6 +11,7 @@ Two ways, both for PPSSPP and real PSP hardware (CWCheat): install the **In-Game
 ## Features
 
 - **In-Game Picker** (v3.0): one code, installed once. In the item box (*Arrange Items → Equipment*) pick up the piece whose look you want and press Square on the piece that should get it. Looks are saved on the memory stick, not in your save data
+- **Per-Set Transmog** (v3.0, optional add-on for the picker): every equipment set remembers the looks its pieces had when it was registered and puts them back when you equip it, so the same piece can look different in different sets
 - **Weapon**: make a weapon look like another weapon of the same type
 - **Armor (Single Slot)** and **Armor (Set)**: change the look of one piece or a whole set, including invisible pieces, opposite-gender models, Blademaster/Gunner variants and pigment on/off
 - **Universal Invisible**: hide every piece of an armor slot, whatever is equipped
@@ -57,7 +58,7 @@ cd docs && python3 -m http.server 8000
 python3 online/build.py   # needs armips on PATH
 ```
 
-**In-Game Picker** (`ingame_codes.json`, plus [`ingame/transmog_codes.txt`](ingame/transmog_codes.txt) for copying by hand) is assembled from `ingame/transmog.asm`; usage and notes are in [`ingame/README.md`](ingame/README.md):
+**In-Game Picker** and **Per-Set Transmog** (`ingame_codes.json`, plus [`ingame/transmog_codes.txt`](ingame/transmog_codes.txt) for copying by hand) are assembled from `ingame/transmog.asm` and `ingame/sets.asm`; usage and notes are in [`ingame/README.md`](ingame/README.md):
 
 ```bash
 python3 ingame/build.py   # needs armips on PATH
