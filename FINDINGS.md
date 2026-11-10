@@ -235,6 +235,11 @@ File ID formula (for reference): `file_id = 3388 + model_number`
 ### Table is STATIC
 Like armor tables, the weapon data table is static across save states.
 
+### How the game code indexes it
+Game code addresses the same table as `0x089574C8 + eid * 24` with the **model as u16 at +0**,
+where `eid` is the weapon's equipment ID (as stored in the player's equipment entry). This is the
+same memory: `0x089574E8 + i*24 + 16 = 0x089574C8 + (i+2)*24`, so `eid = entry_index + 2`.
+
 ---
 
 ## 5. Armor Transmog — How to Generate CWCheat Codes
@@ -490,6 +495,14 @@ _L 0x008B0260 0x00000001
 
 7. **Multiple weapon entries share the same model**. When creating weapon transmog, you must patch ALL entries with the source model ID, not just one.
 
+8. **Only real fields of the network record are transmitted** (see section 13). Padding bytes such as record `+0x2A` arrive as zero on the other side.
+
+9. **The model getters' slot parameter is not type2.** `0x088517A8` / `0x08851994` use 0 legs, 1 hair, 2 head, 3 chest, 4 arms, 5 waist, while equipment entries and armor tables use type2 (0 legs, 1 head, 2 chest, 3 arms, 4 waist).
+
+10. **Don't call `0x088515D0` (getArmorModel) from a hook for the head**: its head case depends on a flag in `$t0`. Read the armor table directly instead.
+
+11. **Real PSP CWCheat: at most 30 lines per cheat.** Longer codes must be split into several cheats (in order).
+
 ---
 
 ## 12. Scripts
@@ -507,3 +520,96 @@ All scripts are in `/Users/Exceen/Downloads/mhfu_transmog/`:
 | `read_jump_table.py` | Reads the equipment type dispatch jump table |
 | `verify_weapon_table2.py` | Verified the (wrong) model file table at 0x0893E7F0 |
 | `disasm_equip_code.py` | MIPS disassembler helper for analyzing game code |
+
+---
+
+## 13. Online Transmog (multiplayer)
+
+Transmog codes only patch your own tables. Other players draw your hunter from the equipment IDs
+they receive, looked up in their own tables. The online codes (`online/armor.asm`, `online/weapon.asm`,
+built into `online_codes.json`) send the models your patched tables produce, in spare bits of data
+the game already sends, and make the receiver use them. Unmodified games ignore those bits
+(tested). Inspired by Kurogami2134's MHP3rd transmog, which stores a model override in an unused
+equipment byte.
+
+### Player data
+
+| Address | Content |
+|---------|---------|
+| `0x099959A0` | player base (also at `*0x089C7508`) |
+| `0x09995E40` | your equipped gear (base + 0x4A0): weapon entry `+0x20`, armor entries `+0x2C + type2*12`, gender `+0x13` |
+| `0x099959D0 + p*0x8C` | network records, `p` = player index, `p = 0` is you |
+
+Equipment entry (12 bytes, same layout everywhere):
+
+| Offset | Type | Content |
+|--------|------|---------|
+| +0 | u8 | 1 |
+| +1 | u8 | type2 (0 legs, 1 head, 2 chest, 3 arms, 4 waist, 5 weapon) |
+| +2 | u16 | equipment ID (eid) |
+| +4 | u8 | armor: level. weapon: 0 |
+| +5 | u8 | unused (0) |
+| +6..+B | 3×u16 | decorations |
+
+Network record (`0x8C` bytes): `+0x10` gender, `+0x15 + type2*4` pigment color index,
+`+0x2C` hair color, `+0x30` weapon entry, `+0x3C + type2*12` armor entries.
+
+`0x0885298C(base)` copies your gear into your record (whole halfword at entry +4, so +5 too). It is
+called from the area/menu code (5 call sites in the `0x09A6xxxx` overlay), so an update reaches
+others after re-equipping plus an area change or rejoin. The packet is serialized per field, not as
+a raw copy of the record: the padding bytes at `+0x29..+0x2B` do **not** arrive. The record's size
+(`0x8C`) is passed at `0x09AC6218`.
+
+The code around `0x088D0CD0` initializes another player's hunter entity from a record (copies all
+fields, then calls the model getters below).
+
+### Model getters
+
+| Address | Function |
+|---------|----------|
+| `0x088517A8` | getNetArmorModel(base, player, p): reads the record (gender `+0x10`, eid `+0x3E + type2*12`) |
+| `0x08851994` | getLocalArmorModel(base, p): reads your equipped gear |
+| `0x088515D0` | getArmorModel(_, gender, p, eid) |
+| `0x08851CE8` | getNetPigmentFlag(base, player, p): armor table byte +19 of the record's eid (`lbu v0, 0x13(v0)` at `0x08851D64`) |
+| `0x08851E4C` | getNetWeaponModel(base, player): `0x089574C8 + eid*24` (type byte `+0x31` must be 5) |
+| `0x0885CB60` | getArmorEntry(_, type2, eid) |
+| `0x08856C3C` | p → type2 |
+
+Their slot parameter `p` is 0 legs, 1 hair, 2 head, 3 chest, 4 arms, 5 waist (type2 = p - 1, legs 0).
+
+### Encoding
+
+All in your own network record only; your equipped gear (and the save file) is never touched.
+
+| Bits | Location | Content |
+|------|----------|---------|
+| armor model, 9 bits per slot | bits 0-7: armor entry `+5`; bit 8: weapon entry `+4` bit `type2` | 0 = nothing sent, `0x1FF` = model -1, else model + 1 |
+| pigment on/off per slot | weapon entry `+4` bit `5 + type2` | 1 = armor table byte +19 is non-zero |
+| pigment info present | weapon entry `+4` bit 10 | set by every online armor sender |
+| weapon model, 10 bits | bits 0-4: weapon entry `+4` bits 11-15; bits 5-9: bit 7 of each armor entry's level byte (`+4`, slot = bit - 5) | 0 = nothing sent, else model + 1 |
+
+Receiver pigment: off → 0; on → the receiver's own flag if non-zero, else 2 (what the pigment
+enable codes write). Armor models are at most ~341 and weapon models at most 550 in FUComplete v1.4.0.
+
+### Hooks and code caves
+
+| Code | Cave | Hook | Replaces |
+|------|------|------|----------|
+| armor sender | `0x09FF0400` | `0x08852B44` | `j 0x0880CD4C` (memcpy tail call at the end of `0x0885298C`; `$v1` = your record) |
+| armor receiver | | `0x088517A8` | first 2 instructions of getNetArmorModel |
+| pigment receiver | | `0x08851D64` | `lbu v0, 0x13(v0)` (`$s0` = record, `$a1` = type2) |
+| weapon sender | `0x09FF0600` | `0x08852B3C` | `addiu a0, v1, 0x81; addiu a2, zero, 8` (runs before the armor sender, then continues into it) |
+| weapon receiver | | `0x08851E4C` | first 2 instructions of getNetWeaponModel |
+
+The caves are in the `0xFF`-filled region `0x09FF0000-0x09FFFFFF` (free on PPSSPP and real PSP).
+The hook lines come last in each code, so the cave is complete before anything jumps into it.
+
+### Debugging online
+
+Save states are disabled while ad-hoc is active. PPSSPP's remote debugger (Settings → Tools →
+Developer tools → *Allow remote debugger*) exposes a WebSocket at `ws://127.0.0.1:<port>/debugger`
+(find the port with `lsof -nP -iTCP -sTCP:LISTEN -c PPSSPP`); `{"event": "memory.read", "address": ..., "size": ...}`
+returns base64 memory, so the records of all players can be read live: `online/read_records.py`
+does that and decodes what each player sends (`pip install websocket-client`). A second PPSSPP instance needs
+its own MAC address (`[SystemParam] MacAddress` in `ppsspp.ini`), or the ad-hoc server merges both players.
+

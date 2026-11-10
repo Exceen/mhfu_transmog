@@ -97,6 +97,28 @@ header h1 {
     filter: drop-shadow(0 0 2.5px rgba(210, 25, 15, 1)) drop-shadow(0 0 2px rgba(210, 25, 15, 1));
 }
 
+.tagline {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+/* ── Step numbers (instructions) ─────────────────────────── */
+
+.step-num {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-subtle);
+    color: var(--accent-hover);
+    font-weight: 700;
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ── Mode Tabs ───────────────────────────────────────────── */
 
 #mode-tabs {
@@ -133,6 +155,29 @@ header h1 {
     border-color: var(--accent);
     font-weight: 600;
     box-shadow: 0 1px 8px var(--accent-glow);
+}
+
+.tab-divider {
+    width: 1px;
+    align-self: stretch;
+    margin: 4px 4px;
+    background: var(--border-strong);
+}
+.tab-info.active {
+    background: var(--text-bright);
+    border-color: var(--text-bright);
+    color: var(--bg);
+    box-shadow: none;
+}
+.tab-online {
+    color: var(--cyan);
+    border-color: rgba(106, 159, 176, 0.35);
+}
+.tab-online.active {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: #10181b;
+    box-shadow: 0 1px 8px rgba(106, 159, 176, 0.25);
 }
 
 /* ── Main Panel ──────────────────────────────────────────── */
@@ -384,6 +429,17 @@ main {
     margin-left: 6px;
 }
 
+.option-placeholder {
+    font-size: 0.84rem;
+}
+
+.option-group input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+}
+
 /* ── Buttons ─────────────────────────────────────────────── */
 
 .btn {
@@ -535,7 +591,52 @@ main {
     color: var(--title);
     font-size: 1rem;
     font-weight: 600;
+}
+
+.output-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 12px;
+}
+
+.segmented {
+    display: inline-flex;
+    padding: 3px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+}
+.segmented button {
+    padding: 5px 14px;
+    border: none;
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+.segmented button:hover {
+    color: var(--text);
+}
+.segmented button.active {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+}
+
+.note {
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--cyan);
+    background: rgba(106, 159, 176, 0.08);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    line-height: 1.5;
 }
 
 #output-summary {
@@ -613,6 +714,146 @@ main {
     border-color: var(--green);
     color: var(--green);
     background: rgba(107, 140, 66, 0.08);
+}
+
+/* ── Instructions ────────────────────────────────────────── */
+
+.hint b,
+.howto b {
+    color: var(--text-bright);
+}
+
+.callout {
+    margin: 4px 0 22px;
+    padding: 16px 20px;
+    border: 1px solid rgba(240, 204, 85, 0.35);
+    border-left: 4px solid #f0cc55;
+    background: rgba(240, 204, 85, 0.07);
+    border-radius: var(--radius-sm);
+}
+.callout-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #f0cc55;
+    margin-bottom: 6px;
+}
+.callout p {
+    font-size: 0.86rem;
+    line-height: 1.55;
+}
+.callout a {
+    font-weight: 600;
+}
+
+.howto {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.howto-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+.howto-title {
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 0.92rem;
+    margin-bottom: 2px;
+}
+.howto p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+code {
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 0.8em;
+    padding: 1px 5px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+/* ── Online hint (below generated offline codes) ─────────── */
+
+.online-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(106, 159, 176, 0.07);
+    border: 1px solid rgba(106, 159, 176, 0.22);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+.online-hint a {
+    color: var(--cyan);
+    font-weight: 600;
+}
+.online-hint a:hover {
+    color: var(--text-bright);
+}
+.online-hint-icon {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    border-radius: 50%;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-style: italic;
+    font-family: Georgia, serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Online Play ─────────────────────────────────────────── */
+
+.online-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 4px;
+}
+.online-card {
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+.online-card-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+.online-card ul,
+.online-card ol {
+    padding-left: 18px;
+}
+.online-card li + li {
+    margin-top: 5px;
+}
+.online-card b {
+    color: var(--text-bright);
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
@@ -735,6 +976,15 @@ footer .copyright {
     }
     .item-list {
         max-height: 260px;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    .online-grid {
+        grid-template-columns: 1fr;
+    }
+    .tab-divider {
+        display: none;
     }
 }
 

@@ -22,7 +22,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Copy shared data into docs
-        run: cp transmog_data.json docs/transmog_data.json
+        run: |
+          cp transmog_data.json docs/transmog_data.json
+          cp online_codes.json docs/online_codes.json
 
       - uses: actions/configure-pages@v5
 

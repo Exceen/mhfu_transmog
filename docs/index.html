@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MHFU Transmog</title>
+    <meta name="description" content="Generate CWCheat transmog codes for Monster Hunter Freedom Unite: change how weapons and armor look without changing stats, also visible online.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1><img src="mhfu_logo.png" alt="MHFU" class="header-logo"><span class="title-text">Transmog</span></h1>
+        <p class="tagline">Change how your weapons and armor look without touching their stats, offline and online.</p>
     </header>
 
     <nav id="mode-tabs">
-        <button class="tab active" data-mode="weapon">Weapon</button>
+        <button class="tab tab-info active" data-mode="instructions">Instructions</button>
+        <button class="tab tab-online" data-mode="online">Multiplayer</button>
+        <span class="tab-divider" aria-hidden="true"></span>
+        <button class="tab" data-mode="weapon">Weapon</button>
         <button class="tab" data-mode="armor-slot">Armor (Single Slot)</button>
         <button class="tab" data-mode="armor-set">Armor (Set)</button>
         <button class="tab" data-mode="universal-invisible">Universal Invisible</button>
@@ -24,10 +29,21 @@
     </main>
 
     <section id="output-panel" class="hidden">
-        <h2>Generated CWCheat Codes</h2>
+        <div class="output-head">
+            <h2>Generated CWCheat Codes</h2>
+            <div id="format-toggle" class="segmented" role="group" aria-label="Code format">
+                <button data-format="ppsspp" title="One cheat per code">PPSSPP</button>
+                <button data-format="psp" title="Splits long codes into cheats of at most 30 lines (CWCheat limit on real PSP)">Real PSP</button>
+            </div>
+        </div>
         <div id="output-summary"></div>
+        <div id="output-note" class="note hidden"></div>
         <pre id="output-codes"></pre>
         <div id="output-info"></div>
+        <p id="online-hint" class="online-hint hidden">
+            <span class="online-hint-icon" aria-hidden="true">i</span>
+            <span>Playing with others? This code only changes your own game. Add the <a href="#" data-goto="online">Multiplayer codes</a> so other players see your transmog too.</span>
+        </p>
         <div id="output-actions">
             <button id="btn-copy" title="Copy codes to clipboard">Copy to Clipboard</button>
             <button id="btn-download" title="Download as text file">Download .txt</button>
@@ -36,9 +52,9 @@
     </section>
 
     <footer>
-        <p>Generate CWCheat codes for equipment visual overrides in Monster Hunter Freedom Unite (<a href="https://fucomplete.github.io" target="_blank">FUComplete</a>)</p>
-        <p>Works on all PSPs and emulators with cheat code support (e.g. CWCheat, PPSSPP). Tested with FUComplete v1.4.0</p>
-        <p><a href="https://github.com/Exceen/mhfu_transmog" target="_blank">GitHub</a></p>
+        <p>Generate CWCheat codes for equipment visual overrides in Monster Hunter Freedom Unite</p>
+        <p>Works on PSP and on emulators with cheat support (CWCheat, PPSSPP). Tested with <a href="https://fucomplete.github.io" target="_blank" rel="noopener">FUComplete</a> v1.4.0</p>
+        <p><a href="https://github.com/Exceen/mhfu_transmog" target="_blank" rel="noopener">GitHub</a></p>
         <p class="copyright">&copy; Exceen</p>
     </footer>
 

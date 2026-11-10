@@ -4,6 +4,7 @@ MHFU Transmog Tool — Generate CWCheat codes for equipment visual overrides.
 
 Reads transmog_data.json (built by build_data.py) and interactively guides
 the user through selecting source/target equipment to generate CWCheat codes.
+The Multiplayer menu prints the multiplayer codes from online_codes.json (built by online/build.py).
 
 Usage: python transmog.py
 """
@@ -14,8 +15,10 @@ import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(SCRIPT_DIR, "transmog_data.json")
+ONLINE_FILE = os.path.join(SCRIPT_DIR, "online_codes.json")
 CHEAT_FILE = os.path.expanduser("~/Documents/PPSSPP/PSP/Cheats/ULJM05500.ini")
 CWCHEAT_BASE = 0x08800000
+PSP_MAX_LINES = 30  # real PSP CWCheat: max lines per cheat, title line included
 
 SLOT_NAMES = ["head", "chest", "arms", "waist", "legs"]
 SLOT_LABELS = {"head": "Head", "chest": "Chest", "arms": "Arms", "waist": "Waist", "legs": "Legs"}
@@ -72,6 +75,14 @@ def load_data():
         print(error(f"Error: {DATA_FILE} not found. Run build_data.py first."))
         sys.exit(1)
     with open(DATA_FILE) as f:
+        return json.load(f)
+
+
+def load_online():
+    """Load online_codes.json, or None if it's missing."""
+    if not os.path.exists(ONLINE_FILE):
+        return None
+    with open(ONLINE_FILE) as f:
         return json.load(f)
 
 
@@ -302,14 +313,16 @@ def gen_universal_invisible_codes(data, slot):
 def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap_gender=False):
     """Generate CWCheat lines for armor transmog.
 
-    Returns (model_lines, pigment_lines) — both lists of (comment, code) tuples.
+    Returns (model_lines, pigment_on, pigment_off) — lists of (comment, code) tuples.
     model_lines: the model ID overwrites.
-    pigment_lines: byte +19 writes to enable pigment support on source entries.
+    pigment_on / pigment_off: byte +19 writes that enable (2) / disable (0) pigment
+    support on the source entries. Use armor_lines() to combine them.
     """
     table_base = int(data["armor"][slot]["table_base"], 16)
     entry_size = data["armor_entry_size"]
     model_lines = []
-    pigment_lines = []
+    pigment_on = []
+    pigment_off = []
 
     src_variants = source_set["variants"]
     if target_set is None:
@@ -339,9 +352,32 @@ def gen_armor_codes(data, slot, source_set, target_set, force_variant=None, swap
             code = f"_L 0x2{offset:07X} 0x{value:08X}"
             model_lines.append((comment, code))
             pig_flag_offset = (entry_addr + 19) - CWCHEAT_BASE
-            pigment_lines.append(("", f"_L 0x0{pig_flag_offset:07X} 0x00000002"))
+            pigment_on.append(("", f"_L 0x0{pig_flag_offset:07X} 0x00000002"))
+            pigment_off.append(("", f"_L 0x0{pig_flag_offset:07X} 0x00000000"))
 
-    return model_lines, pigment_lines
+    return model_lines, pigment_on, pigment_off
+
+
+def armor_lines(model_lines, pigment_on, pigment_off, pigment):
+    """Combine model lines with the chosen pigment lines ("keep", "enable" or "disable")."""
+    if pigment == "enable":
+        return model_lines + pigment_on
+    if pigment == "disable":
+        return model_lines + pigment_off
+    return model_lines
+
+
+def ask_pigment():
+    """Ask how the transmog should handle pigment color. Returns "keep", "enable" or "disable"."""
+    print(f"\n{header('Pigment color:')}")
+    print(f"{key('[1]')} Unchanged {dim('(the equipped armor decides)')}")
+    print(f"{key('[2]')} Enable {dim('(also on armor that normally cannot be dyed; best on S-series looks)')}")
+    print(f"{key('[3]')} Disable {dim('(never apply pigment color)')}")
+    while True:
+        choice = input(f"\n{bold('Select:')} ").strip() or "1"
+        if choice in ("1", "2", "3"):
+            return {"1": "keep", "2": "enable", "3": "disable"}[choice]
+        print(error("Invalid choice, try again."))
 
 
 def gen_weapon_codes(data, source_weapon, target_weapon):
@@ -367,27 +403,44 @@ def gen_weapon_codes(data, source_weapon, target_weapon):
 
 # ── Cheat Output ────────────────────────────────────────────────────────────
 
-def format_cheat_block(title, lines, enabled=False):
-    """Format a CWCheat code block."""
+def format_blocks(blocks, psp=False, enabled=False):
+    """Format (title, lines) blocks as CWCheat text.
+
+    lines are (comment, code) tuples. With psp=True, blocks longer than PSP_MAX_LINES
+    (title included) are split into numbered parts; the line order is kept.
+    """
     prefix = "_C1" if enabled else "_C0"
-    result = [f"{prefix} {title}"]
-    for comment, code in lines:
-        result.append(code)
-    return "\n".join(result)
+    out = []
+    for title, lines in blocks:
+        codes = [code for _, code in lines]
+        per = PSP_MAX_LINES - 1
+        if not psp or len(codes) <= per:
+            out.append("\n".join([f"{prefix} {title}"] + codes))
+            continue
+        parts = (len(codes) + per - 1) // per
+        for n in range(parts):
+            chunk = codes[n * per:(n + 1) * per]
+            out.append("\n".join([f"{prefix} {title} {n + 1}/{parts}"] + chunk))
+    return "\n\n".join(out)
 
 
-def output_codes(armor_block, weapon_block):
-    """Display and optionally save generated codes."""
+def ask_format(blocks):
+    """Ask for PPSSPP or real-PSP format if any block is too long for a PSP cheat."""
+    if all(len(lines) <= PSP_MAX_LINES - 1 for _, lines in blocks):
+        return False
+    print(f"\n{bold('Code format:')}")
+    print(f"{key('[1]')} PPSSPP {dim('(one cheat per code)')}")
+    print(f"{key('[2]')} Real PSP {dim(f'(split into cheats of at most {PSP_MAX_LINES} lines; enable all parts)')}")
+    return input(f"\n{bold('Choice:')} ").strip() == "2"
+
+
+def output_codes(blocks):
+    """Display and optionally save generated codes. blocks: list of (title, lines)."""
+    psp = ask_format(blocks)
+    full_output = format_blocks(blocks, psp=psp)
+
     print(f"\n{header('Generated CWCheat Codes')}")
     print(f"{'─' * 50}")
-
-    blocks = []
-    if armor_block:
-        blocks.append(armor_block)
-    if weapon_block:
-        blocks.append(weapon_block)
-
-    full_output = "\n\n".join(blocks)
     print()
     for line in full_output.splitlines():
         if line.startswith("_C"):
@@ -421,7 +474,7 @@ def output_codes(armor_block, weapon_block):
 # ── Flows ───────────────────────────────────────────────────────────────────
 
 def weapon_flow(data, preset_source_search=None, preset_search=None):
-    """Weapon transmog selection flow. Returns (weapon_block_str, source_name, target_name) or None."""
+    """Weapon transmog selection flow. Returns ((title, lines), source_name, target_name) or None."""
     weapons = data["weapons"]
 
     # Build items list with model info
@@ -455,8 +508,7 @@ def weapon_flow(data, preset_source_search=None, preset_search=None):
     # Generate codes
     lines = gen_weapon_codes(data, source, target)
     title = f"Weapon Transmog: {src_name} -> {tgt_name}"
-    block = format_cheat_block(title, lines)
-    return block, src_name, tgt_name
+    return (title, lines), src_name, tgt_name
 
 
 def armor_slot_flow(data, slot, preset_source_search=None, preset_search=None):
@@ -506,8 +558,8 @@ def armor_slot_flow(data, slot, preset_source_search=None, preset_search=None):
         # Offer gender swap
         swap_gender = select_gender(target)
 
-    model_lines, pigment_lines = gen_armor_codes(data, slot, source, target, force_variant=force_variant, swap_gender=swap_gender)
-    return model_lines, pigment_lines, src_name, tgt_name, is_invisible
+    model_lines, pigment_on, pigment_off = gen_armor_codes(data, slot, source, target, force_variant=force_variant, swap_gender=swap_gender)
+    return model_lines, pigment_on, pigment_off, src_name, tgt_name, is_invisible
 
 
 def armor_flow(data):
@@ -527,13 +579,11 @@ def armor_flow(data):
     if result is None:
         return
 
-    model_lines, pigment_lines, src_name, tgt_name, is_invisible = result
-    enable_pigment = input(f"\n{bold('Enable pigment color?')} {dim('[y/N] (may not always work, best on S-series armor)')}: ").strip().lower() == "y"
-    lines = model_lines + pigment_lines if enable_pigment else model_lines
+    model_lines, pigment_on, pigment_off, src_name, tgt_name, is_invisible = result
+    lines = armor_lines(model_lines, pigment_on, pigment_off, ask_pigment())
     suffix = f" (invisible {SLOT_LABELS[slot].lower()})" if is_invisible else ""
     title = f"Armor Transmog: {src_name} -> {tgt_name}{suffix}"
-    block = format_cheat_block(title, lines)
-    output_codes(block, None)
+    output_codes([(title, lines)])
 
 
 def armor_set_flow(data):
@@ -550,7 +600,7 @@ def armor_set_flow(data):
     if not persistent_search:
         persistent_search = None
 
-    enable_pigment = input(f"Enable pigment color? {dim('[y/N] (may not always work, best on S-series armor)')}: ").strip().lower() == "y"
+    pigment = ask_pigment()
 
     all_armor_lines = []
     armor_summaries = []
@@ -560,8 +610,8 @@ def armor_set_flow(data):
         if result is None:
             print(dim(f"Skipping {SLOT_LABELS[slot]}."))
             continue
-        model_lines, pigment_lines, src_name, tgt_name, is_invisible = result
-        lines = model_lines + pigment_lines if enable_pigment else model_lines
+        model_lines, pigment_on, pigment_off, src_name, tgt_name, is_invisible = result
+        lines = armor_lines(model_lines, pigment_on, pigment_off, pigment)
         all_armor_lines.extend(lines)
         armor_summaries.append((slot, src_name, tgt_name, is_invisible))
 
@@ -589,9 +639,7 @@ def armor_set_flow(data):
     title = f"Armor Transmog: {src_display} -> {tgt_display}"
     if invisible_slots:
         title += f" (invisible {', '.join(invisible_slots)})"
-    armor_block = format_cheat_block(title, all_armor_lines)
-
-    output_codes(armor_block, None)
+    output_codes([(title, all_armor_lines)])
 
 
 def universal_invisible_flow(data):
@@ -616,8 +664,34 @@ def universal_invisible_flow(data):
         return
 
     title = f"Universal Invisible {SLOT_LABELS[slot]} ({len(lines)} entries)"
-    block = format_cheat_block(title, lines)
-    output_codes(block, None)
+    output_codes([(title, lines)])
+
+
+def online_flow():
+    """Print the online transmog codes (armor and/or weapon)."""
+    online = load_online()
+    os.system("cls" if os.name == "nt" else "clear")
+    print(f"\n{header('Multiplayer')}")
+    if online is None:
+        print(error(f"{ONLINE_FILE} not found. Run online/build.py first."))
+        return
+    print("Lets other players with these codes see your transmog, and you theirs.")
+    print("Players without them see your real equipment. Keep your normal transmog codes")
+    print("enabled; these send what they set. Everyone should use the same game version.")
+    print(dim("After changing your transmog: re-equip, then change area or rejoin."))
+
+    cheats = online["cheats"]
+    armor, weapon = cheats["armor"], cheats["weapon"]
+    print(f"\n{bold('Which codes?')}")
+    print(f"{key('[1]')} Both")
+    print(f"{key('[2]')} {armor['title']} {dim('(armor models + pigment)')}")
+    print(f"{key('[3]')} {weapon['title']} {dim('(weapon model)')}")
+    choice = input(f"\n{bold('Choice:')} ").strip() or "1"
+    picked = {"1": [armor, weapon], "2": [armor], "3": [weapon]}.get(choice)
+    if not picked:
+        print(error("Invalid choice."))
+        return
+    output_codes([(c["title"], [("", line) for line in c["lines"]]) for c in picked])
 
 
 # ── Main ────────────────────────────────────────────────────────────────────
@@ -635,6 +709,7 @@ def main():
         print(f"{key('[2]')} Armor Transmog {dim('(single slot)')}")
         print(f"{key('[3]')} Armor Transmog {dim('(set)')}")
         print(f"{key('[4]')} Universal Invisible Slot")
+        print(f"{key('[5]')} Multiplayer {dim('(let other players see your transmog)')}")
         print()
         print(f"{key('[q]')} Quit")
 
@@ -643,19 +718,21 @@ def main():
         if choice == "1":
             result = weapon_flow(data)
             if result:
-                output_codes(None, result[0])
+                output_codes([result[0]])
         elif choice == "2":
             armor_flow(data)
         elif choice == "3":
             armor_set_flow(data)
         elif choice == "4":
             universal_invisible_flow(data)
+        elif choice == "5":
+            online_flow()
         elif choice == "q":
             break
         else:
             print(error("Invalid choice."))
 
-        if choice in ("1", "2", "3", "4"):
+        if choice in ("1", "2", "3", "4", "5"):
             input(f"\n{dim('Press Enter to return to menu...')}")
 
 

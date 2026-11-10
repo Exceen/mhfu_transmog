@@ -223,3 +223,6 @@ __pycache__/
 .idea/
 
 docs/transmog_data.json
+# Online cheat build output (online_codes.json is the committed artifact)
+online/bin/
+docs/online_codes.json
