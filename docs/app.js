@@ -566,13 +566,13 @@
                     '<p>Copy the codes into your cheat file (see below), make sure to have them enabled, then unequip and re-equip the gear. ' +
                     'The game only loads the new look when the gear is changed or re-equipped.</p>' +
                     '<p>The idea is to generate codes that transform your whole equipment to a different look. You like two specific looks and ' +
-                    'want to swap between them? Just disable one code and enable the other!</p>' +
+                    'want to swap between them? Generate one code per look for the same equipped gear, then disable one, enable the other and re-equip!</p>' +
                 '</div></div>' +
                 '<div class="howto-step"><span class="step-num">4</span><div>' +
                     '<div class="howto-title">Your save data stays untouched</div>' +
                     '<p>Your save data is never touched: your equipment, stats and items are saved exactly as they are. ' +
-                    'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running ' +
-                    'and only work as long as they are enabled. Disable them and everything looks like before.</p>' +
+                    'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running. ' +
+                    'Disable them and restart the game, and everything looks like before.</p>' +
                 '</div></div>' +
                 '<div class="howto-step"><span class="step-num">5</span><div>' +
                     '<div class="howto-title">Example needed?</div>' +
@@ -616,7 +616,7 @@
                     '<div class="online-card-title">Changing or removing a transmog</div>' +
                     '<ul>' +
                         '<li>To change a look, generate a new code, disable the old code, enable the new code, re-equip.</li>' +
-                        '<li>To remove it, disable the code and re-equip.</li>' +
+                        '<li>To remove it, disable the code and restart the game. Disabling alone doesn\'t undo the change.</li>' +
                     '</ul>' +
                 '</div>' +
                 '<div class="online-card">' +
