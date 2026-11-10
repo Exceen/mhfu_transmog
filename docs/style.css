@@ -756,6 +756,10 @@ main {
     gap: 14px;
     align-items: flex-start;
 }
+.howto-step > div {
+    flex: 1;
+    min-width: 0;
+}
 .howto-title {
     font-weight: 600;
     color: var(--text-bright);
@@ -765,6 +769,30 @@ main {
 .howto p {
     font-size: 0.85rem;
     line-height: 1.55;
+}
+
+.howto .btn-row {
+    margin-top: 10px;
+}
+
+/* Same look as the generated-codes box (#output-codes) */
+.example-code {
+    background: var(--bg-input);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-top: 12px;
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.example-code .line-title {
+    color: var(--text-bright);
+    font-weight: 700;
 }
 
 .info-grid {

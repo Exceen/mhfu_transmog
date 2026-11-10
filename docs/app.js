@@ -574,6 +574,23 @@
                     'Nothing is patched permanently, neither the game nor its files. The codes only change the game while it is running ' +
                     'and only work as long as they are enabled. Disable them and everything looks like before.</p>' +
                 '</div></div>' +
+                '<div class="howto-step"><span class="step-num">5</span><div>' +
+                    '<div class="howto-title">Example needed?</div>' +
+                    '<p>Wear the Mafumofu set and a Bone Katana, look like the Black set with a Hellish Slasher.</p>' +
+                    '<div class="btn-row"><button class="btn btn-primary" id="example-toggle" aria-expanded="false" aria-controls="example-codes">Show example codes</button></div>' +
+                    '<pre class="example-code hidden" id="example-codes">' +
+                        '<span class="line-title">_C1 Weapon Transmog: Bone Katana -> Hellish Slasher</span>\n' +
+                        '_L 0x10157948 0x0000008A\n' +
+                        '_L 0x10157948 0x0000008A\n' +
+                        '_L 0x10157948 0x0000008A\n\n' +
+                        '<span class="line-title">_C1 Armor Transmog: Mafumofu -> Black Mixed</span>\n' +
+                        '_L 0x20162EB0 0x00000000\n' +
+                        '_L 0x20167140 0x00300030\n' +
+                        '_L 0x2016B218 0x002E002E\n' +
+                        '_L 0x2016F228 0x00220024\n' +
+                        '_L 0x201731E8 0x00230023' +
+                    '</pre>' +
+                '</div></div>' +
             '</div>' +
 
             '<div class="info-grid">' +
@@ -609,6 +626,14 @@
                     '</ul>' +
                 '</div>' +
             '</div>';
+
+        var exampleBtn = document.getElementById('example-toggle');
+        var exampleCodes = document.getElementById('example-codes');
+        exampleBtn.addEventListener('click', function () {
+            var show = exampleCodes.classList.toggle('hidden') === false;
+            exampleBtn.textContent = show ? 'Hide example codes' : 'Show example codes';
+            exampleBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+        });
     }
 
     // ── Mode 1: Weapon Transmog ──────────────────────────────────────────────
