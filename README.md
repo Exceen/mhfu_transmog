@@ -1,138 +1,58 @@
 # MHFU Transmog
 
-Change the visual appearance of weapons and armor in Monster Hunter Freedom Unite without affecting stats.
+**Fashion hunting.** Change how your weapons and armor look in Monster Hunter Freedom Unite without touching their stats, solo and online.
 
-Works on PPSSPP and real PSP hardware via CWCheat codes. With the **Multiplayer** codes, other players see your transmog too.
+## 👉 [Open the Transmog Generator](https://exceen.github.io/mhfu_transmog/)
 
-Tested with [FUComplete](https://github.com/FUComplete/FUComplete) v1.4.0 only; other versions may work but are untested.
-
-## Usage & Features
-
-```bash
-python transmog.py
-```
-
-The tool (and the website in `docs/`) offers five modes:
-
-- **Weapon Transmog** — change a weapon's appearance
-- **Armor Transmog (single slot)** — change a single armor slot's appearance
-- **Armor Transmog (set)** — change all 5 armor slots, with persistent source/target search filters across selections
-- **Universal Invisible Slot** — make ALL armor in a slot invisible regardless of what's equipped (writes model 0 to every entry in the table)
-- **Multiplayer** — codes that let other players see your transmog (see [Multiplayer](#multiplayer))
-
-For each selection you can search by name or browse an alphabetical list with pagination. Armor targets include an "Invisible" option (shows hair for head, hides the piece for other slots).
-
-When a target armor has different male/female models, you can choose to use the **opposite gender model** — this swaps the male and female model IDs so your character renders the other gender's armor visual.
-
-When a target armor has Blademaster and Gunner variants, you can choose to **match armor type** (default), or force all pieces to use a specific variant.
-
-Armor transmog has a **pigment** option: leave it unchanged (the equipped armor decides), **enable** pigment color (also on armor that normally can't be dyed; works best on S-series looks) or **disable** it.
-
-**Code format:** real PSP CWCheat only accepts cheats of up to 30 lines. Long codes can be output in the **Real PSP** format, which splits them into numbered parts (`... 1/4`, `... 2/4`, ...). Enable all parts.
-
-Generated codes are printed to the terminal and can optionally be appended to the PPSSPP cheat file at `~/Documents/PPSSPP/PSP/Cheats/ULJM05500.ini`.
-
-## Proof
-
-By using the below example cheat codes, the Iron Katana will look like the Hellish Slasher. Similarly, the Mafumofu armor visuals will change to a mix of the Black armor pieces (blademaster arms, gunner body & waist & legs) with an invisible head.
-
-The stats stay the same as the original equipment, only the visuals change! This also works with upgraded armors, decorations, etc. because it really only changes the model ID that the game reads when rendering your character.
+The website generates CWCheat codes for PPSSPP and real PSP hardware. Everything is explained in its *Instructions* tab.
 
 ![Transmog demo](images/transmog.gif)
 
-## Examples
+## Features
 
-The below cheat code change the Iron Katana (and all of its versions) to the Hellish Slasher/Divine Slasher:
-```
-_C1 Iron Katana -> Hellish Slasher
-_L 0x101575B8 0x0000008A
-_L 0x101575D0 0x0000008A
-_L 0x101575E8 0x0000008A
-_L 0x1015B590 0x0000008A
-```
+- **Weapon**: make a weapon look like another weapon of the same type
+- **Armor (Single Slot)** and **Armor (Set)**: change the look of one piece or a whole set, including invisible pieces, opposite-gender models, Blademaster/Gunner variants and pigment on/off
+- **Universal Invisible**: hide every piece of an armor slot, whatever is equipped
+- **Multiplayer**: codes that let other players see your transmog (and you see theirs)
+- **Real PSP** output format: splits long codes into parts of at most 30 lines (CWCheat limit)
 
-The below cheat code changes the Mafumofu armor so that the head slot is invisible and the remaining armor parts are a mix of the blademaster and gunner versions of the Black armor:
-```
-_C1 Mafumofu -> Black BM/G Mixed
-_L 0x20162EB0 0x00000000
-_L 0x20167140 0x00300030
-_L 0x2016B218 0x002E002E
-_L 0x2016F228 0x00220024
-_L 0x201731E8 0x00230023
-```
-
-You will have to trigger a re-render (e.g. by unequipping and re-equipping the armor/weapon) to see the changes take effect. If you want to undo the transmog, simply disable the cheat and reload the game. You can also use a different transmog cheat to overwrite the previous one.
+Stats, skills, slots and decorations always stay those of the gear you actually have equipped.
 
 ## Multiplayer
 
-Normally transmog only changes your own game: other players load your equipment's models from their own, unmodified tables and see your real gear. The **Multiplayer** codes fix that:
-
-- **Multiplayer Armor Transmog v1.0** — sends the armor models (and pigment on/off) your transmog codes picked
-- **Multiplayer Weapon Transmog v1.0** — sends your weapon model
-
-The two are independent; use one or both. Get them from the website's *Multiplayer* tab or `python transmog.py` → `[5] Multiplayer`.
-
-How to use:
-
-1. Keep your normal transmog codes enabled — the Multiplayer codes send whatever they set.
-2. Add the Multiplayer codes and restart the game.
-3. After changing your transmog, re-equip and then change area (or rejoin the room) so the others get the update.
-4. Real PSP: use the Real PSP format and enable **all** parts. If you toggle parts while the game runs, turn the last part on last and off first (it contains the jump into the other parts).
-
-What others see:
-
-- Players **with** the Multiplayer codes see your transmog (and you see theirs).
-- Players **without** them see your real equipment. Nothing breaks for them.
-- Stats are never changed. Everyone in the room should use the same game version (tested: FUComplete v1.4.0), because the codes patch game code at fixed addresses.
+Normally transmog only changes your own game: other players see your real gear. Add the **Multiplayer Armor Transmog** and/or **Multiplayer Weapon Transmog** codes from the website's *Multiplayer* tab, and every player who also runs them sees your transmog. Players without them simply see your real equipment; nothing breaks for them.
 
 Tested on PPSSPP (two machines over an ad-hoc server) and on a real PSP.
 
-### Rebuilding the Multiplayer codes
+## Compatibility
 
-The codes are assembled from `online/armor.asm` and `online/weapon.asm`. The result is committed as `online_codes.json`, which the tool and the website read, so this is only needed after changing the assembly:
-
-```bash
-python online/build.py   # needs armips on PATH
-```
-
-## Requirements
-
-- Python 3.6+
-- MHFU with FUComplete mod (game ID: ULJM05500)
-- PPSSPP (or real PSP with CWCheat support)
-
-## Setup
-
-Clone the repo and run `python transmog.py` — no installation needed. The equipment data (`transmog_data.json`) is included.
-
-### Regenerating the data file
-
-Only needed if FUComplete updates its equipment tables:
-
-1. Place your FUComplete MHFU ISO in the `data/` folder and extract the game files:
-
-```bash
-python extract_iso.py
-```
-
-2. Launch the game in PPSSPP and create a save state (slot 0).
-
-3. Build the data file:
-
-```bash
-pip install -r requirements.txt
-python build_data.py
-```
-
-This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads armor/weapon tables from the PPSSPP save state at `~/Documents/PPSSPP/PSP/PPSSPP_STATE/`.
+Monster Hunter Freedom Unite (ULJM05500). Tested with [FUComplete](https://github.com/FUComplete/FUComplete) v1.4.0 only; other versions may work but are untested. For multiplayer, everyone in the room should use the same game version.
 
 ## How It Works
 
-The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. CWCheat codes overwrite these model IDs at runtime, making one piece of equipment look like another while keeping the original stats.
+The game stores equipment data in static memory tables. Each armor/weapon entry contains a model ID that determines its 3D appearance. The generated codes overwrite these model IDs, so one piece of equipment looks like another while keeping its stats.
 
-On its own this is client-side only: other players look up your equipment in their own tables. The Multiplayer codes hook the game in two places: when your equipment is copied into the data that gets sent to other players, the sender stores the model numbers from your (patched) tables in spare bits of that data; when another player's hunter is drawn, the receiver uses those models instead of its own table lookup. Unmodified games ignore the extra bits.
+On its own this only affects your game, because other players look up your equipment in their own tables. The Multiplayer codes hook the game in two places: when your equipment is sent to other players, the sender stores the model numbers from your (patched) tables in spare bits of that data; when another player's hunter is drawn, the receiver uses those models instead of its own lookup. Unmodified games ignore the extra bits.
 
-## Technical Details
+See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation: memory table layouts, address calculations, network data and known pitfalls.
 
-See [FINDINGS.md](FINDINGS.md) for the full reverse-engineering documentation, including memory table layouts, address calculations, and known pitfalls.
+## Development
 
+The website (`docs/`) reads two committed files, which the GitHub Pages workflow copies into `docs/` on deploy. To test locally, copy them yourself and start a web server:
+
+```bash
+cp transmog_data.json online_codes.json docs/
+cd docs && python3 -m http.server 8000
+```
+
+**Multiplayer codes** (`online_codes.json`) are assembled from `online/armor.asm` and `online/weapon.asm`. Only needed after changing the assembly:
+
+```bash
+python3 online/build.py   # needs armips on PATH
+```
+
+**Equipment data** (`transmog_data.json`). Only needed if FUComplete changes its equipment tables:
+
+1. Place your FUComplete MHFU ISO in `data/` and run `python3 extract_iso.py`.
+2. Launch the game in PPSSPP and create a save state (slot 0).
+3. Run `pip install -r requirements.txt` and `python3 build_data.py`. This scrapes equipment names from the [FUComplete docs](https://fucomplete.github.io/files_doc/player/player_asset.html) and reads the armor/weapon tables from the save state.

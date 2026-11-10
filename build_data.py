@@ -6,7 +6,7 @@ Data sources:
   1. FUComplete website: equipment names (model number -> names)
   2. PPSSPP save state: armor/weapon table entries (equip_id -> model IDs)
 
-Output: transmog_data.json used by transmog.py
+Output: transmog_data.json used by the website (docs/)
 """
 
 import json

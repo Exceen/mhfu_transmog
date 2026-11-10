@@ -2,7 +2,7 @@
 """Assemble the online transmog cheats and write ../online_codes.json.
 
 Requires armips (https://github.com/Kingcom/armips) on PATH. Only needed when the
-assembly changes; online_codes.json is committed, and transmog.py and the website read it.
+assembly changes; online_codes.json is committed, and the website reads it.
 
 Usage: python3 online/build.py
 """
