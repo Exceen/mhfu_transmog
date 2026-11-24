@@ -18,7 +18,7 @@ HERE = Path(__file__).resolve().parent
 BIN = HERE / "bin"
 OUTPUT = HERE / "transmog_codes.txt"
 JSON_OUTPUT = HERE.parent / "ingame_codes.json"
-VERSION = "3.2"
+VERSION = "3.3"
 PSP_MAX_LINES = 30  # real PSP CWCheat: max lines per cheat, title line included
 CWCHEAT_BASE = 0x08800000
 

@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete v1.4.0) IN-GAME TRANSMOG PICKER, v3.2
+; MHFU (ULJM05500, FUComplete v1.4.0) IN-GAME TRANSMOG PICKER, v3.3
 ;
 ; Pick looks in the game instead of generating table-patch cheats on the website.
 ;

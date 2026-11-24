@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v3.2
+; MHFU (ULJM05500, FUComplete) online ARMOR transmog, v3.3
 ;
 ; Works together with the offline transmog cheats, which rewrite the model fields of the
 ; armor tables. The sender looks up the model its (patched) table gives for each equipped
@@ -26,6 +26,8 @@
 ;               p: 0 legs, 1 hair (untouched), 2 head, 3 chest, 4 arms, 5 waist; type2 = p ? p-1 : 0
 ;   0x08851D64  getNetPigmentFlag: "lbu v0, 0x13(v0)" (s0 = record, a1 = type2) -> cave_pig
 ;   0x08851BCC  in 0x08851B68 "has armor model" flag: "lhu a3, 0x3E(v0)" -> cave_flag (since v3.2)
+;   Since v3.3 the cheat also contains clean.asm (cave 0x09FF0780, added by build.py), which
+;   keeps the sent bits out of the live hunters (wrong armor level, bowgun attachments).
 ;
 ; The model loader gets both the model (getNetArmorModel) and that flag. The game computes the
 ; flag from the receiver's OWN table (model of the record's eid != 0). With a received model the

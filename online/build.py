@@ -22,7 +22,7 @@ CHEATS = [
     {
         "id": "armor",
         "title": "Multiplayer Armor Transmog",
-        "version": "3.2",
+        "version": "3.3",
         "src": "armor.asm",
         "bin": "armor.bin",
         "hooks_bin": "armor_hooks.bin",
@@ -33,7 +33,7 @@ CHEATS = [
     {
         "id": "weapon",
         "title": "Multiplayer Weapon Transmog",
-        "version": "3.2",
+        "version": "3.3",
         "src": "weapon.asm",
         "bin": "weapon.bin",
         "hooks_bin": "weapon_hooks.bin",
@@ -42,11 +42,22 @@ CHEATS = [
     },
 ]
 
+# Shared part of the armor and the weapon cheat (identical lines in both): keeps the sent bits
+# out of the live hunters, see clean.asm.
+CLEAN = {
+    "src": "clean.asm",
+    "bin": "clean.bin",
+    "hooks_bin": "clean_hooks.bin",
+    "cave": 0x09FF0780,
+    "hook_addrs": [0x088D0D34, 0x088D0D38, 0x088D0D74, 0x088D0D78,
+                   0x088DFA34, 0x088DFA38, 0x088DFA74, 0x088DFA78],
+}
+
 # Optional, not on the website (see MARKER_OUTPUT).
 MARKER = {
     "id": "marker",
     "title": "Multiplayer Marker",
-    "version": "3.2",
+    "version": "3.3",
     "src": "marker.asm",
     "bin": "marker.bin",
     "hooks_bin": "marker_hooks.bin",
@@ -65,16 +76,25 @@ def words(path):
     return struct.unpack(f"<{len(data) // 4}I", data)
 
 
-def build(c):
+def assemble(c):
     subprocess.run(["armips", c["src"]], cwd=HERE, check=True)
     cave = words(HERE / "bin" / c["bin"])
     hooks = words(HERE / "bin" / c["hooks_bin"])
-    assert len(hooks) == len(c["hook_addrs"]), c["id"]
+    assert len(hooks) == len(c["hook_addrs"]), c["src"]
+    return cave, hooks
+
+
+def build(c, shared=None):
+    cave, hooks = assemble(c)
 
     # Hooks go last: when the cheat lines run in order, the code they jump to already exists.
     # The PSP split keeps this order, so the hooks always end up in the last part.
     lines = [cw(c["cave"] + i * 4, w) for i, w in enumerate(cave)]
+    if shared:
+        lines += shared["cave_lines"]
     lines += [cw(a, w) for a, w in zip(c["hook_addrs"], hooks)]
+    if shared:
+        lines += shared["hook_lines"]
     end = c["cave"] + len(cave) * 4 - 1
     assert end < c.get("data_end", end + 1), f"{c['id']}: code runs into its buffers"
     end = c.get("data_end", end)
@@ -89,9 +109,17 @@ def build(c):
 
 def main():
     (HERE / "bin").mkdir(exist_ok=True)
-    cheats = {c["id"]: build(c) for c in CHEATS}
+    clean_cave, clean_hooks = assemble(CLEAN)
+    clean = {
+        "cave_lines": [cw(CLEAN["cave"] + i * 4, w) for i, w in enumerate(clean_cave)],
+        "hook_lines": [cw(a, w) for a, w in zip(CLEAN["hook_addrs"], clean_hooks)],
+    }
+    clean_span = (CLEAN["cave"], CLEAN["cave"] + len(clean_cave) * 4 - 1)
+    print(f"shared clean part: cave 0x{clean_span[0]:08X}-0x{clean_span[1]:08X}")
+    cheats = {c["id"]: build(c, clean) for c in CHEATS}
     marker = build(MARKER)
-    spans = sorted((int(v["cave"][0], 16), int(v["cave"][1], 16)) for v in [*cheats.values(), marker])
+    spans = sorted([(int(v["cave"][0], 16), int(v["cave"][1], 16)) for v in [*cheats.values(), marker]]
+                   + [clean_span])
     for (_, a_end), (b_start, _) in zip(spans, spans[1:]):
         assert a_end < b_start, "code caves overlap"
     OUTPUT.write_text(json.dumps({"game": "ULJM05500", "cheats": cheats}, indent=2) + "\n")

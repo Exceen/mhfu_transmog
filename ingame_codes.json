@@ -2,8 +2,8 @@
   "game": "ULJM05500",
   "cheats": {
     "picker": {
-      "title": "In-Game Transmog Picker v3.2",
-      "version": "3.2",
+      "title": "In-Game Transmog Picker v3.3",
+      "version": "3.3",
       "cave": [
         "0x09FF9100",
         "0x09FF96E3"
@@ -396,8 +396,8 @@
       ]
     },
     "sets": {
-      "title": "Per-Set Transmog v3.2",
-      "version": "3.2",
+      "title": "Per-Set Transmog v3.3",
+      "version": "3.3",
       "cave": [
         "0x09FF8880",
         "0x09FF8EA7"

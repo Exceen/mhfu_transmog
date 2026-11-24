@@ -1,4 +1,4 @@
-; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v3.2 - separate from the armor cheat
+; MHFU (ULJM05500, FUComplete) online WEAPON transmog, v3.3 - separate from the armor cheat
 ;
 ; Works together with the offline weapon transmog cheats, which rewrite weapon model fields.
 ; Weapon entry type (+1): 5 = blademaster weapon, 6 = gunner weapon (bowguns, bows).
@@ -16,6 +16,8 @@
 ;   0x08852B3C  in 0x0885298C after all fields are copied, just before the armor cheat's
 ;               hook at 0x08852B44 (so both cheats work alone or together) -> cave_wsend
 ;   0x08851E4C  getNetWeaponModel(base, player) -> cave_wrecv
+;   Since v3.3 the cheat also contains clean.asm (cave 0x09FF0780, added by build.py), which
+;   keeps the sent bits out of the live hunters (wrong armor level, bowgun attachments).
 
 .psp
 

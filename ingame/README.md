@@ -1,4 +1,4 @@
-# In-Game Transmog Picker (v3.2)
+# In-Game Transmog Picker (v3.3)
 
 One cheat code, installed once; looks are then picked in the game. For MHFU (ULJM05500) with
 FUComplete v1.4.0. Get the code from the website's *In-Game Picker* tab or from

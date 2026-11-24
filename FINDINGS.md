@@ -558,7 +558,7 @@ Equipment entry (12 bytes, same layout everywhere):
 | +0 | u8 | 1 |
 | +1 | u8 | type2 (0 legs, 1 head, 2 chest, 3 arms, 4 waist, 5 blademaster weapon, 6 gunner weapon) |
 | +2 | u16 | equipment ID (eid) |
-| +4 | u8 | armor: level. weapon: 0 |
+| +4 | u8 | armor: level. blademaster weapon: 0. gunner weapon: attachment flags in bits 4-7 (tested by `0x088D5114`-`0x088D51D8`: `0x10`, `0x20`, `0x40`, `0x80`) |
 | +5 | u8 | unused (0) |
 | +6..+B | 3×u16 | decorations |
 
@@ -571,8 +571,12 @@ others after re-equipping plus an area change or rejoin. The packet is serialize
 a raw copy of the record: the padding bytes at `+0x29..+0x2B` do **not** arrive. The record's size
 (`0x8C`) is passed at `0x09AC6218`.
 
-The code around `0x088D0CD0` initializes another player's hunter entity from a record (copies all
-fields, then calls the model getters below).
+Two functions build a hunter object from a record, **your own included** (object `+0x1E6` = player
+index, 0 = you): `0x088D0BE0` (village / gathering hall, on every area change) and `0x088DF914`
+(quest start). They copy all fields (weapon entry to object `+0x4E8`, armor entries to
+`+0x4F4 + type2*12`), then call the model getters below. The halfwords at entry `+4` are copied as
+they are (`lhu`/`sh` at `0x088D0D34`, `0x088D0D74`, `0x088DFA34`, `0x088DFA74`), and the game uses
+the object's copies as armor level (16 bit) and as bowgun attachment flags.
 
 ### Model getters
 
@@ -592,6 +596,15 @@ Their slot parameter `p` is 0 legs, 1 hair, 2 head, 3 chest, 4 arms, 5 waist (ty
 ### Encoding
 
 All in your own network record only; your equipped gear (and the save file) is never touched.
+The record is not as private as it looks, though: the hunter objects are built from it (above). Up
+to v3.2 the sent bits therefore reached the live hunters: the armor level showed e.g. "Lv 13318"
+(`0x3406` = level 6 and the sent waist value), and a bowgun got attachments it didn't have (the
+pigment bits 5-7 are attachment flags of gunner weapons, e.g. the zoom scope). Since v3.3 both codes
+contain `online/clean.asm`, which cleans the four copies: armor = low byte without bit 7; weapon =
+for your own hunter the value of your equipped gear (`base + 0x4C4`), for others 0 if bit 10 is set
+(an armor sender overwrote bits 0-10), else bits 0-9. What is sent did not change. Still open: a
+gunner who runs the armor code sends no real attachment flags, so others see the bowgun without
+(or, with receivers up to v3.2, with wrong) attachments; visual only.
 
 | Bits | Location | Content |
 |------|----------|---------|
@@ -623,7 +636,7 @@ enable codes write). Armor models are at most ~341 and weapon models at most 552
 The weapon code (since v2.1) sends blademaster (type 5) and gunner (type 6) weapons; v2.0 only type 5.
 All four codes (Multiplayer Armor, Weapon, Marker and the In-Game Picker) are versioned together since
 v3.0; in v3.0 only the armor receiver changed (head model 0, above), in v3.2 only the armor receiver's
-model flag (above).
+model flag (above), in v3.3 the armor and weapon codes got the clean part (above).
 
 ### Compatibility rules
 
@@ -648,6 +661,7 @@ Many players may run different versions of these codes, so every version must wo
 | armor model flag (v3.2) | | `0x08851BCC` | `lhu a3, 0x3E(v0)` in `0x08851B68` (`$s0` = record, `$v1` = type2; delay slot `move a0, s2` kept). Received model → returns via the epilogue `0x08851BDC`, else continues at the `jal 0x08851C68` at `0x08851BD4` |
 | weapon sender | `0x09FF0600` | `0x08852B3C` | `addiu a0, v1, 0x81; addiu a2, zero, 8` (runs before the armor sender, then continues into it) |
 | weapon receiver | | `0x08851E4C` | first 2 instructions of getNetWeaponModel |
+| clean part (v3.3, same lines in the armor and the weapon code) | `0x09FF0780` | `0x088D0D34`, `0x088D0D74`, `0x088DFA34`, `0x088DFA74` | each: `lhu` + `sh` of an entry `+4` halfword → `jal` + the `lhu` as delay slot; the cave stores the cleaned value |
 
 The caves are in the `0xFF`-filled region `0x09FF0000-0x09FFFFFF` (free on PPSSPP and real PSP).
 The hook lines come last in each code, so the cave is complete before anything jumps into it.
@@ -701,8 +715,9 @@ is in [`ingame/README.md`](ingame/README.md). All addresses are for FUComplete v
 
 The spare byte `+5` of an **armor** entry is not usable in the box or in the equipped gear: the game
 reads `+4` as a 16-bit level in dozens of places (`lhu` at `0x08820514`, `0x088206F4`, `0x0885EC44`,
-`0x0885EC6C`, …), so a non-zero `+5` gives "Lv 257" and maximum defense. It is only free in the
-network record (section 13), where nobody computes with it. That is why the in-game code stores its
+`0x0885EC6C`, …), so a non-zero `+5` gives "Lv 257" and maximum defense. In the network record
+(section 13) it can be used for sending, but only with the v3.3 clean part, because the hunter
+objects are built from the record. That is why the in-game code stores its
 choices outside the save data.
 
 ### Change Equipment menu (village overlay, only loaded in the village / hall)
